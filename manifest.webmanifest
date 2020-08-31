@@ -1,0 +1,32 @@
+{
+    "name":"SOLO Motion Terminal",
+    "short_name":"SOLO Terminal",
+    "description": "Terminal for communication with SOLO motor controller devices",
+    "start_url":".",
+    "background_color":"#1E4992",
+    "theme_color":"#1E4992",
+    "display":"standalone",
+    "icons":[
+      {
+        "src": "assets/img/logo16.png",
+        "type": "image/png",
+        "sizes": "16x16"
+      },
+      {
+        "src": "assets/img/logo128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      },
+      {
+        "src": "assets/img/logo192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "assets/img/logo512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+}
+

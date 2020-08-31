@@ -1,0 +1,145 @@
+// Copyright: (c) 2020, SOLO motor controller project
+// GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+  function toogleSignalsSwitch() {
+    toogle = document.querySelector('#signalsSwitches').checked;
+    if (toogle) {
+      document.querySelector('#signalsTable').style.display = "revert";;
+    } else {
+      document.querySelector('#signalsTable').style.display = "none";;
+    }
+  }
+  
+  function toogleActionsSwitch() {
+    toogle = document.querySelector('#actionsSwitches').checked;
+    if (toogle) {
+      document.querySelector('#actionsTable').style.display = "revert";;
+    } else {
+      document.querySelector('#actionsTable').style.display = "none";;
+    }
+  }
+  
+  function toogleMonitorsSwitch() {
+    toogle = document.querySelector('#monitorsSwitches').checked;
+    if (toogle) {
+      document.querySelector('#monitorsTable').style.display = "revert";;
+    } else {
+      document.querySelector('#monitorsTable').style.display = "none";;
+    }
+  }
+  
+  function toogleHelpSwitch() {
+    toogle = document.querySelector('#helpSwitches').checked;
+    if (toogle) {
+      document.querySelector('#helpTable').style.display = "revert";;
+    } else {
+      document.querySelector('#helpTable').style.display = "none";;
+    }
+  }
+
+
+  function conversionFromFloat() {
+    floatValue = document.querySelector('#conversionFloat').value;
+    if (floatValue.trim().length == 0) {
+      document.querySelector('#conversionDecimal').value = '';
+      document.querySelector('#conversionHex').value = '';
+      return;
+    }
+    console.log('float conversion of: ' + floatValue);
+  
+    dec = parseFloat(floatValue) * Math.pow(2, 17);
+    isPositive = dec > 0;
+  
+    dec = Math.abs(dec);
+    dec = Math.floor(dec);
+    if (!isPositive) {
+      dec = 4294967295 - dec;
+    }
+  
+    document.querySelector('#conversionDecimal').value = "";
+    document.querySelector('#conversionHex').value = decToHex(dec);
+  }
+  
+  function conversionFromDecimal() {
+    decimalStr = document.querySelector('#conversionDecimal').value;
+    if (decimalStr.trim().length == 0) {
+      document.querySelector('#conversionFloat').value = '';
+      document.querySelector('#conversionHex').value = '';
+      return;
+    }
+    console.log('decimal conversion of: ' + decimalStr);
+    document.querySelector('#conversionFloat').value = "";
+    document.querySelector('#conversionHex').value = decToHex(parseInt(decimalStr));
+  }
+  
+  function decToHex(decimalValue) {
+    if(decimalValue>0){
+      return pad(parseInt(decimalValue).toString(16).toUpperCase(), 8);
+    }else{
+      return pad(parseInt(4294967295-Math.abs(decimalValue)+1).toString(16).toUpperCase(), 8);
+    }
+  }
+  
+  function conversionFromHex() {
+    hexValue = document.querySelector('#conversionHex').value;
+    if (hexValue.trim().length == 0) {
+      document.querySelector('#conversionDecimal').value = '';
+      document.querySelector('#conversionFloat').value = '';
+      return;
+    }
+  
+    console.log('hex conversion of: ' + hexValue);
+    decValue = parseInt(hexValue, 16)
+    document.querySelector('#conversionDecimal').value = decValue;
+  
+    floatValue = 0;
+    if (decValue < 2147352576) {
+      floatValue = decValue / Math.pow(2, 17)
+    }
+    if (decValue > 2147352576) {
+      floatValue = 4294967295 - decValue + 1
+      floatValue = floatValue / Math.pow(2, 17) * -1
+    }
+    document.querySelector('#conversionFloat').value = truncate(floatValue, 7);
+  }
+  
+  function truncate(num, places) {
+    return Math.trunc(num * Math.pow(10, places)) / Math.pow(10, places);
+  }
+  
+  function conversionFromInput() {
+    document.querySelector('#conversionHex').value = document.querySelector('#termRx').value.substring(8, 16);
+    conversionFromHex();
+  }
+  
+
+  function prettifyHex(){
+    document.querySelector('#termRx').value = breackInput(document.querySelector('#termRx').value.toUpperCase().replace(/(\r\n|\n|\r|\s)/gm, ""), 20);
+    if(document.querySelector('#termRx').scrollHeight<=310){
+      $("#termRx").outerHeight(38).outerHeight(document.querySelector('#termRx').scrollHeight);
+    }else{
+      $("#termRx").outerHeight(310);
+    }
+
+    document.querySelector('#termTx').value = breackInput(document.querySelector('#termTx').value.toUpperCase().replace(/(\r\n|\n|\r|\s)/gm, "") , 20);
+    if(document.querySelector('#termTx').scrollHeight<=310){
+      $("#termTx").outerHeight(38).outerHeight(document.querySelector('#termTx').scrollHeight);
+    }else{
+      $("#termTx").outerHeight(310);
+    }
+  }
+  
+  function breackInput(str, maxLength) {
+    var buff = "";
+    var numOfLines = Math.floor(str.length / maxLength);
+    for (var i = 0; i < numOfLines + 1; i++) {
+      buff += str.substr(i * maxLength, maxLength);
+      if (i !== numOfLines) { buff += "\n"; }
+    }
+    return buff;
+  }
+
+  function pad(str, max) {
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+  }
