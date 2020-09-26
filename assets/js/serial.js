@@ -1,4 +1,4 @@
-// Copyright: (c) 2020, SOLO motor controller project
+// Copyright: (c) 2020, SOLO motor controllers project
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 class Serial {
@@ -9,6 +9,7 @@ class Serial {
         this.commandsStrings;
         this.commandsStringsTimer;
         this.readings = "";
+        this.writingStatus ="OFF";
         this.connectionStatus = "none";
         this.writer;
     }
@@ -89,9 +90,12 @@ class Serial {
 
     multipleWriteStart(data){
         this.commandsStrings = this.truncateBy20(data);
-        console.log('Execute multiple commands size ' + this.commandsStrings.length);
+        if(this.commandsStrings != null){
+          console.log('Execute multiple commands size ' + this.commandsStrings.length);
+          this.writingStatus ="ON";
 
-        this.commandsStringsTimer = setInterval(this.multipleWrite.bind(this), 80);
+          this.commandsStringsTimer = setInterval(this.multipleWrite.bind(this), 80);
+        }
     }
 
     multipleWrite() {
@@ -99,14 +103,17 @@ class Serial {
     
         if (this.commandsStrings.length == 0) {
             clearInterval(this.commandsStringsTimer);
+            this.writingStatus ="OFF";
         }
     }
 
     truncateBy20 (data){
         var hexStringOnlyText = data.replace(/(\r\n|\n|\r|\s)/gm, "");
-        hexStringOnlyText += "FFFF008B0000000000FE"; //TODO add control request
+        //hexStringOnlyText += "FFFF008B0000000000FE"; //TODO add control request
         var splitCommands = hexStringOnlyText.match(/.{20}/g);
-        
+        if (splitCommands!= null && splitCommands.length>0){
+          splitCommands.push("FFFF008B0000000000FE"); //TODO add control request
+        }
         return splitCommands;
     }
 
@@ -177,5 +184,9 @@ class Serial {
 
       getConnectionStatus(){
           return this.connectionStatus;
+      }
+
+      getWritingStatus(){
+        return this.writingStatus;
       }
 }

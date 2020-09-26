@@ -1,4 +1,4 @@
-// Copyright: (c) 2020, SOLO motor controller project
+// Copyright: (c) 2020, SOLO motor controllers project
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 window.onload = function () {
@@ -10,6 +10,10 @@ window.onload = function () {
 
 document.querySelector('#conversionFloat').oninput = function () {
     conversionFromFloat();
+};
+
+document.querySelector('#conversionInt32').oninput = function () {
+    conversionFromInt32();
 };
 
 document.querySelector('#conversionDecimal').oninput = function () {

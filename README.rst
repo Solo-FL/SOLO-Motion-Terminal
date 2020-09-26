@@ -4,14 +4,14 @@
 SOLO Motion Terminal
 *******
 
-SOLO Motion Terminal is a PWA designed for communication with SOLO motor controller devices. It handles
+SOLO Motion Terminal is a PWA designed for communication with SOLO motor controllers devices. It handles
 ad-hoc configuration management,ad-hoc device communication
-More information about SOLO drivers on `the SOLO website <https://www.solomotorcontroller.com/>`_.
+More information about SOLO drivers on `the SOLO website <https://www.solomotorcontrollers.com/>`_.
 
 Authors
 =======
 
-SOLO Motion Terminal is created by `SOLO Motor Controller` team_
+SOLO Motion Terminal is created by SOLO Motor Controllers team
 
 
 License

@@ -1,7 +1,7 @@
 {
     "name":"SOLO Motion Terminal",
     "short_name":"SOLO Terminal",
-    "description": "Terminal for communication with SOLO motor controller devices",
+    "description": "Terminal for communication with SOLO motor controllers devices",
     "start_url":".",
     "background_color":"#1E4992",
     "theme_color":"#1E4992",

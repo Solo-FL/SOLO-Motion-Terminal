@@ -1,4 +1,4 @@
-// Copyright: (c) 2020, SOLO motor controller project
+// Copyright: (c) 2020, SOLO motor controllers project
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
   function toogleSignalsSwitch() {
@@ -40,15 +40,18 @@
 
   function conversionFromFloat() {
     floatValue = document.querySelector('#conversionFloat').value;
+
+    document.querySelector('#conversionDecimal').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionInt32').value = '';
+
     if (floatValue.trim().length == 0) {
-      document.querySelector('#conversionDecimal').value = '';
-      document.querySelector('#conversionHex').value = '';
       return;
     }
+
     console.log('float conversion of: ' + floatValue);
-  
     dec = parseFloat(floatValue) * Math.pow(2, 17);
-    isPositive = dec > 0;
+    isPositive = dec >= 0;
   
     dec = Math.abs(dec);
     dec = Math.floor(dec);
@@ -56,24 +59,46 @@
       dec = 4294967295 - dec;
     }
   
-    document.querySelector('#conversionDecimal').value = "";
     document.querySelector('#conversionHex').value = decToHex(dec);
+  }
+
+  function conversionFromInt32() {
+    i32Str = document.querySelector('#conversionInt32').value;
+
+    document.querySelector('#conversionDecimal').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionFloat').value = '';
+
+    if (i32Str.trim().length == 0) {
+      return;
+    }
+
+    console.log('float conversion of: ' + i32Str);
+    i32Value = parseFloat(i32Str);
+    if(i32Value<0){
+      i32Value = 4294967295 - Math.abs(i32Value) +1;
+    }
+  
+    document.querySelector('#conversionHex').value = decToHex(i32Value);
   }
   
   function conversionFromDecimal() {
     decimalStr = document.querySelector('#conversionDecimal').value;
+
+    document.querySelector('#conversionFloat').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionInt32').value = '';
+
     if (decimalStr.trim().length == 0) {
-      document.querySelector('#conversionFloat').value = '';
-      document.querySelector('#conversionHex').value = '';
       return;
     }
+
     console.log('decimal conversion of: ' + decimalStr);
-    document.querySelector('#conversionFloat').value = "";
     document.querySelector('#conversionHex').value = decToHex(parseInt(decimalStr));
   }
   
   function decToHex(decimalValue) {
-    if(decimalValue>0){
+    if(decimalValue>=0){
       return pad(parseInt(decimalValue).toString(16).toUpperCase(), 8);
     }else{
       return pad(parseInt(4294967295-Math.abs(decimalValue)+1).toString(16).toUpperCase(), 8);
@@ -85,6 +110,7 @@
     if (hexValue.trim().length == 0) {
       document.querySelector('#conversionDecimal').value = '';
       document.querySelector('#conversionFloat').value = '';
+      ocument.querySelector('#conversionInt32').value = '';
       return;
     }
   
@@ -101,6 +127,14 @@
       floatValue = floatValue / Math.pow(2, 17) * -1
     }
     document.querySelector('#conversionFloat').value = truncate(floatValue, 7);
+
+    i32Value = 0;
+    if(decValue <= 2147483647){
+      i32Value = decValue;
+    }else{
+      i32Value = -1 * (4294967295 - decValue + 1) ;
+    }
+    document.querySelector('#conversionInt32').value = i32Value;
   }
   
   function truncate(num, places) {

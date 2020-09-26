@@ -1,4 +1,4 @@
-// Copyright: (c) 2020, SOLO motor controller project
+// Copyright: (c) 2020, SOLO motor controllers project
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 const serial = new Serial();
@@ -7,6 +7,8 @@ const connect = document.getElementById('buttonConnection');
 const messageInput = document.getElementById('termTx'); 
 const submitButton = document.getElementById('buttonSimpleTX');  
 const serialMessagesContainer = document.getElementById('termRx');
+
+this.serialWritingStatus="OFF";
 
 connect.addEventListener('click', () => {
   switch(serial.getConnectionStatus()){
@@ -37,6 +39,7 @@ function checkStatus(){
 submitButton.addEventListener('click', event => {
   serial.multipleWriteStart(messageInput.value);
   serialMessagesContainer.value="";
+  this.serialWritingStatus = "START";
   setTimeout(updateAndFlush,500);
 });
 
@@ -47,9 +50,14 @@ function updateAndFlush(){
   termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
   if(termRxSize>=termTxSize){
     serial.flushreadings();
-    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,termTxSize);
+    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,Math.floor(termTxSize/20));
   }else{
-    setTimeout(updateAndFlush,500);
+    if(this.serialWritingStatus == "START"){
+      if(serial.getWritingStatus() =="OFF"){
+        this.serialWritingStatus = "OFF";
+      }
+      setTimeout(updateAndFlush,500);
+    }
   }
 
   prettifyHex();
