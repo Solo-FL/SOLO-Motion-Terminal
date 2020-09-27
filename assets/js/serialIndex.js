@@ -50,7 +50,7 @@ function updateAndFlush(){
   termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
   if(termRxSize>=termTxSize){
     serial.flushreadings();
-    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,Math.floor(termTxSize/20));
+    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
   }else{
     if(this.serialWritingStatus == "START"){
       if(serial.getWritingStatus() =="OFF"){
@@ -62,8 +62,3 @@ function updateAndFlush(){
 
   prettifyHex();
 }
-
-document.getElementById('termTx').addEventListener('click', async () => {
-    serial.log();
-     getSerialMessage();
-  });

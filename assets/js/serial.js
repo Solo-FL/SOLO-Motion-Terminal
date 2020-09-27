@@ -84,10 +84,6 @@ class Serial {
         await this.writer.write(arrayBuffer);
     }
 
-    async log(){
-        console.log(await this.myport.log());
-    }
-
     multipleWriteStart(data){
         this.commandsStrings = this.truncateBy20(data);
         if(this.commandsStrings != null){

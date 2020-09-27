@@ -110,7 +110,7 @@
     if (hexValue.trim().length == 0) {
       document.querySelector('#conversionDecimal').value = '';
       document.querySelector('#conversionFloat').value = '';
-      ocument.querySelector('#conversionInt32').value = '';
+      document.querySelector('#conversionInt32').value = '';
       return;
     }
   
