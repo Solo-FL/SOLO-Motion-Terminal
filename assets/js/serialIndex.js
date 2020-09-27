@@ -6,6 +6,7 @@ const serial = new Serial();
 const connect = document.getElementById('buttonConnection');
 const messageInput = document.getElementById('termTx'); 
 const submitButton = document.getElementById('buttonSimpleTX');  
+const clearButton = document.getElementById('buttonClearBuffer'); 
 const serialMessagesContainer = document.getElementById('termRx');
 
 this.serialWritingStatus="OFF";
@@ -41,6 +42,11 @@ submitButton.addEventListener('click', event => {
   serialMessagesContainer.value="";
   this.serialWritingStatus = "START";
   setTimeout(updateAndFlush,500);
+});
+
+clearButton.addEventListener('click', event => {
+  serial.flushreadings();
+  serialMessagesContainer.value="";
 });
 
 function updateAndFlush(){
