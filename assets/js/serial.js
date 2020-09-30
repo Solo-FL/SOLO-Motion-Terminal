@@ -71,7 +71,11 @@ class Serial {
             console.error('chrome://flags/#enable-experimental-web-platform-features');
             console.error('opera://flags/#enable-experimental-web-platform-features');
             console.error('edge://flags/#enable-experimental-web-platform-features');
-            alert('Serial API not supported.');
+            alert('Serial API not supported.\n'+
+            'Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:\n'+
+            'chrome://flags/#enable-experimental-web-platform-features \n'+
+            'opera://flags/#enable-experimental-web-platform-features \n'+
+            'edge://flags/#enable-experimental-web-platform-features \n');
             this.connectionStatus = "error";
         }
     }
