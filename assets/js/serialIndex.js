@@ -83,6 +83,15 @@ function updateAndFlush(){
 
   prettifyHex();
 }
+
+function doDisbale(checkbox,elements){
+  var toDisable = false;
+  if(document.getElementById(checkbox).checked==true){
+    toDisable = true;
+  }
+  disablePart(toDisable,elements);
+}
+
 function doActionSemplification(boxValueId){
   if(boxValueId=='boxActionControlType'){
     var actionValue = document.getElementById(boxValueId).value;

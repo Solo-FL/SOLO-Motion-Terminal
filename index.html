@@ -1,907 +1,923 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content ="#1E4992">
-        <title>SOLO motion terminal</title>
-        <link rel="stylesheet" href="assets/css/master.css">
-        <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials">
-        <link rel="apple-touch-icon" href="assets/img/logo192.png">
-
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-        <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-
-    </head>
-
-    <body>
-        <div id="wrapper">
-            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-                <div class="container-fluid d-flex flex-column p-0">
-                    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="https://www.solomotorcontrollers.com/">
-                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-microchip"></i></div>
-                        <div class="sidebar-brand-text mx-3"><span>Solo terminal</span></div>
-                    </a>
-                    <hr class="sidebar-divider my-0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content ="#1E4992">
+    <title>SOLO motion terminal</title>
+    <link rel="stylesheet" href="assets/css/master.css">
+    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials">
+    <link rel="apple-touch-icon" href="assets/img/logo192.png">
     
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
     
-                    <div class="d-flex flex-column">
-    
-                        <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
-                            <input type="checkbox" class="custom-control-input" id="signalsSwitches" checked>
-                            <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
-                                <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="https://www.solomotorcontrollers.com/">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-microchip"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span>Solo terminal</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                
+                
+                <div class="d-flex flex-column">
+                    
+                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
+                        <input type="checkbox" class="custom-control-input" id="signalsSwitches" checked>
+                        <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
+                            <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
                         </a>
                         <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
                             <input type="checkbox" class="custom-control-input" id="actionsSwitches" checked>
                             <label class="custom-control-label" for="actionsSwitches"><i class="fas fa-table"></i>
                                 <label for="actionsSwitches" class="sidebar-text">Actions</label></label>
-                        </a>
-                        <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
-                            <input type="checkbox" class="custom-control-input" id="monitorsSwitches" disabled>
-                            <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
-                                <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
-                        </a>
-                        <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
-                            <input type="checkbox" class="custom-control-input" id="helpSwitches" checked>
-                            <label class="custom-control-label" for="helpSwitches"><i class="fas fa-ambulance"></i>
-                                <label for="helpSwitches" class="sidebar-text">Help</label></label>
-                        </a>
-                    </div>
-    
-                </div>
-    
-            </nav>
-            
-    
-            <div class="overflow-auto" id="content-wrapper" style="height: 100vh;">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
-                    <div class="container-fluid">
-                        <button class="btn btn-link rounded-circle mr-3" id="sidebarToggleTop" type="button">
-                            <i class="fas fa-bars"></i></button>
-    
-                        <form
-                            class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <div class="input-group-append"></div>
-                            </div>
-                        </form>
-
-                        <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Connect / Disconnect">
-                            <i class="fas fa-plug fa-lg" id="buttonConnection"></i>
-                        </a>
-                    </div>
-                </nav>
-    
-    
-                <div id="signalsTable">
-    
-                    <div class="container-fluid">
-                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                            <h3 class="text-dark mb-0">Signals</h3>
-                        </div>
-    
-                    </div>
-                    <div class="container col-12">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">HEX Signal</h4>
-                                        <div class="row">
-                                            <div class="col col-sm-2">
-                                                Packet to send
-                                            </div>
-                                            <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12">FFFF00860000000000FE</textarea>
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="buttonSimpleTX"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col col-sm-2">
-                                                Packet received
-                                            </div>
-                                            <div class="col col-sm-8"><textarea id="termRx" type="text"
-                                                    class="col-sm-12"></textarea></div>
-                                            <div class="col col-sm-2">
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear buffer and data">
-                                                    <i class="fas fa-eraser fa-lg" id="buttonClearBuffer"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Conversion Table</h4>
-    
-                                        <div class="row mb-1">
-                                            <div class="col col-sm-2">
-                                                Floating point
-                                            </div>
-                                            <div class="col col-sm-10">
-                                                <input id="conversionFloat" type="text" class="col-sm-12">
-                                            </div>
-                                        </div>
-    
-                                        <div class="row mb-1">
-                                            <div class="col col-sm-2">
-                                                Uint32
-                                            </div>
-                                            <div class="col col-sm-10">
-                                                <input id="conversionDecimal" type="text" class="col-sm-12">
-                                            </div>
-                                        </div>
-
-                                        <div class="row  mb-1">
-                                            <div class="col col-sm-2">
-                                                Int32
-                                            </div>
-                                            <div class="col col-sm-10">
-                                                <input id="conversionInt32" type="text" class="col-sm-12">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col col-sm-2">
-                                                Hex
-                                            </div>
-                                            <div class="col col-sm-10">
-                                                <input id="conversionHex" type="text" class="col-sm-12">
-                                            </div>
-                                        </div>
-
-                                        
-    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                    </div>
-                    <br>
-                </div>
-                <div id="actionsTable"> 
-                    <div class="container-fluid">
-                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                            <h3 class="text-dark mb-0">Actions</h3>
-                        </div>
-    
-                    </div>
-                    <div class="container col-12">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Configurations</h4>
-                                        
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Device Address*
-                                            </div>
-
-                                           
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionDeviceAddress" class="col-sm-12" value="0" min="0" max="254" step="1" oninput="updateRangeInput(this.value,'rangeActionDeviceAddress')" disabled>
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionDeviceAddress" class="col-sm-12" value="0" min="0" max="254" step="1" oninput="updateTextRangeInput(this.value,'boxActionDeviceAddress')" disabled>
-                                            </div>
-                                            
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" disabled>
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDeviceAddress"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read" disabled>
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" ></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Current Limit [A]*
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateRangeInput(this.value,'rangeActionMaxCurrent')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateTextRangeInput(this.value,'boxActionMaxCurrent')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" onClick="doSimpleAction('FFFF000C0000000000FE','boxActionMaxCurrent')">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMaxCurrent" onclick="doAction('00','03','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionRead('00','8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                PWM Frequency [kHz]*
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionPWMFrequency" class="col-sm-12" value="20" min="8" max="80"  step="1" oninput="updateRangeInput(this.value,'rangeActionPWMFrequency')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionPWMFrequency" class="col-sm-12" value="20" min="8" max="80" step="1" oninput="updateTextRangeInput(this.value,'boxActionPWMFrequency')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPWMFrequency" onclick="doAction('00','09','UINT32','boxActionPWMFrequency','boxActionPWMFrequency')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','8B','UINT32','boxActionPWMFrequency','boxActionPWMFrequency','0.001')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Number of Poles*
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionPoles" class="col-sm-12" value="8" min="1" max="80" step="1" oninput="updateRangeInput(this.value,'rangeActionPoles')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionPoles" class="col-sm-12" value="8" min="1" max="80" step="1" oninput="updateTextRangeInput(this.value,'boxActionPoles')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPoles" onclick="doAction('00','0F','UINT32','boxActionPoles','boxActionPoles')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8F','UINT32','boxActionPoles','boxActionPoles')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-
-                                        
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Encoder Lines*
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionEncoderLines" class="col-sm-12" value="1000" min="1" max="40000"  step="1" oninput="updateRangeInput(this.value,'rangeActionEncoderLines')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActioEncoderLines" class="col-sm-12" value="1000" min="1" max="40000" step="1" oninput="updateTextRangeInput(this.value,'boxActionEncoderLines')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionEncoderLines" onclick="doAction('00','10','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionRead('00','90','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Motor type*
-                                            </div>
-
-                                            <div class="col col-sm-3" >
-                                            <SELECT id="boxActionMotorType"  class="col-sm-12">                                                
-                                                <OPTION VALUE="0" >DC </OPTION>
-                                                <OPTION VALUE="1" SELECTED>BLDC-PMSM </OPTION>
-                                                <OPTION VALUE="2">ACIM </OPTION>
-                                                <OPTION VALUE="3">BLDC-PMSM UltraFast </OPTION>
-                                            </SELECT>
-
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorType" onclick="doAction('00','15','UINT32','boxActionMotorType','boxActionMotorType')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','97','UINT32','boxActionMotorType','boxActionMotorType')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-
-                                        
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3">
-                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification')">Motor Identification</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-                                            
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3">
-                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionResetFactory" value="1" onclick="doAction('00','14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-
-                                        </div>
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3">
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-                                            
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionResetAddressToZero" value="0" onclick="doAction('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')">Reset Device Address to Zero</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-
-                                        </div>
-                                        
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Controls</h4>
-    
-                                        
-                                            
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Command Mode*
-                                            </div>
-
-                                            <div class="col col-sm-3" >
-                                            <SELECT id="boxActionCommandMode"  class="col-sm-12">                                                
-                                                <OPTION VALUE="0" >ANALOGUE </OPTION> 
-                                                <OPTION VALUE="1" SELECTED>DIGITAL </OPTION>
-                                            </SELECT>
-
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Speed/Torque Control Mode*
-                                            </div>
-
-                                            <div class="col col-sm-3" >
-                                            <SELECT id="boxActionControlMode"  class="col-sm-12">                                                
-                                                <OPTION VALUE="0" SELECTED>SENSOR LESS </OPTION>
-                                                <OPTION VALUE="1" >USING ENCODERS </OPTION>
-                                            </SELECT>
-
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlMode" onclick="doAction('00','13','UINT32','boxActionControlMode','boxActionControlMode')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','99','UINT32','boxActionControlMode','boxActionControlMode')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-                                            
-                                        
-    
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Control type*
-                                            </div>
-                                            <div class="col col-sm-3" >
-                                            <SELECT id="boxActionControlType"  class="col-sm-12" onchange="doActionSemplification('boxActionControlType');">                                                
-                                                <OPTION VALUE="0" SELECTED>SPEED </OPTION>
-                                                <OPTION VALUE="1">TORQUE </OPTION>
-                                                <OPTION VALUE="2">POSITION </OPTION>
-                                            </SELECT>
-
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlType" onclick="doAction('00','16','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9B','UINT32','boxActionControlType','boxActionControlType'); "></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Motor Direction
-                                            </div>
-
-                                            <div class="col col-sm-3" >
-                                            <SELECT id="boxActionMotorDirection"  class="col-sm-12">                                                
-                                                <OPTION VALUE="0" >C.W. </OPTION>
-                                                <OPTION VALUE="1" SELECTED>C.C.W. </OPTION>
-                                            </SELECT>
-
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorDirection" onclick="doAction('00','0C','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
-                                                </a>
-                                                <!--
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
-                                                </a>
-                                            -->
-                                            </div>
-
-                                        </div>
-
-
-                                        
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Speed Controller Kp
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionSpeedControllerKp" class="col-sm-12" value="0.01" min="0" max="20"  step="0.01" oninput="updateRangeInput(this.value,'rangeActionSpeedControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionSpeedControllerKp" class="col-sm-12" value="0.01" min="0" max="20" step="0.01" oninput="updateTextRangeInput(this.value,'boxActionSpeedControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKp" onclick="doAction('00','0A','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','89','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Speed Controller Ki
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionSpeedControllerKi" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateRangeInput(this.value,'rangeActionSpeedControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionSpeedControllerKi" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionSpeedControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKi" onclick="doAction('00','0B','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8A','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Current Controller Kp
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionCurrentControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionCurrentControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionCurrentControllerKp" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionCurrentControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKp" onclick="doAction('00','17','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','91','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Current Controller Ki
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionCurrentControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionCurrentControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionCurrentControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionCurrentControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKi" onclick="doAction('00','18','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','92','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi','0.00005')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Position Controller Kp
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionPositionControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionPositionControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionPositionControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionPositionControllerKp')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKp" onclick="doAction('00','1C','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9D','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            <div class="col col-sm-2">
-                                                Position Controller Ki
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionPositionControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionPositionControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionPositionControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionPositionControllerKi')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKi" onclick="doAction('00','1D','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9E','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                            
-
-                                        </div>
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Torque Reference_Iq [A]
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionTorqueReferenceIq" class="col-sm-12" value="0" min="0" max="32" step="0.001" oninput="updateRangeInput(this.value,'rangeActionTorqueReferenceIq')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionTorqueReferenceIq" class="col-sm-12" value="0" min="0" max="32" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionTorqueReferenceIq')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionTorqueReferenceIq" onclick="doAction('00','04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></i>
-                                                </a>
-                                                <!--
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></i>
-                                                </a>
-                                                -->
-                                            </div>
-
-
-                                            <div class="col col-sm-2">
-                                                Speed Reference [RPM]
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionSpeedReference" class="col-sm-12" value="0" min="0" max="30000"  step="10" oninput="updateRangeInput(this.value,'rangeActionSpeedReference')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionSpeedReference" class="col-sm-12" value="0" min="0" max="30000" step="10" oninput="updateTextRangeInput(this.value,'boxActionSpeedReference')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedReference" onclick="doAction('00','05','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','96','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-
-                                        </div>
-
-                                        <div class="row mb-2">
-
-
-                                            <div class="col col-sm-2">
-                                                Speed Limit [RPM]
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionSpeedLimit" class="col-sm-12" value="30000" min="0" max="30000" step="10" oninput="updateRangeInput(this.value,'rangeActionSpeedLimit')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionSpeedLimit" class="col-sm-12" value="30000" min="0" max="30000" step="10" oninput="updateTextRangeInput(this.value,'boxActionSpeedLimit')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedLimit" onclick="doAction('00','11','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9C','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-
-                                            <div class="col col-sm-2">
-                                                Desired Position [Quad_Pulses]
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionDesiredPosition" class="col-sm-12" value="0" min="-2147483647" max="2147483647"  step="20000" oninput="updateRangeInput(this.value,'rangeActionDesiredPosition')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionDesiredPosition" class="col-sm-12" value="0" min="-2147483647" max="2147483647" step="20000" oninput="updateTextRangeInput(this.value,'boxActionDesiredPosition')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDesiredPosition" onclick="doAction('00','1B','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A0','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></i>
-                                                </a>
-                                                
-                                            </div>
-                                            
-                                        </div>
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2">
-                                                Magnetizing Current_Id [A]
-                                            </div>
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionMagnetizingCurrentId" class="col-sm-12" value="0" min="0" max="32" step="1" oninput="updateRangeInput(this.value,'rangeActionMagnetizingCurrentId')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionMagnetizingCurrentId" class="col-sm-12" value="0" min="0" max="32" step="1" oninput="updateTextRangeInput(this.value,'boxActionMagnetizingCurrentId')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMagnetizingCurrentId" onclick="doAction('00','1A','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></i>
-                                                </a>
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8E','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></i>
-                                                </a>
-                                                
-                                            </div>
-
-
-                                            <div class="col col-sm-2">
-                                                Power Reference [%]
-                                            </div>
-
-                                            <div class="col col-sm-2">
-                                                <input type="number" id="boxActionPowerReference" class="col-sm-12" value="0" min="0" max="100"  step="1" oninput="updateRangeInput(this.value,'rangeActionPowerReference')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                <input type="range" id="rangeActionPowerReference" class="col-sm-12" value="0" min="0" max="100" step="1" oninput="updateTextRangeInput(this.value,'boxActionPowerReference')">
-                                            </div>
-                                            <div class="col col-sm-1">
-                                                
-                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPowerReference" onclick="doAction('00','06','SFXT','boxActionPowerReference','boxActionPowerReference')"></i>
-                                                </a>
-                                                <!--
-                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','SFXT','boxActionPowerReference','boxActionPowerReference')"></i>
-                                                </a>
-                                            -->
-                                            </div>
-                                            
-
-                                        </div>
-
-                                        
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2"></div>
-
-                                            
-                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionResetPosition" value="1" onclick="doAction('00','1F','UINT32','bActionResetPosition','bActionResetPosition')">Reset Position (Home)</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-                                            
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorStop" value="0" onclick="doActionStopMotor()">Motor Stop</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-
-                                        </div>
-
-
-
-                                        <div class="row mb-2">
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3">
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-                                            
-
-                                            <div class="col col-sm-2"></div>
-
-                                            <div class="col col-sm-3"> <button type="button" class="btn btn-danger col-sm-12" id="bActionResetEmergencyStop" value="0" onclick="doAction('00','08','UINT32','bActionResetEmergencyStop','bActionResetEmergencyStop')">Emergency STOP</button>
-                                            </div>
-                                
-                                            <div class="col col-sm-1"></div>
-
-                                        </div>
-    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                    </div>
-                    <br>
-                </div>
-    
-                <div id="monitorsTable" style="display: none;">
-                    <div class="container-fluid">
-                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                            <h3 class="text-dark mb-0">Monitors</h3>
-                        </div>
-                        <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">HEX Signal</h4>
-                                        <div class="row">
-                                            <div class="col col-sm-8"><input type="text" class="col-sm-12"></div>
-                                            <div class="col col-sm-2">
-                                                <a class="text-secondary" href="#">
-                                                    <i class="fas fa-sign-in-alt fa-2x"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <p>Paragraph</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <br>
-                </div>
-    
-                <div id="helpTable">
-                    <div class="container-fluid">
-                        <h3 class="text-dark mb-0">Help</h3>
-                        <br>
-                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    
-                            <div class="col">
-                                <div class="row">
-                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/" target="_blank"
-                                        style="text-decoration:none">
-                                        <div class="card text-white bg-primary shadow">
-                                            <div class="card-body">
-                                                <p class="m-0">SOLO Web Site</p>
-                                                <p class="text-white-50  m-0">Stay Tuned</p>
-                                            </div>
-                                        </div>
+                            </a>
+                            <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
+                                <input type="checkbox" class="custom-control-input" id="monitorsSwitches" disabled>
+                                <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
+                                    <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
+                                </a>
+                                <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
+                                    <input type="checkbox" class="custom-control-input" id="helpSwitches" checked>
+                                    <label class="custom-control-label" for="helpSwitches"><i class="fas fa-ambulance"></i>
+                                        <label for="helpSwitches" class="sidebar-text">Help</label></label>
                                     </a>
-                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/solo-datasheet/"
-                                        target="_blank" style="text-decoration:none">
-                                        <div class="card text-white bg-success shadow">
-                                            <div class="card-body">
-                                                <p class="m-0">Datasheet</p>
-                                                <p class="text-white-50  m-0">Check the documentation</p>
+                                </div>
+                                
+                            </div>
+                            
+                        </nav>
+                        
+                        
+                        <div class="overflow-auto" id="content-wrapper" style="height: 100vh;">
+                            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                                <div class="container-fluid">
+                                    <button class="btn btn-link rounded-circle mr-3" id="sidebarToggleTop" type="button">
+                                        <i class="fas fa-bars"></i></button>
+                                        
+                                        <form
+                                        class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                        <div class="input-group">
+                                            <div class="input-group-append"></div>
+                                        </div>
+                                    </form>
+                                    
+                                    <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Connect / Disconnect">
+                                        <i class="fas fa-plug fa-lg" id="buttonConnection"></i>
+                                    </a>
+                                </div>
+                            </nav>
+                            
+                            
+                            <div id="signalsTable">
+                                
+                                <div class="container-fluid">
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                        <h3 class="text-dark mb-0">Signals</h3>
+                                    </div>
+                                    
+                                </div>
+                                <div class="container col-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">HEX Signal</h4>
+                                                    <div class="row">
+                                                        <div class="col col-sm-2">
+                                                            Packet to send
+                                                        </div>
+                                                        <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12">FFFF00860000000000FE</textarea>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                <i class="fas fa-sign-in-alt fa-lg" id="buttonSimpleTX"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col col-sm-2">
+                                                            Packet received
+                                                        </div>
+                                                        <div class="col col-sm-8"><textarea id="termRx" type="text"
+                                                            class="col-sm-12"></textarea></div>
+                                                            <div class="col col-sm-2">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear buffer and data">
+                                                                    <i class="fas fa-eraser fa-lg" id="buttonClearBuffer"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/"
-                                        target="_blank" style="text-decoration:none">
-                                        <div class="card text-white bg-info shadow">
-                                            <div class="card-body">
-                                                <p class="m-0">Blog</p>
-                                                <p class="text-white-50  m-0">Our latest articles</p>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Conversion Table</h4>
+                                                        
+                                                        <div class="row mb-1">
+                                                            <div class="col col-sm-2">
+                                                                Floating point
+                                                            </div>
+                                                            <div class="col col-sm-10">
+                                                                <input id="conversionFloat" type="text" class="col-sm-12">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row mb-1">
+                                                            <div class="col col-sm-2">
+                                                                Uint32
+                                                            </div>
+                                                            <div class="col col-sm-10">
+                                                                <input id="conversionDecimal" type="text" class="col-sm-12">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row  mb-1">
+                                                            <div class="col col-sm-2">
+                                                                Int32
+                                                            </div>
+                                                            <div class="col col-sm-10">
+                                                                <input id="conversionInt32" type="text" class="col-sm-12">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row">
+                                                            <div class="col col-sm-2">
+                                                                Hex
+                                                            </div>
+                                                            <div class="col col-sm-10">
+                                                                <input id="conversionHex" type="text" class="col-sm-12">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/forum/"
+                                        
+                                    </div>
+                                    <br>
+                                </div>
+                                <div id="actionsTable"> 
+                                    <div class="container-fluid">
+                                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                            <h3 class="text-dark mb-0">Actions</h3>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="container col-12">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Configurations</h4>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Device Address*
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionDeviceAddress" class="col-sm-12" value="0" min="0" max="254" step="1" oninput="updateRangeInput(this.value,'rangeActionDeviceAddress')" disabled>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionDeviceAddress" class="col-sm-12" value="0" min="0" max="254" step="1" oninput="updateTextRangeInput(this.value,'boxActionDeviceAddress')" disabled>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" disabled>
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDeviceAddress"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read" disabled>
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" ></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Current Limit [A]*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateRangeInput(this.value,'rangeActionMaxCurrent')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateTextRangeInput(this.value,'boxActionMaxCurrent')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" onClick="doSimpleAction('FFFF000C0000000000FE','boxActionMaxCurrent')">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMaxCurrent" onclick="doAction('00','03','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionRead('00','8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                PWM Frequency [kHz]*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPWMFrequency" class="col-sm-12" value="20" min="8" max="80"  step="1" oninput="updateRangeInput(this.value,'rangeActionPWMFrequency')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionPWMFrequency" class="col-sm-12" value="20" min="8" max="80" step="1" oninput="updateTextRangeInput(this.value,'boxActionPWMFrequency')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPWMFrequency" onclick="doAction('00','09','UINT32','boxActionPWMFrequency','boxActionPWMFrequency')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','8B','UINT32','boxActionPWMFrequency','boxActionPWMFrequency','0.001')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Number of Poles*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPoles" class="col-sm-12" value="8" min="1" max="80" step="1" oninput="updateRangeInput(this.value,'rangeActionPoles')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionPoles" class="col-sm-12" value="8" min="1" max="80" step="1" oninput="updateTextRangeInput(this.value,'boxActionPoles')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPoles" onclick="doAction('00','0F','UINT32','boxActionPoles','boxActionPoles')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8F','UINT32','boxActionPoles','boxActionPoles')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Encoder Lines*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionEncoderLines" class="col-sm-12" value="1000" min="1" max="40000"  step="1" oninput="updateRangeInput(this.value,'rangeActionEncoderLines')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActioEncoderLines" class="col-sm-12" value="1000" min="1" max="40000" step="1" oninput="updateTextRangeInput(this.value,'boxActionEncoderLines')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionEncoderLines" onclick="doAction('00','10','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionRead('00','90','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Motor type*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionMotorType"  class="col-sm-12">                                                
+                                                                    <OPTION VALUE="0" >DC </OPTION>
+                                                                    <OPTION VALUE="1" SELECTED>BLDC-PMSM </OPTION>
+                                                                    <OPTION VALUE="2">ACIM </OPTION>
+                                                                    <OPTION VALUE="3">BLDC-PMSM UltraFast </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorType" onclick="doAction('00','15','UINT32','boxActionMotorType','boxActionMotorType')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','97','UINT32','boxActionMotorType','boxActionMotorType')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionResetAddressToZero" value="0" onclick="doAction('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')">Reset Device Address to Zero</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionResetFactory" value="1" onclick="doAction('00','14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Identifications</h4>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification')">Motor Identification</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionCurrentControllerKp" value="1" onclick="doDisbale('checkActionCurrentControllerKp', ['boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp'])" checked > 
+                                                                Current Controller Kp
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionCurrentControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionCurrentControllerKp')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionCurrentControllerKp" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionCurrentControllerKp')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKp" onclick="doAction('00','17','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','91','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionCurrentControllerKi" value="1" onclick="doDisbale('checkActionCurrentControllerKi', ['boxActionCurrentControllerKi','rangeActionCurrentControllerKi','bActionCurrentControllerKi'])" checked> 
+                                                                Current Controller Ki
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionCurrentControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionCurrentControllerKi')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionCurrentControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionCurrentControllerKi')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKi" onclick="doAction('00','18','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','92','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi','0.00005')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <br>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Controls</h4>
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Command Mode*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionCommandMode"  class="col-sm-12">                                                
+                                                                    <OPTION VALUE="0" >ANALOGUE </OPTION> 
+                                                                    <OPTION VALUE="1" SELECTED>DIGITAL </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed/Torque Control Mode*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionControlMode"  class="col-sm-12">                                                
+                                                                    <OPTION VALUE="0" SELECTED>SENSOR LESS </OPTION>
+                                                                    <OPTION VALUE="1" >USING ENCODERS </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlMode" onclick="doAction('00','13','UINT32','boxActionControlMode','boxActionControlMode')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','99','UINT32','boxActionControlMode','boxActionControlMode')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Control type*
+                                                            </div>
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionControlType"  class="col-sm-12" onchange="doActionSemplification('boxActionControlType');">                                                
+                                                                    <OPTION VALUE="0" SELECTED>SPEED </OPTION>
+                                                                    <OPTION VALUE="1">TORQUE </OPTION>
+                                                                    <OPTION VALUE="2">POSITION </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlType" onclick="doAction('00','16','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9B','UINT32','boxActionControlType','boxActionControlType'); "></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Motor Direction
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionMotorDirection"  class="col-sm-12">                                                
+                                                                    <OPTION VALUE="0" >C.W. </OPTION>
+                                                                    <OPTION VALUE="1" SELECTED>C.C.W. </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorDirection" onclick="doAction('00','0C','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
+                                                                </a>
+                                                                <!--
+                                                                    <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                        <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
+                                                                    </a>
+                                                                -->
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed Controller Kp
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSpeedControllerKp" class="col-sm-12" value="0.01" min="0" max="20"  step="0.01" oninput="updateRangeInput(this.value,'rangeActionSpeedControllerKp')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionSpeedControllerKp" class="col-sm-12" value="0.01" min="0" max="20" step="0.01" oninput="updateTextRangeInput(this.value,'boxActionSpeedControllerKp')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKp" onclick="doAction('00','0A','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','89','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed Controller Ki
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSpeedControllerKi" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateRangeInput(this.value,'rangeActionSpeedControllerKi')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionSpeedControllerKi" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionSpeedControllerKi')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKi" onclick="doAction('00','0B','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8A','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Position Controller Kp
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPositionControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionPositionControllerKp')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionPositionControllerKp" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionPositionControllerKp')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKp" onclick="doAction('00','1C','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9D','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Position Controller Ki
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPositionControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionPositionControllerKi')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionPositionControllerKi" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionPositionControllerKi')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKi" onclick="doAction('00','1D','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9E','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                        </div>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Torque Reference_Iq [A]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionTorqueReferenceIq" class="col-sm-12" value="0" min="0" max="32" step="0.001" oninput="updateRangeInput(this.value,'rangeActionTorqueReferenceIq')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionTorqueReferenceIq" class="col-sm-12" value="0" min="0" max="32" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionTorqueReferenceIq')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionTorqueReferenceIq" onclick="doAction('00','04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></i>
+                                                                </a>
+                                                                <!--
+                                                                    <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                        <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></i>
+                                                                    </a>
+                                                                -->
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed Reference [RPM]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSpeedReference" class="col-sm-12" value="0" min="0" max="30000"  step="10" oninput="updateRangeInput(this.value,'rangeActionSpeedReference')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionSpeedReference" class="col-sm-12" value="0" min="0" max="30000" step="10" oninput="updateTextRangeInput(this.value,'boxActionSpeedReference')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedReference" onclick="doAction('00','05','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','96','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed Limit [RPM]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSpeedLimit" class="col-sm-12" value="30000" min="0" max="30000" step="10" oninput="updateRangeInput(this.value,'rangeActionSpeedLimit')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionSpeedLimit" class="col-sm-12" value="30000" min="0" max="30000" step="10" oninput="updateTextRangeInput(this.value,'boxActionSpeedLimit')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedLimit" onclick="doAction('00','11','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9C','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Desired Position [Quad_Pulses]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionDesiredPosition" class="col-sm-12" value="0" min="-2147483647" max="2147483647"  step="20000" oninput="updateRangeInput(this.value,'rangeActionDesiredPosition')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionDesiredPosition" class="col-sm-12" value="0" min="-2147483647" max="2147483647" step="20000" oninput="updateTextRangeInput(this.value,'boxActionDesiredPosition')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDesiredPosition" onclick="doAction('00','1B','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A0','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Magnetizing Current_Id [A]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMagnetizingCurrentId" class="col-sm-12" value="0" min="0" max="32" step="1" oninput="updateRangeInput(this.value,'rangeActionMagnetizingCurrentId')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionMagnetizingCurrentId" class="col-sm-12" value="0" min="0" max="32" step="1" oninput="updateTextRangeInput(this.value,'boxActionMagnetizingCurrentId')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMagnetizingCurrentId" onclick="doAction('00','1A','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8E','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Power Reference [%]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPowerReference" class="col-sm-12" value="0" min="0" max="100"  step="1" oninput="updateRangeInput(this.value,'rangeActionPowerReference')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionPowerReference" class="col-sm-12" value="0" min="0" max="100" step="1" oninput="updateTextRangeInput(this.value,'boxActionPowerReference')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPowerReference" onclick="doAction('00','06','SFXT','boxActionPowerReference','boxActionPowerReference')"></i>
+                                                                </a>
+                                                                <!--
+                                                                    <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                        <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','??','SFXT','boxActionPowerReference','boxActionPowerReference')"></i>
+                                                                    </a>
+                                                                -->
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionResetPosition" value="1" onclick="doAction('00','1F','UINT32','bActionResetPosition','bActionResetPosition')">Reset Position (Home)</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorStop" value="0" onclick="doActionStopMotor()">Motor Stop</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-danger col-sm-12" id="bActionResetEmergencyStop" value="0" onclick="doAction('00','08','UINT32','bActionResetEmergencyStop','bActionResetEmergencyStop')">Emergency STOP</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <br>
+                                </div>
+                                
+                                <div id="monitorsTable" style="display: none;">
+                                    <div class="container-fluid">
+                                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                            <h3 class="text-dark mb-0">Monitors</h3>
+                                        </div>
+                                        <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">HEX Signal</h4>
+                                                        <div class="row">
+                                                            <div class="col col-sm-8"><input type="text" class="col-sm-12"></div>
+                                                            <div class="col col-sm-2">
+                                                                <a class="text-secondary" href="#">
+                                                                    <i class="fas fa-sign-in-alt fa-2x"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <p>Paragraph</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <br>
+                                </div>
+                                
+                                <div id="helpTable">
+                                    <div class="container-fluid">
+                                        <h3 class="text-dark mb-0">Help</h3>
+                                        <br>
+                                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                            
+                                            <div class="col">
+                                                <div class="row">
+                                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/" target="_blank"
+                                                    style="text-decoration:none">
+                                                    <div class="card text-white bg-primary shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">SOLO Web Site</p>
+                                                            <p class="text-white-50  m-0">Stay Tuned</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/solo-datasheet/"
+                                                target="_blank" style="text-decoration:none">
+                                                <div class="card text-white bg-success shadow">
+                                                    <div class="card-body">
+                                                        <p class="m-0">Datasheet</p>
+                                                        <p class="text-white-50  m-0">Check the documentation</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/"
+                                            target="_blank" style="text-decoration:none">
+                                            <div class="card text-white bg-info shadow">
+                                                <div class="card-body">
+                                                    <p class="m-0">Blog</p>
+                                                    <p class="text-white-50  m-0">Our latest articles</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/forum/"
                                         target="_blank" style="text-decoration:none">
                                         <div class="card text-white bg-danger shadow">
                                             <div class="card-body">
@@ -912,35 +928,35 @@
                                     </a>
                                 </div>
                             </div>
-    
+                            
                         </div>
                     </div>
-    
-                    </br>
-                    <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
-                        <div class="container my-auto">
-                            <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.0.1 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
-                            </div>
+                    
+                </br>
+                <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.0.1 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
-                    </footer>
-                </div>
-    
-    
+                    </div>
+                </footer>
             </div>
-    
-    
+            
+            
         </div>
-
-        <script src="assets/js/swInit.js"></script>
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-
-        <script src="assets/js/serial.js"></script>
-        <script src="assets/js/index.js"></script>
         
-        <script src="assets/js/serialIndex.js"></script>
-        <script src="assets/js/indexInteraction.js"></script>
+        
+    </div>
     
-    </body>
+    <script src="assets/js/swInit.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    
+    <script src="assets/js/serial.js"></script>
+    <script src="assets/js/index.js"></script>
+    
+    <script src="assets/js/serialIndex.js"></script>
+    <script src="assets/js/indexInteraction.js"></script>
+    
+</body>
 </html>
