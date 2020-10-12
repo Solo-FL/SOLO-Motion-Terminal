@@ -85,9 +85,10 @@ function updateAndFlush(){
 }
 
 function doDisbale(checkbox,elements){
-  var toDisable = false;
-  if(document.getElementById(checkbox).checked==true){
-    toDisable = true;
+  var toDisable = true;
+  if(document.getElementById(checkbox).checked==false){
+    toDisable = false;
+    alert("The current Controller Gains are automatically identified by SOLO when you do the 'Motor Identification'");
   }
   disablePart(toDisable,elements);
 }
