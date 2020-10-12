@@ -4,47 +4,41 @@
   function toogleSignalsSwitch() {
     toogle = document.querySelector('#signalsSwitches').checked;
     if (toogle) {
-      document.querySelector('#signalsTable').style.display = "revert";;
+      document.querySelector('#signalsTable').style.display = "revert";
     } else {
-      document.querySelector('#signalsTable').style.display = "none";;
+      document.querySelector('#signalsTable').style.display = "none";
     }
   }
   
   function toogleActionsSwitch() {
     toogle = document.querySelector('#actionsSwitches').checked;
     if (toogle) {
-      document.querySelector('#actionsTable').style.display = "revert";;
+      document.querySelector('#actionsTable').style.display = "revert";
     } else {
-      document.querySelector('#actionsTable').style.display = "none";;
+      document.querySelector('#actionsTable').style.display = "none";
     }
   }
   
   function toogleMonitorsSwitch() {
     toogle = document.querySelector('#monitorsSwitches').checked;
     if (toogle) {
-      document.querySelector('#monitorsTable').style.display = "revert";;
+      document.querySelector('#monitorsTable').style.display = "revert";
     } else {
-      document.querySelector('#monitorsTable').style.display = "none";;
+      document.querySelector('#monitorsTable').style.display = "none";
     }
   }
   
   function toogleHelpSwitch() {
     toogle = document.querySelector('#helpSwitches').checked;
     if (toogle) {
-      document.querySelector('#helpTable').style.display = "revert";;
+      document.querySelector('#helpTable').style.display = "revert";
     } else {
-      document.querySelector('#helpTable').style.display = "none";;
+      document.querySelector('#helpTable').style.display = "none";
     }
   }
 
 
-  function conversionFromFloat() {
-    floatValue = document.querySelector('#conversionFloat').value;
-
-    document.querySelector('#conversionDecimal').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionInt32').value = '';
-
+  function conversionFromFloat(floatValue) {
     if (floatValue.trim().length == 0) {
       return;
     }
@@ -59,16 +53,23 @@
       dec = 4294967295 - dec;
     }
   
-    document.querySelector('#conversionHex').value = decToHex(dec);
+    return decToHex(dec);
   }
 
-  function conversionFromInt32() {
-    i32Str = document.querySelector('#conversionInt32').value;
+  function conversionToInt32(hexValue){
+    decValue = parseInt(hexValue, 16);
+    i32Value = 0;
 
-    document.querySelector('#conversionDecimal').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionFloat').value = '';
+    if(decValue <= 2147483647){
+      i32Value = decValue;
+    }else{
+      i32Value = -1 * (4294967295 - decValue + 1) ;
+    }
 
+    return i32Value;
+  }
+
+  function conversionFromInt32(i32Str) {
     if (i32Str.trim().length == 0) {
       return;
     }
@@ -79,22 +80,17 @@
       i32Value = 4294967295 - Math.abs(i32Value) +1;
     }
   
-    document.querySelector('#conversionHex').value = decToHex(i32Value);
+    return decToHex(i32Value);
   }
-  
-  function conversionFromDecimal() {
-    decimalStr = document.querySelector('#conversionDecimal').value;
 
-    document.querySelector('#conversionFloat').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionInt32').value = '';
 
+  function conversionFromDecimal(decimalStr) {
     if (decimalStr.trim().length == 0) {
       return;
     }
 
     console.log('decimal conversion of: ' + decimalStr);
-    document.querySelector('#conversionHex').value = decToHex(parseInt(decimalStr));
+    return decToHex(parseInt(decimalStr));
   }
   
   function decToHex(decimalValue) {
@@ -105,6 +101,24 @@
     }
   }
   
+  function conversionToDecimal(hexValue){
+    decValue = parseInt(hexValue, 16);
+    return decValue;
+  }
+  
+  function conversionToFloat(hexValue){
+    decValue = conversionToDecimal(hexValue);
+    floatValue = 0;
+    if (decValue < 2147352576) {
+      floatValue = decValue / Math.pow(2, 17)
+    }
+    if (decValue > 2147352576) {
+      floatValue = 4294967295 - decValue + 1
+      floatValue = floatValue / Math.pow(2, 17) * -1
+    }
+    return  truncate(floatValue, 7)
+  }
+
   function conversionFromHex() {
     hexValue = document.querySelector('#conversionHex').value;
     if (hexValue.trim().length == 0) {
@@ -115,26 +129,9 @@
     }
   
     console.log('hex conversion of: ' + hexValue);
-    decValue = parseInt(hexValue, 16)
-    document.querySelector('#conversionDecimal').value = decValue;
-  
-    floatValue = 0;
-    if (decValue < 2147352576) {
-      floatValue = decValue / Math.pow(2, 17)
-    }
-    if (decValue > 2147352576) {
-      floatValue = 4294967295 - decValue + 1
-      floatValue = floatValue / Math.pow(2, 17) * -1
-    }
-    document.querySelector('#conversionFloat').value = truncate(floatValue, 7);
-
-    i32Value = 0;
-    if(decValue <= 2147483647){
-      i32Value = decValue;
-    }else{
-      i32Value = -1 * (4294967295 - decValue + 1) ;
-    }
-    document.querySelector('#conversionInt32').value = i32Value;
+    document.querySelector('#conversionDecimal').value = conversionToDecimal(hexValue);
+    document.querySelector('#conversionFloat').value = conversionToFloat(hexValue);
+    document.querySelector('#conversionInt32').value = conversionFromInt32(hexValue);
   }
   
   function truncate(num, places) {
@@ -176,4 +173,12 @@
   function pad(str, max) {
     str = str.toString();
     return str.length < max ? pad("0" + str, max) : str;
+  }
+
+  function updateTextRangeInput(val,boxActionName) {
+    document.getElementById(boxActionName).value=val; 
+  }
+
+  function updateRangeInput(val,rangeActionName) {
+    document.getElementById(rangeActionName).value=val; 
   }

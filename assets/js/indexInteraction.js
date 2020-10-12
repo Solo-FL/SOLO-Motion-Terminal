@@ -9,15 +9,27 @@ window.onload = function () {
   }
 
 document.querySelector('#conversionFloat').oninput = function () {
-    conversionFromFloat();
+    document.querySelector('#conversionDecimal').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionInt32').value = '';
+
+    document.querySelector('#conversionHex').value = conversionFromFloat(document.querySelector('#conversionFloat').value);
 };
 
 document.querySelector('#conversionInt32').oninput = function () {
-    conversionFromInt32();
+    document.querySelector('#conversionDecimal').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionFloat').value = '';
+
+    document.querySelector('#conversionHex').value = conversionFromInt32(document.querySelector('#conversionInt32').value);
 };
 
 document.querySelector('#conversionDecimal').oninput = function () {
-    conversionFromDecimal();
+    document.querySelector('#conversionFloat').value = '';
+    document.querySelector('#conversionHex').value = '';
+    document.querySelector('#conversionInt32').value = '';
+
+    document.querySelector('#conversionHex').value = conversionFromDecimal(document.querySelector('#conversionDecimal').value);
 };
 
 document.querySelector('#conversionHex').oninput = function () {
