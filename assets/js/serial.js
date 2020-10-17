@@ -36,7 +36,7 @@ class Serial {
                 var stopBitsVal = "one";
 
                 await port.open({ 
-                    baudrate: baudRate,
+                    baudRate: baudRate,
                     dataBitsVal:dataBitsVal,
                     parityBitVal: parityBitVal,
                     stopBitsVal:stopBitsVal });
