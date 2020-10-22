@@ -358,8 +358,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <br>
                                         
+                                        <br>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="card">
@@ -847,6 +847,217 @@
                                             </div>
                                         </div>
                                         
+                                        <br>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Information</h4>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Supply Voltage [V]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSupplyVoltage" class="col-sm-12" value=" "  disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','86','SFXT','boxActionSupplyVoltage','boxActionSupplyVoltage')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Temperature [°C]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionTemperature" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','93','SFXT','boxActionTemperature','boxActionTemperature')"></i>
+                                                                </a>   
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Error Register
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionErrorRegister" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A1','UINT32','boxActionErrorRegister','boxActionErrorRegister')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                      
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Firmware Version
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionFirmwareVersion" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A2','UINT32','boxActionFirmwareVersion','boxActionFirmwareVersion')"></i>
+                                                                </a>  
+                                                            </div>
+                                                            <div class="col col-sm-1">
+
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Motor Resistance [Ω]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMotorResistance" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','94','SFXT','boxActionMotorResistance','boxActionMotorResistance')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                  
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Motor Inductance [H]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMotorInductance" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','95','SFXT','boxActionMotorInductance','boxActionMotorInductance')"></i>
+                                                                </a>  
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+      
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Speed [RPM]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionSpeed" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','96','UINT32','boxActionSpeed','boxActionSpeed')"></i>
+                                                                </a>    
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+   
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Torque_Iq [A]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionTorqueIq" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8D','SFXT','boxActionTorqueIq','boxActionTorqueIq')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Magnetizing Current_Id [A]
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionCurrentId" class="col-sm-12" value=" "  disabled>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','8E','SFXT','boxActionCurrentId','boxActionCurrentId')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+       
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Position [Quad_Pulses]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionPosition" class="col-sm-12" value=" "   disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A0','INT32','boxActionPosition','boxActionPosition')"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                     <br>
                                 </div>
@@ -935,7 +1146,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.0.2 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.1.2 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>
