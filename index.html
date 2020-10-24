@@ -31,7 +31,7 @@
                 <div class="d-flex flex-column">
                     
                     <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
-                        <input type="checkbox" class="custom-control-input" id="signalsSwitches" checked>
+                        <input type="checkbox" class="custom-control-input" id="signalsSwitches" >
                         <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
                             <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
                         </a>
@@ -904,7 +904,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A1','UINT32','boxActionErrorRegister','boxActionErrorRegister')"></i>
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A1','ERROR','boxActionErrorRegister','boxActionErrorRegister')"></i>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -920,7 +920,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A2','UINT32','boxActionFirmwareVersion','boxActionFirmwareVersion')"></i>
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A2','NONE','boxActionFirmwareVersion','boxActionFirmwareVersion')"></i>
                                                                 </a>  
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -931,7 +931,7 @@
                                                         </div>
 
 
-
+                                                        <!-- online after freamwork update
                                                         <div class="row mb-2">
                                                             
                                                             <div class="col col-sm-2">
@@ -969,7 +969,7 @@
                                                             
                                                         </div>
 
-
+                                                        -->
 
                                                         <div class="row mb-2">
                                                             
@@ -1146,7 +1146,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.1.2 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.1.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>

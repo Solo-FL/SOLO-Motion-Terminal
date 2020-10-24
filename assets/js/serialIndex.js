@@ -200,6 +200,10 @@ function convertToType(type,value){
       return conversionToDecimal(value);
     case "SFXT":
       return conversionToFloat(value);
+    case "NONE":
+      return value;
+    case "ERROR":
+      return conversionToError(value);
   }
 }
 
