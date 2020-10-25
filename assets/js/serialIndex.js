@@ -20,6 +20,7 @@ this.timeoutReadValueToSetId = null;
 this.timeoutReadTypeToSet = null;
 this.timeoutClearTimeout = null;
 this.timeoutMultiply = 1;
+this.timeoutIsMultiply = false;
 
 this.serialWritingStatus="OFF";
 
@@ -152,6 +153,7 @@ function disablePart(value, ids){
 
 function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToColorId, valueToMultiply ){
   this.timeoutMultiply = parseFloat(valueToMultiply);
+  this.timeoutIsMultiply = true;
   doActionRead(address, command, typeToSet, valueToSetId, boxToColorId );
 }
 
@@ -245,11 +247,18 @@ function updateAndFlushSimpleActionRead(){
     this.timeoutBoxToColor.classList.add("bg-info");
     var commandRead = this.timeoutCommandRecived.substring(8, 16);
     var commandToSet= convertToType(this.timeoutReadTypeToSet, commandRead)
-    document.getElementById(this.timeoutReadValueToSetId).value = commandToSet * this.timeoutMultiply; 
+    if(this.timeoutIsMultiply){
+      document.getElementById(this.timeoutReadValueToSetId).value = commandToSet * this.timeoutMultiply; 
+      this.timeoutMultiply = 1;
+      this.timeoutIsMultiply= false;
+    }else{
+      document.getElementById(this.timeoutReadValueToSetId).value = commandToSet; 
+    }
+
     if(this.timeoutReadValueToSetId=='boxActionControlType'){
       document.getElementById(this.timeoutReadValueToSetId).onchange(); 
     }
-    this.timeoutMultiply = 1;
+    
     this.timeoutClearTimeout=setTimeout(clearTimeoutBoxToColor,500);
   }else
     if(this.serialWritingStatus == "START"){
