@@ -101,11 +101,34 @@
     }
   }
   
+  function conversionToError(hexValue){
+    decValue = parseInt(hexValue, 16);
+    switch (decValue){
+      case 0:
+        return "0: No Errors";
+      case 1:
+        return "1: O.C. (Over-Current)";
+      case 2:
+        return "2: O.V. (Over-Voltage)";
+      case 3:
+        return "3: O.V., O.C.";
+      case 4:
+        return "4: O.T. (Over-Temp.)";
+      case 5:
+        return "5: O.C., O.T.";
+      case 6:
+        return "6: O.V., O.T.";
+      case 7: 
+        return "7: O.C., O.V., O.T";
+    }
+    return "";
+  }
+  
   function conversionToDecimal(hexValue){
     decValue = parseInt(hexValue, 16);
     return decValue;
   }
-  
+
   function conversionToFloat(hexValue){
     decValue = conversionToDecimal(hexValue);
     floatValue = 0;

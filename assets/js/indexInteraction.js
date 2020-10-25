@@ -6,6 +6,7 @@ window.onload = function () {
     toogleActionsSwitch();
     toogleMonitorsSwitch();
     toogleHelpSwitch();
+    disablePart(true,['boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp','boxActionCurrentControllerKi','rangeActionCurrentControllerKi','bActionCurrentControllerKi']);
   }
 
 document.querySelector('#conversionFloat').oninput = function () {
