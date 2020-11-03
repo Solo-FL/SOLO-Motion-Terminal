@@ -18,13 +18,18 @@
     <button id="randomizeData">Randomize Data</button>
     <button id="addData">Add Data</button>
     <script>
+        Chart.defaults.global.animation.duration = 0
+
+
         var lineChartData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [{
                 label: 'VA [V]',
+                lineTension: 0, 
                 borderColor: window.chartColors.yellow,
                 backgroundColor: window.chartColors.yellow,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -37,9 +42,11 @@
                 yAxisID: 'y-axis-V',
             }, {
                 label: 'VB [V]',
+                lineTension: 0.1, 
                 borderColor: window.chartColors.yellow,
                 backgroundColor: window.chartColors.yellow,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -58,6 +65,7 @@
                 borderColor: window.chartColors.peach,
                 backgroundColor: window.chartColors.peach,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -75,6 +83,7 @@
                 borderColor: window.chartColors.peach,
                 backgroundColor: window.chartColors.peach,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -93,6 +102,7 @@
                 borderColor: window.chartColors.grey,
                 backgroundColor: window.chartColors.grey,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -111,6 +121,7 @@
                 borderColor: window.chartColors.green,
                 backgroundColor: window.chartColors.green,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -129,6 +140,7 @@
                 borderColor: window.chartColors.green,
                 backgroundColor: window.chartColors.green,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -147,6 +159,7 @@
                 borderColor: window.chartColors.blue,
                 backgroundColor: window.chartColors.blue,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -165,6 +178,7 @@
                 borderColor: window.chartColors.blue,
                 backgroundColor: window.chartColors.blue,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -183,6 +197,7 @@
                 borderColor: window.chartColors.red,
                 backgroundColor: window.chartColors.red,
                 fill: false,
+                hidden: true,
                 data: [
                     randomScalingFactor(),
                     randomScalingFactor(),
@@ -239,19 +254,11 @@
                             position: 'right',
                             stacked: true,
                             id: 'y-axis-RPM',
-                        }],                   
+                        }],
+
+                    
 
 
-
-                        animation: {
-                            duration: 0 // general animation time
-                        },
-                            hover: {
-                            animationDuration: 0 // duration of animations when hovering an item
-                        },
-                            responsiveAnimationDuration: 0 // animation duration after a resize
-
-                        
                     }
                 }
             });
