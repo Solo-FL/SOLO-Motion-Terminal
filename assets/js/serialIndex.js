@@ -55,7 +55,7 @@ submitButton.addEventListener('click', event => {
     serial.multipleWriteStart(messageInput.value);
     serialMessagesContainer.value="";
     this.serialWritingStatus = "START";
-    setTimeout(updateAndFlush,250);
+    setTimeout(updateAndFlush,250,messageInput.value.substr(6,2));
   }
 });
 
@@ -64,21 +64,22 @@ clearButton.addEventListener('click', event => {
   serialMessagesContainer.value="";
 });
 
-function updateAndFlush(){
-  serialMessagesContainer.value=serial.getReadingsFilterd();
+function updateAndFlush(command){
+  
+  serialMessagesContainer.value=serial.getLastReadingsByCommand(command,2);
 
   termRxSize= document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
   termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
   if(termRxSize>=termTxSize){
     this.serialWritingStatus = "OFF";
-    serial.flushreadings();
-    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
+    //FIXME serial.flushreadings();
+    //document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
   }else{
     if(this.serialWritingStatus == "START"){
       if(serial.getWritingStatus() =="OFF"){
         this.serialWritingStatus = "OFF";
       }
-      setTimeout(updateAndFlush,250);
+      setTimeout(updateAndFlush,250,command);
     }
   }
 
@@ -218,7 +219,7 @@ function doSimpleActionRead (commandToSend, typeToSet, valueToSetId ,boxToColorI
     this.timeoutReadValueToSetId = valueToSetId;
     this.timeoutReadTypeToSet = typeToSet;
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleActionRead,250);
+    setTimeout(updateAndFlushSimpleActionRead,250,commandToSend.substr(6,2));
   }
 }
 
@@ -230,18 +231,18 @@ function doSimpleAction(commandToSend,boxToColorId){
     this.timeoutBoxToColor = boxToColor;
     this.timeoutCommandSent = commandToSend;
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleAction,250);
+    setTimeout(updateAndFlushSimpleAction,250,commandToSend.substr(6,2));
   }
 }
-function updateAndFlushSimpleActionRead(){
-  this.timeoutCommandRecived=serial.getReadingsFilterd();
+function updateAndFlushSimpleActionRead(command){
+  this.timeoutCommandRecived=serial.getLastReadingsByCommand(command,2);
 
   var termRxSize= this.timeoutCommandRecived.length;
   var termTxSize= this.timeoutCommandSent.length;
   if(termRxSize>=termTxSize){
     this.serialWritingStatus = "OFF";
-    serial.flushreadings();
-    this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
+    //serial.flushreadings();
+    //this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
 
     
     this.timeoutBoxToColor.classList.add("bg-info");
@@ -265,20 +266,20 @@ function updateAndFlushSimpleActionRead(){
       if(serial.getWritingStatus() =="OFF"){
         this.serialWritingStatus = "OFF";
       }
-      setTimeout(updateAndFlushSimpleActionRead,250);
+      setTimeout(updateAndFlushSimpleActionRead,250,command);
     }
   }
 
 
-function updateAndFlushSimpleAction(){
-  this.timeoutCommandRecived=serial.getReadingsFilterd();
+function updateAndFlushSimpleAction(command){
+  this.timeoutCommandRecived=serial.getLastReadingsByCommand(command,2);
 
   var termRxSize= this.timeoutCommandRecived.length;
   var termTxSize= this.timeoutCommandSent.length;
   if(termRxSize>=termTxSize){
     this.serialWritingStatus = "OFF";
-    serial.flushreadings();
-    this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
+    //serial.flushreadings();
+    ///this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
 
     if(this.timeoutCommandRecived == this.timeoutCommandSent){
       this.timeoutBoxToColor.classList.add("bg-success");
@@ -291,7 +292,7 @@ function updateAndFlushSimpleAction(){
       if(serial.getWritingStatus() =="OFF"){
         this.serialWritingStatus = "OFF";
       }
-      setTimeout(updateAndFlushSimpleAction,250);
+      setTimeout(updateAndFlushSimpleAction,250,command);
     }
   }
 

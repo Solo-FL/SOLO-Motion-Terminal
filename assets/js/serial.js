@@ -15,7 +15,7 @@ class Serial {
         this.isMonitoring = false;
         this.readingList = [];
         this.readingPreList = "";
-        this.isRecordingActivated = false;
+        this.isRecordingActivated = true;
         this.recordingIndex = 0;
     }
 
@@ -178,6 +178,24 @@ class Serial {
       
       getReadingsFilterd(){
         return this.readings.substr(this.readings.indexOf("FFFF",0),this.readings.lastIndexOf("FFFF"));
+      }
+
+      getLastReadingsByCommand(command,historySize){
+        var size = 0;
+        for(var px = this.readingList.length-1; px>=0; px--){
+          var read = this.readingList[px];
+          
+          if(read.substr(6,2)==command){
+            return read;
+          }
+
+          if(!(size<historySize)){
+            return "";
+          }
+
+          size++;
+        }
+        return "";
       }
 
       flushreadings(){
