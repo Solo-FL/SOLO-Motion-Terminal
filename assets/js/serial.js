@@ -12,6 +12,11 @@ class Serial {
         this.writingStatus ="OFF";
         this.connectionStatus = "none";
         this.writer;
+        this.isMonitoring = false;
+        this.readingList = [];
+        this.readingPreList = "";
+        this.isRecordingActivated = true;
+        this.recordingIndex = 0;
     }
 
     async disconnect(){
@@ -48,11 +53,35 @@ class Serial {
                 console.log('SIGNALS: ');
                 console.log(signals);
                 
+                var packetReceived ="";
+                var packetReceivedStart =0;
+                var packetReceivedList =[];
                 while (true) {
                   const { value, done } = await this.reader.read();
                   if (value) {
-                    console.log('read: '+ this.arrayAlementsToString(value));
-                    this.readings +=  this.arrayAlementsToString(value);
+                    var newMessage = this.arrayAlementsToString(value);
+                    console.log('read: '+ newMessage);
+                    this.readings +=  newMessage;
+
+
+                    this.readingPreList += newMessage;
+                    packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+                    packetReceived = this.readingPreList.substr
+                      (packetReceivedStart,
+                      this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
+                    packetReceivedList = packetReceived.match(/.{20}/g);
+                    if(packetReceivedList!=null){
+                      this.readingList=this.readingList.concat(packetReceivedList);
+                      this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
+                    }
+                  
+                    if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
+                      localStorage.setItem(this.recordingIndex, newMessage);
+                      this.recordingIndex++;
+                    } else {
+                     // console.log("Sorry, your browser does not support Web Storage...");
+                    }
+                  
                   }
                   if (done) {
                     console.log('[readLoop] DONE', done);
@@ -151,6 +180,24 @@ class Serial {
         return this.readings.substr(this.readings.indexOf("FFFF",0),this.readings.lastIndexOf("FFFF"));
       }
 
+      getLastReadingsByCommand(command,historySize){
+        var size = 0;
+        for(var px = this.readingList.length-1; px>=0; px--){
+          var read = this.readingList[px];
+          
+          if(read.substr(6,2)==command){
+            return read;
+          }
+
+          if(!(size<historySize)){
+            return "";
+          }
+
+          size++;
+        }
+        return "";
+      }
+
       flushreadings(){
           this.readings="";
       }
@@ -188,5 +235,28 @@ class Serial {
 
       getWritingStatus(){
         return this.writingStatus;
+      }
+
+      setRecording(newRecordingStatus){
+        if(this.isRecordingActivated != newRecordingStatus){
+          if(newRecordingStatus==true){
+            this.recordingIndex = 0;
+            localStorage.clear();
+          }
+          this.isRecordingActivated = newRecordingStatus;
+        }
+      }
+
+      saveRecording(){
+        let a = document.createElement('a');
+        
+        a.href = "data:application/octet-stream,";
+
+        for(var i = 0; i <= this.recordingIndex; i++ ){
+          a.href = a.href + encodeURIComponent(localStorage.getItem(i));
+        }
+    
+        a.download = 'SOLO-log.txt';
+        a.click();
       }
 }
