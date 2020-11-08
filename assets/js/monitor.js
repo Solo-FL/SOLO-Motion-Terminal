@@ -207,8 +207,10 @@ var config = {
                 position: 'left',
                 //stacked: true,
                 id: 'y-axis-V',
-                labelString: '[V]',
-
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Volt',
+                },
                  // grid line settings
                 gridLines: {
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
@@ -219,7 +221,10 @@ var config = {
                 position: 'left',
                 stacked: true,
                 id: 'y-axis-A',
-                labelString: '[A]',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Amps',
+                },
 
                 // grid line settings
                 gridLines: {
@@ -234,6 +239,10 @@ var config = {
                 stacked: true,
                 id: 'y-axis-RPM',
                 labelString: '[RPM]',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'RPM',
+                },
             }]
 		},
 		tooltips: {
