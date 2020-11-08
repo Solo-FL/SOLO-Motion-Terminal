@@ -11,11 +11,6 @@ var chartColors = {
 };
 
 
-
-function randomScalingFactor() {
-	return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-}
-
 function onRefresh(chart) {
     if(!monitorActivation){
         return;
@@ -270,44 +265,6 @@ window.onload = function() {
 	var ctx = document.getElementById('myChart').getContext('2d');
 	window.myChart = new Chart(ctx, config);
 };
-
-document.getElementById('randomizeData').addEventListener('click', function() {
-	config.data.datasets.forEach(function(dataset) {
-		for (var i = 0; i < dataset.data.length; ++i) {
-			dataset.data[i] = randomScalingFactor();
-		}
-	});
-
-	window.myChart.update();
-});
-
-var colorNames = Object.keys(chartColors);
-document.getElementById('addDataset').addEventListener('click', function() {
-	var colorName = colorNames[config.data.datasets.length % colorNames.length];
-	var newColor = chartColors[colorName];
-	var newDataset = {
-		label: 'Dataset ' + (config.data.datasets.length + 1),
-		type: 'line',
-		backgroundColor: color(newColor).alpha(0.5).rgbString(),
-		borderColor: newColor,
-		fill: false,
-		cubicInterpolationMode: 'monotone',
-		data: new Array(config.data.labels.length)
-	};
-
-	config.data.datasets.push(newDataset);
-	window.myChart.update();
-});
-
-document.getElementById('removeDataset').addEventListener('click', function() {
-	config.data.datasets.pop();
-	window.myChart.update();
-});
-
-document.getElementById('addData').addEventListener('click', function() {
-	onRefresh(window.myChart);
-	window.myChart.update();
-});
 
 function moniotrStart(){
     monitorActivation = true;
