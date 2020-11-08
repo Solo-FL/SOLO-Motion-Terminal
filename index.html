@@ -1104,20 +1104,10 @@
                                                             Log mode
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <input type="number" id="boxActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateRangeInput(this.value,'rangeActionMaxCurrent')">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="">Start</button>
                                                         </div>
-                                                        <div class="col col-sm-1">
-                                                            <input type="range" id="rangeActionMaxCurrent" class="col-sm-12" value="32" min="0.2" max="32" step="0.01" oninput="updateTextRangeInput(this.value,'boxActionMaxCurrent')">
-                                                        </div>
-                                                        <div class="col col-sm-1">
-                                                            
-                                                            <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" onClick="doSimpleAction('FFFF000C0000000000FE','boxActionMaxCurrent')">
-                                                                <i class="fas fa-sign-in-alt fa-lg" id="bActionMaxCurrent" onclick="doAction('00','03','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
-                                                            </a>
-                                                            <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionRead('00','8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
-                                                            </a>
-                                                            
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="">Stop & Save</button>
                                                         </div>
                                                         
                                                     </div>
