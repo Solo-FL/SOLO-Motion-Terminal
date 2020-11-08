@@ -198,6 +198,25 @@ class Serial {
         return "";
       }
 
+      shiftAllReadingsByCommand(command, size){
+        var readings = [];
+        var count = 0;
+        for(var px = 0; px < this.readingList.length; px++){
+          var read = this.readingList[px];
+          if(read.substr(6,2)==command){
+            readings.push(this.readingList.splice(px,1));
+            px--;
+            count++;
+          }
+
+          if (size != null && count>=size){
+            continue;
+          }
+          
+        }
+        return readings;
+      }
+
       flushreadings(){
           this.readings="";
       }

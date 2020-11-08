@@ -10,7 +10,6 @@ var chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-
 function onRefresh(chart) {
     if(!monitorActivation){
         return;
@@ -18,9 +17,14 @@ function onRefresh(chart) {
     
 	chart.config.data.labels.push(Date.now());
 	chart.config.data.datasets.forEach(function(dataset) {
-        var myMessage = serial.getLastReadingsByCommand(dataset.commandValue,15)
-        var myValue = myMessage.substring(8, 16);
-		dataset.data.push(convertToType(dataset.commandConversion , myValue));
+        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,null);
+
+        
+        var myValues = myMessages.map(message => message.toString().substring(8, 16));
+        var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
+        dataset.data = dataset.data.concat(myConvertedValues);
+            
+
 	});
 }
 
@@ -191,17 +195,24 @@ var config = {
 		}]
 	},
 	options: {
-		title: {
-			display: false,
-			text: 'Monitor'
-		},
+      
+        legend: {
+            labels: {
+              padding: 20,
+              fontSize:14,
+            }
+          },
+    
+        animation: {
+            duration: 0
+        },
 		scales: {
 			xAxes: [{
 				type: 'realtime',
 				realtime: {
 					duration: 20000,
-					refresh: 1,
-                    delay: 5,
+					refresh: 30,
+                    delay: 7,
                     pause: true,
 					onRefresh: onRefresh
 				}
