@@ -15,7 +15,7 @@ class Serial {
         this.isMonitoring = false;
         this.readingList = [];
         this.readingPreList = "";
-        this.isRecordingActivated = true;
+        this.isRecordingActivated = false;
         this.recordingIndex = 0;
     }
 

@@ -1091,10 +1091,10 @@
                                                         
                                                         
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" onclick="moniotrStart()">Start</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStart" value="1" onclick="doAction('00','19','UINT32','bMonitorStart',null); moniotrStart()">Start</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" onclick="moniotrStop()">Stop</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="doAction('00','19','UINT32','bMonitorStop',null); moniotrStop()">Stop</button>
                                                         </div>
                                                         
                                                         
