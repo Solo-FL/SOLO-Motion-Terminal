@@ -46,6 +46,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
             data: []
@@ -61,6 +62,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -76,6 +78,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -91,6 +94,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -105,6 +109,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -120,6 +125,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -135,6 +141,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -150,6 +157,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -165,6 +173,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []
@@ -180,6 +189,7 @@ var config = {
 			type: 'line',
 			fill: false,
             cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
             pointRadius: 0,
             lineTension: 0,
 			data: []

@@ -49,12 +49,15 @@ var config = {
 			borderColor: chartColors.red,
 			fill: false,
 			cubicInterpolationMode: 'monotone',
+			borderWidth: 2,
 			data: []
 		}, {
 			label: 'Dataset 2 (bars)',
-			backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-			borderColor: chartColors.blue,
-			borderWidth: 1,
+			type: 'line',
+			backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+			borderColor: chartColors.red,
+			fill: false,
+			cubicInterpolationMode: 'monotone',
 			data: []
 		}]
 	},
