@@ -1,8 +1,8 @@
 var monitorActivation = false;
 var serialReadingSizeToStart = 2000;
-var serialShiftSize = 20;
-var duration = 500;
-var refresh = 200;
+var serialShiftSize = 50;
+var duration = 1000;
+var refresh = 50;
 //var delay = 100;
 var xVal= 0;
 
@@ -170,7 +170,7 @@ var config = {
             yAxisID: 'y-axis-A',
             commandValue: '8D',
             commandConversion: 'SFXT',
-            hidden: true,
+            
 
 			type: 'line',
 			fill: false,
@@ -202,7 +202,7 @@ var config = {
             yAxisID: 'y-axis-RPM',
             commandValue: '96',
             commandConversion: 'UINT32',
-            hidden: true,
+            
 
 			type: 'line',
 			fill: false,
