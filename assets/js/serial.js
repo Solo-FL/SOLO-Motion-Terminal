@@ -198,6 +198,11 @@ class Serial {
         return "";
       }
 
+
+      readingSize(){
+        return this.readingList.length;
+      }
+
       shiftAllReadingsByCommand(command, size){
         var readings = [];
         var count = 0;
@@ -210,7 +215,7 @@ class Serial {
           }
 
           if (size != null && count>=size){
-            continue;
+            break;
           }
           
         }

@@ -26,23 +26,17 @@
 	<button id="addData">Add Data</button>
 	<button id="removeData">Remove Data</button>
 	<script>
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		var config = {
+		var xVar = 0;
+ 		var config = {
 			type: 'line',
 			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				
 				datasets: [{
 					label: 'My First dataset',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
+						
 					],
 					fill: false,
 				}, {
@@ -51,13 +45,7 @@
 					backgroundColor: window.chartColors.blue,
 					borderColor: window.chartColors.blue,
 					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
+						
 					],
 				}]
 			},
@@ -131,16 +119,16 @@
 		});
 
 		document.getElementById('addData').addEventListener('click', function() {
-			if (config.data.datasets.length > 0) {
-				var month = MONTHS[config.data.labels.length % MONTHS.length];
-				config.data.labels.push(month);
+			
+				xVar ++;
+				config.data.labels.push(xVar);
 
 				config.data.datasets.forEach(function(dataset) {
-					dataset.data.push(randomScalingFactor());
+					dataset.data.push(Math.round(5 + Math.random() *(-5-5)));
 				});
 
 				window.myLine.update();
-			}
+			
 		});
 
 		document.getElementById('removeDataset').addEventListener('click', function() {

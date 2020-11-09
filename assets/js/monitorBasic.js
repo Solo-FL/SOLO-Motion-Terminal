@@ -1,9 +1,10 @@
 var monitorActivation = false;
 var serialReadingSizeToStart = 2000;
-var serialShiftSize = 1;
-var duration = 30000;
-this.refresh = 1;
-this.delay = 100;
+var serialShiftSize = 20;
+var duration = 500;
+var refresh = 200;
+//var delay = 100;
+var xVal= 0;
 
 var chartColors = {
 	red: 'rgb(255, 99, 132)',
@@ -16,24 +17,34 @@ var chartColors = {
 };
 
 function onRefresh(chart) {
-    if(!this.monitorActivation){
+    if(!monitorActivation){
         return;
     }
-    
-    for(var i = 0; i <serialShiftSize; i++){ 
-        chart.config.data.labels.push(Date.now());
+
+    for (var li = xVal; li<xVal+serialShiftSize;li++){
+        chart.config.data.labels.push(li);
+        if(chart.config.data.labels.length >duration){
+            chart.config.data.labels.shift();
+        }
     }
-    
+    xVal=li;
+
 	chart.config.data.datasets.forEach(function(dataset) {
-        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue, serialShiftSize);
+       var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
 
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
         dataset.data.push(...myConvertedValues);    
+        
+       if(dataset.data.length >duration){
+        dataset.data.splice(0,dataset.data.length-duration);
+       }
 
     });
     
+
     chart.update();
+    setTimeout( onRefresh, refresh, chart);
 }
 
 var color = Chart.helpers.color;
@@ -216,14 +227,11 @@ var config = {
         },
 		scales: {
 			xAxes: [{
-				type: 'realtime',
-				realtime: {
-					duration: this.duration,
-					refresh: this.refresh,
-                    delay: this.delay,
-                    pause: true,
-					onRefresh: onRefresh
-				}
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Simple'
+                }
 			}],
 			yAxes: [{
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
@@ -286,15 +294,15 @@ window.onload = function() {
 };
 
 function moniotrStart(){
-    if(this.serialReadingSizeToStart<serial.readingSize()){
-        this.monitorActivation = true;
-        config.options.scales.xAxes[0].realtime.pause = false;
+    if(serialReadingSizeToStart<serial.readingSize()){
+        monitorActivation = true;
+        onRefresh(window.myChart);
     }else{
         setTimeout(moniotrStart,500);    
     }
 }
 
 function moniotrStop(){
-    this.monitorActivation = false;
-    config.options.scales.xAxes[0].realtime.pause = true;
+    monitorActivation = false;
 }
+
