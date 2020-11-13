@@ -5,6 +5,7 @@ var duration = 1000;
 var refresh = 50;
 //var delay = 100;
 var xVal= 0;
+var datasetSize = 0;
 
 var chartColors = {
 	navy: '#001F3F',
@@ -25,13 +26,24 @@ function onRefresh(chart) {
         return;
     }
 
-    for (var li = xVal; li<xVal+serialShiftSize;li++){
-        chart.config.data.labels.push(li);
-        if(chart.config.data.labels.length >duration){
-            chart.config.data.labels.shift();
+    if(xVal < duration){
+        //load duration at start
+        for(var li = 0; li<duration; li ++){
+            chart.config.data.labels.push(li); 
+        }
+        xVal = li;
+    }else{
+        if(datasetSize>=duration){
+        //after duration is full add new value
+            for (var li = xVal; li<xVal+serialShiftSize;li++){
+                chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
+                if(chart.config.data.labels.length >duration){
+                    chart.config.data.labels.shift();
+                }
+            }
+            xVal=li;
         }
     }
-    xVal=li;
 
 	chart.config.data.datasets.forEach(function(dataset) {
        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
@@ -44,6 +56,7 @@ function onRefresh(chart) {
         dataset.data.splice(0,dataset.data.length-duration);
        }
 
+       datasetSize = dataset.data.length;
     });
     
 
@@ -312,3 +325,11 @@ function moniotrStop(){
     monitorActivation = false;
 }
 
+function moniotrClean(){
+    window.myChart.config.data.datasets.forEach(function(dataset) {
+        dataset.data = [];         
+        });
+    window.myChart.config.data.labels =[];
+    xVal = 0;
+    window.myChart.update();
+}
