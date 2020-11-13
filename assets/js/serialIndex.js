@@ -322,3 +322,13 @@ function clearTimeoutBoxToColor(){
   }
 }
 
+
+function logStart(){
+  serial.setRecording(true);
+}
+
+function logStopAndSave(){
+  serial.setRecording(false);
+  serial.saveRecording();
+}
+

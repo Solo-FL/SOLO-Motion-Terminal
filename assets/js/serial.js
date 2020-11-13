@@ -276,7 +276,7 @@ class Serial {
         
         a.href = "data:application/octet-stream,";
 
-        for(var i = 0; i <= this.recordingIndex; i++ ){
+        for(var i = 0; i < this.recordingIndex; i++ ){
           a.href = a.href + encodeURIComponent(localStorage.getItem(i));
         }
     

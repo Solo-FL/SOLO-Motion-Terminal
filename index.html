@@ -1090,24 +1090,32 @@
                                                         </div>
                                                         
                                                         
-                                                        <div class="col col-sm-2">
+                                                        <div class="col col-sm-1">
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStart" value="1" onclick="doAction('00','19','UINT32','bMonitorStart',null); moniotrStart()">Start</button>
                                                         </div>
-                                                        <div class="col col-sm-2">
+                                                        <div class="col col-sm-1">
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="doAction('00','19','UINT32','bMonitorStop',null); moniotrStop()">Stop</button>
                                                         </div>
-                                                        
+                                                        <div class="col col-sm-1">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="moniotrClean()">Clean</button>
+                                                        </div>
+                                                        <div class="col col-sm-1">
+                                                           
+                                                        </div>
                                                         
                                                         
                                                         
                                                         <div class="col col-sm-2">
                                                             Log mode
                                                         </div>
-                                                        <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="">Start</button>
+                                                        <div class="col col-sm-1">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="logStart()">Start</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="">Stop & Save</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="logStopAndSave()">Stop & Save</button>
+                                                        </div>
+                                                        <div class="col col-sm-1">
+                                                            
                                                         </div>
                                                         
                                                     </div>
