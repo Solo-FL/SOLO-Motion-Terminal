@@ -56,7 +56,7 @@ submitButton.addEventListener('click', event => {
     serial.multipleWriteStart(messageInput.value);
     serialMessagesContainer.value="";
     this.serialWritingStatus = "START";
-    setTimeout(updateAndFlush,250,messageInput.value.substr(6,2));
+    setTimeout(updates,250,serial.truncateBy20(messageInput.value));
   }
 });
 
@@ -65,22 +65,27 @@ clearButton.addEventListener('click', event => {
   serialMessagesContainer.value="";
 });
 
-function updateAndFlush(command){
+function updates(commands){
+  var text ="";
   
-  serialMessagesContainer.value=serial.getLastReadingsByCommand(command,2);
+  for(var i = 0; i< commands.length-1; i++){
+    text += serial.getLastReadingsByCommand(commands[i].substr(6,2),2);
+  }
 
-  termRxSize= document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
+  termRxSize= text.replace(/(\r\n|\n|\r|\s)/gm, "").length;
   termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
+
   if(termRxSize>=termTxSize){
     this.serialWritingStatus = "OFF";
     //FIXME serial.flushreadings();
-    //document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
+    document.querySelector('#termRx').value=text;
+    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
   }else{
     if(this.serialWritingStatus == "START"){
       if(serial.getWritingStatus() =="OFF"){
         this.serialWritingStatus = "OFF";
       }
-      setTimeout(updateAndFlush,250,command);
+      setTimeout(updates,250,commands);
     }
   }
 
