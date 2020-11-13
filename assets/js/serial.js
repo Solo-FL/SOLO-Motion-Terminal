@@ -8,7 +8,6 @@ class Serial {
         this.myport;
         this.commandsStrings;
         this.commandsStringsTimer;
-        this.readings = "";
         this.writingStatus ="OFF";
         this.connectionStatus = "none";
         this.writer;
@@ -61,11 +60,9 @@ class Serial {
                   if (value) {
                     var newMessage = this.arrayAlementsToString(value);
                     console.log('read: '+ newMessage);
-                    this.readings +=  newMessage;
-
 
                     this.readingPreList += newMessage;
-                    packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+                    packetReceivedStart = this.readingPreList.indexOf("FF",0);
                     packetReceived = this.readingPreList.substr
                       (packetReceivedStart,
                       this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
@@ -172,13 +169,6 @@ class Serial {
         return byteBuffer;
       }
 
-      getReadings(){
-          return this.readings;
-      }
-      
-      getReadingsFilterd(){
-        return this.readings.substr(this.readings.indexOf("FFFF",0),this.readings.lastIndexOf("FFFF"));
-      }
 
       getLastReadingsByCommand(command,historySize){
         var size = 0;
@@ -222,9 +212,7 @@ class Serial {
         return readings;
       }
 
-      flushreadings(){
-          this.readings="";
-      }
+
 
       arrayElementsToString(arrayData) {
         var output = "";
