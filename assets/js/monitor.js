@@ -1,39 +1,67 @@
 var monitorActivation = false;
-var serialReadingSizeToStart = 2000;
-var serialShiftSize = 1;
-var duration = 30000;
-this.refresh = 1;
-this.delay = 100;
+var serialReadingSizeToStart = 1000;
+var serialShiftSize = 50;
+var duration = 1000;
+var refresh = 50;
+//var delay = 100;
+var xVal= 0;
+var datasetSize = 0;
 
 var chartColors = {
-	red: 'rgb(255, 99, 132)',
-	orange: 'rgb(255, 159, 64)',
-	yellow: 'rgb(255, 205, 86)',
-	green: 'rgb(75, 192, 192)',
-	blue: 'rgb(54, 162, 235)',
-	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(201, 203, 207)'
+	navy: '#001F3F',
+	blue: '#0074D9',
+	acqua: '#39CCCC',
+	teal: '#2ECC40',
+	green: '#01FF70',
+	lime: '#FFDC00',
+    orange: 'r#FF851B',
+    red: '#FF4136' ,
+    purple: '#B10DC9',
+    black: '#111111',
+    olive: '#3D9970'
 };
 
 function onRefresh(chart) {
-    if(!this.monitorActivation){
+    if(!monitorActivation){
         return;
     }
-    
-    for(var i = 0; i <serialShiftSize; i++){ 
-        chart.config.data.labels.push(Date.now());
+
+    if(xVal < duration){
+        //load duration at start
+        for(var li = 0; li<duration; li ++){
+            chart.config.data.labels.push(li); 
+        }
+        xVal = li;
+    }else{
+        if(datasetSize>=duration){
+        //after duration is full add new value
+            for (var li = xVal; li<xVal+serialShiftSize;li++){
+                chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
+                if(chart.config.data.labels.length >duration){
+                    chart.config.data.labels.shift();
+                }
+            }
+            xVal=li;
+        }
     }
-    
+
 	chart.config.data.datasets.forEach(function(dataset) {
-        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue, serialShiftSize);
+       var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
 
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
         dataset.data.push(...myConvertedValues);    
+        
+       if(dataset.data.length >duration){
+        dataset.data.splice(0,dataset.data.length-duration);
+       }
 
+       datasetSize = dataset.data.length;
     });
     
+
     chart.update();
+    setTimeout( onRefresh, refresh, chart);
 }
 
 var color = Chart.helpers.color;
@@ -43,8 +71,8 @@ var config = {
 		labels: [],
 		datasets: [{
             label: 'VA [V]',
-            backgroundColor: window.chartColors.yellow,
-            borderColor: window.chartColors.yellow,
+            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.blue,
             yAxisID: 'y-axis-V',
             commandValue: '82',
             commandConversion: 'SFXT',
@@ -59,8 +87,8 @@ var config = {
             data: []
 		}, {
             label: 'VB [V]',
-            backgroundColor: window.chartColors.yellow,
-            borderColor: window.chartColors.yellow,
+            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.green,
             yAxisID: 'y-axis-V',
             commandValue: '83',
             commandConversion: 'SFXT',
@@ -75,8 +103,8 @@ var config = {
 			data: []
 		}, {
             label: 'IA [A]',
-            borderColor: window.chartColors.peach,
-            backgroundColor: window.chartColors.peach,
+            borderColor: window.chartColors.navy,
+            backgroundColor: window.chartColors.navy,
             yAxisID: 'y-axis-A',
             commandValue: '84',
             commandConversion: 'SFXT',
@@ -91,8 +119,8 @@ var config = {
 			data: []
 		}, {
             label: 'IB [A]',
-            borderColor: window.chartColors.peach,
-            backgroundColor: window.chartColors.peach,
+            borderColor: window.chartColors.teal,
+            backgroundColor: window.chartColors.teal,
             yAxisID: 'y-axis-A',
             commandValue: '85',
             commandConversion: 'SFXT',
@@ -107,8 +135,8 @@ var config = {
 			data: []
 		}, {
             label: 'Vsupply [V]',
-            borderColor: window.chartColors.grey,
-            backgroundColor: window.chartColors.grey,
+            borderColor: window.chartColors.acqua,
+            backgroundColor: window.chartColors.acqua,
             yAxisID: 'y-axis-V',
             commandValue: '86',
             commandConversion: 'SFXT',
@@ -122,8 +150,8 @@ var config = {
 			data: []
 		}, {
             label: 'IM_DC motor [A]',
-            borderColor: window.chartColors.green,
-            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.orange,
+            backgroundColor: window.chartColors.orange,
             yAxisID: 'y-axis-A',
             commandValue: '87',
             commandConversion: 'SFXT', 
@@ -138,8 +166,8 @@ var config = {
 			data: []
 		}, {
             label: 'VM_DC motor [V]',
-            borderColor: window.chartColors.green,
-            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.lime,
+            backgroundColor: window.chartColors.lime,
             yAxisID: 'y-axis-V',
             commandValue: '88',
             commandConversion: 'SFXT',
@@ -154,12 +182,12 @@ var config = {
 			data: []
 		}, {
             label: 'Iq _ Torque [A]',
-            borderColor: window.chartColors.blue,
-            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.purple,
+            backgroundColor: window.chartColors.purple,
             yAxisID: 'y-axis-A',
             commandValue: '8D',
             commandConversion: 'SFXT',
-            hidden: true,
+            
 
 			type: 'line',
 			fill: false,
@@ -170,8 +198,8 @@ var config = {
 			data: []
 		}, {
             label: 'Id _ Magnetizing Current [A]',
-            borderColor: window.chartColors.blue,
-            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.olive,
+            backgroundColor: window.chartColors.olive,
             yAxisID: 'y-axis-A',
             commandValue: '8E',
             commandConversion: 'SFXT',
@@ -191,7 +219,7 @@ var config = {
             yAxisID: 'y-axis-RPM',
             commandValue: '96',
             commandConversion: 'UINT32',
-            hidden: true,
+            
 
 			type: 'line',
 			fill: false,
@@ -216,24 +244,23 @@ var config = {
         },
 		scales: {
 			xAxes: [{
-				type: 'realtime',
-				realtime: {
-					duration: this.duration,
-					refresh: this.refresh,
-                    delay: this.delay,
-                    pause: true,
-					onRefresh: onRefresh
-				}
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Samples',
+                    fontSize:14,
+                }
 			}],
 			yAxes: [{
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'left',
-                //stacked: true,
                 id: 'y-axis-V',
                 scaleLabel: {
                     display: true,
-                    labelString: 'Volt',
+                    labelString: 'Volts',
+                    fontSize:14,
+
                 },
                  // grid line settings
                 gridLines: {
@@ -243,11 +270,11 @@ var config = {
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'left',
-                stacked: true,
                 id: 'y-axis-A',
                 scaleLabel: {
                     display: true,
                     labelString: 'Amps',
+                    fontSize:14,
                 },
 
                 // grid line settings
@@ -260,12 +287,12 @@ var config = {
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'right',
-                stacked: true,
                 id: 'y-axis-RPM',
                 labelString: '[RPM]',
                 scaleLabel: {
                     display: true,
                     labelString: 'RPM',
+                    fontSize:14,
                 },
             }]
 		},
@@ -286,15 +313,23 @@ window.onload = function() {
 };
 
 function moniotrStart(){
-    if(this.serialReadingSizeToStart<serial.readingSize()){
-        this.monitorActivation = true;
-        config.options.scales.xAxes[0].realtime.pause = false;
+    if(serialReadingSizeToStart<serial.readingSize()){
+        monitorActivation = true;
+        onRefresh(window.myChart);
     }else{
         setTimeout(moniotrStart,500);    
     }
 }
 
 function moniotrStop(){
-    this.monitorActivation = false;
-    config.options.scales.xAxes[0].realtime.pause = true;
+    monitorActivation = false;
+}
+
+function moniotrClean(){
+    window.myChart.config.data.datasets.forEach(function(dataset) {
+        dataset.data = [];         
+        });
+    window.myChart.config.data.labels =[];
+    xVal = 0;
+    window.myChart.update();
 }
