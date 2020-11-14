@@ -8,17 +8,18 @@ var xVal= 0;
 var datasetSize = 0;
 
 var chartColors = {
-	navy: '#001F3F',
+	navy: '#84144B',
 	blue: '#0074D9',
-	acqua: '#39CCCC',
-	teal: '#2ECC40',
-	green: '#01FF70',
-	lime: '#FFDC00',
+	acqua: '#7FDBFF',
+	teal: '#39CCCC',
+	green: '#2ECC40',
+	lime: '#01FF70',
     orange: 'r#FF851B',
     red: '#FF4136' ,
     purple: '#B10DC9',
     black: '#111111',
-    olive: '#3D9970'
+    olive: '#3D9970',
+    yellow: '#FFDC00'
 };
 
 function onRefresh(chart) {
@@ -46,17 +47,31 @@ function onRefresh(chart) {
     }
 
 	chart.config.data.datasets.forEach(function(dataset) {
-       var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
 
-        var myValues = myMessages.map(message => message.toString().substring(8, 16));
-        var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
-        dataset.data.push(...myConvertedValues);    
-        
-       if(dataset.data.length >duration){
-        dataset.data.splice(0,dataset.data.length-duration);
-       }
+        if(!(dataset.commandValue=='SUM')){
+            var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
 
-       datasetSize = dataset.data.length;
+
+            var myValues = myMessages.map(message => message.toString().substring(8, 16));
+            var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
+            dataset.data.push(...myConvertedValues);    
+
+            if(dataset.data.length >duration){
+                dataset.data.splice(0,dataset.data.length-duration);
+            }
+
+            datasetSize = dataset.data.length;
+
+        }else{
+            if(dataset.label=='VC [V]'){
+                dataset.data = chart.config.data.datasets[0].data.map((val, i) => val + chart.config.data.datasets[1].data[i]);
+            }
+            
+            if(dataset.label=='IC [A]'){
+                dataset.data = chart.config.data.datasets[3].data.map((val, i) => val + chart.config.data.datasets[4].data[i]);
+            }
+        }
+
     });
     
 
@@ -101,6 +116,21 @@ var config = {
             pointRadius: 0,
             lineTension: 0,
 			data: []
+        }, {
+            label: 'VC [V]',
+            backgroundColor: window.chartColors.black,
+            borderColor: window.chartColors.black,
+            yAxisID: 'y-axis-V',
+            commandValue: 'SUM',
+            hidden: true,
+
+			type: 'line',
+			fill: false,
+            cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
+            pointRadius: 0,
+            lineTension: 0,
+			data: []
 		}, {
             label: 'IA [A]',
             borderColor: window.chartColors.navy,
@@ -133,7 +163,22 @@ var config = {
             pointRadius: 0,
             lineTension: 0,
 			data: []
-		}, {
+        }, {
+            label: 'IC [A]',
+            borderColor: window.chartColors.yellow,
+            backgroundColor: window.chartColors.yellow,
+            yAxisID: 'y-axis-A',
+            commandValue: 'SUM',
+            hidden: true,
+
+			type: 'line',
+			fill: false,
+            cubicInterpolationMode: 'monotone',
+            borderWidth: 1,
+            pointRadius: 0,
+            lineTension: 0,
+			data: []
+		},{
             label: 'Vsupply [V]',
             borderColor: window.chartColors.acqua,
             backgroundColor: window.chartColors.acqua,
