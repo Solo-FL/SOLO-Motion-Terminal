@@ -36,12 +36,12 @@
                 <div class="d-flex flex-column">
                     
                     <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
-                        <input type="checkbox" class="custom-control-input" id="signalsSwitches" checked>
+                        <input type="checkbox" class="custom-control-input" id="signalsSwitches" >
                         <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
                             <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
                         </a>
                         <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
-                            <input type="checkbox" class="custom-control-input" id="actionsSwitches" >
+                            <input type="checkbox" class="custom-control-input" id="actionsSwitches" checked>
                             <label class="custom-control-label" for="actionsSwitches"><i class="fas fa-table"></i>
                                 <label for="actionsSwitches" class="sidebar-text">Actions</label></label>
                             </a>
@@ -82,7 +82,7 @@
                             </nav>
                             
                             
-                            <div id="signalsTable">
+                            <div id="signalsTable" style="display: none;">
                                 
                                 <div class="container-fluid">
                                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
@@ -100,7 +100,7 @@
                                                         <div class="col col-sm-2">
                                                             Packet to send
                                                         </div>
-                                                        <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12">FFFF00860000000000FE</textarea>
+                                                        <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12" style="height: 20px;">FFFF00860000000000FE</textarea>
                                                         </div>
                                                         <div class="col col-sm-2">
                                                             <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
@@ -113,7 +113,7 @@
                                                             Packet received
                                                         </div>
                                                         <div class="col col-sm-8"><textarea id="termRx" type="text"
-                                                            class="col-sm-12"></textarea></div>
+                                                            class="col-sm-12" style="height: 20px;"></textarea></div>
                                                             <div class="col col-sm-2">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear buffer and data">
                                                                     <i class="fas fa-eraser fa-lg" id="buttonClearBuffer"></i>
@@ -1190,7 +1190,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.1.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.3.0.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>
