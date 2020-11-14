@@ -14,7 +14,7 @@ var chartColors = {
 	teal: '#39CCCC',
 	green: '#2ECC40',
 	lime: '#01FF70',
-    orange: 'r#FF851B',
+    orange: '#FF851B',
     red: '#FF4136' ,
     purple: '#B10DC9',
     black: '#111111',
