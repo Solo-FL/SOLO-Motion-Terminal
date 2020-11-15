@@ -316,7 +316,7 @@ function updateAndFlushSimpleAction(fullcommand, boxToColorId){
     }
   }else
     if(serial.getWritingStatus()!= "OFF"){
-      setTimeout(updateAndFlushSimpleAction,250,command, boxToColorId);
+      setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
     }
   }
 
