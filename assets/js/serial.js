@@ -7,7 +7,7 @@ class Serial {
         this.decoder = new TextDecoder();
         this.myport;
         this.commandsStrings;
-        this.commandsStringsTimer;
+        this.commandsStringsTimer=[];
         this.writingStatus ="OFF";
         this.connectionStatus = "none";
         this.writer;
@@ -107,11 +107,13 @@ class Serial {
     }
 
     async write(data) {
+      if(data!=null){
         const array = this.hexStringToByteArray(data);
         const arrayBuffer = new Uint8Array(array)
         console.log(`message: ${arrayBuffer}`);
 
-        await this.writer.write(arrayBuffer);
+          await this.writer.write(arrayBuffer);
+      }
     }
 
     multipleWriteStart(data){
@@ -120,7 +122,7 @@ class Serial {
           console.log('Execute multiple commands size ' + this.commandsStrings.length);
           this.writingStatus ="ON";
 
-          this.commandsStringsTimer = setInterval(this.multipleWrite.bind(this), 80);
+          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 80));
         }
     }
 
@@ -128,8 +130,8 @@ class Serial {
         this.write(this.commandsStrings.shift());
     
         if (this.commandsStrings.length == 0) {
-            clearInterval(this.commandsStringsTimer);
             this.writingStatus ="OFF";
+            clearInterval(this.commandsStringsTimer.shift());
         }
     }
 
@@ -170,7 +172,7 @@ class Serial {
       }
 
 
-      getLastReadingsByCommand(command,historySize){
+      getLastReadingsByCommand(command, historySize){
         var size = 0;
         for(var px = this.readingList.length-1; px>=0; px--){
           var read = this.readingList[px];
@@ -179,7 +181,7 @@ class Serial {
             return read;
           }
 
-          if(!(size<historySize)){
+          if(historySize!=null && historySize<size){
             return "";
           }
 

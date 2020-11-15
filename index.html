@@ -357,6 +357,27 @@
                                                             <div class="col col-sm-1"></div>
                                                             
                                                         </div>
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12"  onclick="doReadAll()">Read All Params</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
                                                         
                                                     </div>
                                                 </div>
@@ -375,7 +396,7 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification')">Motor Identification</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification'); doReadAll();">Motor Identification</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -468,7 +489,7 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode'); doReadAll();"></i>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
                                                                     <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
