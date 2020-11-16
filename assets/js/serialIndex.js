@@ -35,11 +35,16 @@ function checkStatus(){
         break;
       case "connected":
         connect.style.color = "LimeGreen";
-        doReadAll();
+        doReadAll(convertToCammandToSend('00','19','UINT32',"0"));
+        setTimeout(stopAndCleanMonitor,500);
         break;
     }
   }
 
+}
+
+function stopAndCleanMonitor(){
+  serial.readingList = [];
 }
 
 submitButton.addEventListener('click', event => {
@@ -59,7 +64,7 @@ function updates(commands){
   var text ="";
   
   for(var i = 0; i< commands.length-1; i++){
-    text += serial.getLastReadingsByCommand(commands[i].substr(6,2),2);
+    text += serial.getLastReadingsByCommand(commands[i].substr(6,2),null);
   }
 
   termRxSize= text.replace(/(\r\n|\n|\r|\s)/gm, "").length;
@@ -86,8 +91,12 @@ function doDisbale(checkbox,elements){
   disablePart(toDisable,elements);
 }
 
-function doReadAll(){
+function doReadAll(extraCommand){
+  if(extraCommand==null){
+    extraCommand="";
+  }
   serial.multipleWriteStart(
+    extraCommand+
     "FFFF008C0000000000FE"+ 
     "FFFF008B0000000000FE"+
     "FFFF008F0000000000FE"+
@@ -114,31 +123,31 @@ function doReadAll(){
     );
   
     updateAndFlushSimpleActionRead("FFFF008C0000000000FE", 'SFXT', 0 , 'boxActionMaxCurrent', 'boxActionMaxCurrent',null);
-    setTimeout(updateAndFlushSimpleActionRead,20,"FFFF008B0000000000FE", 'UINT32', 0.001 , 'boxActionPWMFrequency', 'boxActionPWMFrequency',null);
-    setTimeout(updateAndFlushSimpleActionRead,50,"FFFF008F0000000000FE", 'UINT32', 0 , 'boxActionPoles', 'boxActionPoles',null);
-    setTimeout(updateAndFlushSimpleActionRead,70,"FFFF00900000000000FE", 'UINT32', 0 , 'boxActionEncoderLines', 'boxActionEncoderLines',null);
-    setTimeout(updateAndFlushSimpleActionRead,90,"FFFF00970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null);
-    setTimeout(updateAndFlushSimpleActionRead,110,"FFFF00910000000000FE", 'SFXT', 0 , 'boxActionCurrentControllerKp', 'boxActionCurrentControllerKp',null);
-    setTimeout(updateAndFlushSimpleActionRead,130,"FFFF00920000000000FE", 'SFXT', 0.00005 , 'boxActionCurrentControllerKi', 'boxActionCurrentControllerKi',null);
-    setTimeout(updateAndFlushSimpleActionRead,150,"FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
-    setTimeout(updateAndFlushSimpleActionRead,170,"FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
-    setTimeout(updateAndFlushSimpleActionRead,190,"FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);
-    setTimeout(updateAndFlushSimpleActionRead,210,"FFFF00890000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKp', 'boxActionSpeedControllerKp',null);
-    setTimeout(updateAndFlushSimpleActionRead,230,"FFFF008A0000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKi', 'boxActionSpeedControllerKi',null);
-    setTimeout(updateAndFlushSimpleActionRead,250,"FFFF009D0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKp', 'boxActionPositionControllerKp',null);
-    setTimeout(updateAndFlushSimpleActionRead,270,"FFFF009E0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKi', 'boxActionPositionControllerKi',null);
-    setTimeout(updateAndFlushSimpleActionRead,290,"FFFF009C0000000000FE", 'UINT32', 0 , 'boxActionSpeedLimit', 'boxActionSpeedLimit',null);
-    setTimeout(updateAndFlushSimpleActionRead,310,"FFFF00A00000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
-    setTimeout(updateAndFlushSimpleActionRead,330,"FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
-    setTimeout(updateAndFlushSimpleActionRead,350,"FFFF00860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null);
-    setTimeout(updateAndFlushSimpleActionRead,370,"FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
-    setTimeout(updateAndFlushSimpleActionRead,390,"FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
-    setTimeout(updateAndFlushSimpleActionRead,410,"FFFF00A10000000000FE", 'ERROR', 0 , 'boxActionErrorRegister', 'boxActionErrorRegister',null);
-    setTimeout(updateAndFlushSimpleActionRead,430,"FFFF00A20000000000FE", 'NONE', 0 , 'boxActionFirmwareVersion', 'boxActionFirmwareVersion',null);
-    setTimeout(updateAndFlushSimpleActionRead,450,"FFFF00960000000000FE", 'UINT32', 0 , 'boxActionSpeed', 'boxActionSpeed',null);
-    setTimeout(updateAndFlushSimpleActionRead,470,"FFFF008D0000000000FE", 'SFXT', 0 , 'boxActionTorqueIq', 'boxActionTorqueIq',null);
-    setTimeout(updateAndFlushSimpleActionRead,490,"FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null);
-    setTimeout(updateAndFlushSimpleActionRead,510,"FFFF00A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null);
+    updateAndFlushSimpleActionRead("FFFF008B0000000000FE", 'UINT32', 0.001 , 'boxActionPWMFrequency', 'boxActionPWMFrequency',null);
+    updateAndFlushSimpleActionRead("FFFF008F0000000000FE", 'UINT32', 0 , 'boxActionPoles', 'boxActionPoles',null);
+    updateAndFlushSimpleActionRead("FFFF00900000000000FE", 'UINT32', 0 , 'boxActionEncoderLines', 'boxActionEncoderLines',null);
+    updateAndFlushSimpleActionRead("FFFF00970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null);
+    updateAndFlushSimpleActionRead("FFFF00910000000000FE", 'SFXT', 0 , 'boxActionCurrentControllerKp', 'boxActionCurrentControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF00920000000000FE", 'SFXT', 0.00005 , 'boxActionCurrentControllerKi', 'boxActionCurrentControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
+    updateAndFlushSimpleActionRead("FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
+    updateAndFlushSimpleActionRead("FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);
+    updateAndFlushSimpleActionRead("FFFF00890000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKp', 'boxActionSpeedControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF008A0000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKi', 'boxActionSpeedControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009D0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKp', 'boxActionPositionControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF009E0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKi', 'boxActionPositionControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009C0000000000FE", 'UINT32', 0 , 'boxActionSpeedLimit', 'boxActionSpeedLimit',null);
+    updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
+    updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null);
+    updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
+    updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
+    updateAndFlushSimpleActionRead("FFFF00A10000000000FE", 'ERROR', 0 , 'boxActionErrorRegister', 'boxActionErrorRegister',null);
+    updateAndFlushSimpleActionRead("FFFF00A20000000000FE", 'NONE', 0 , 'boxActionFirmwareVersion', 'boxActionFirmwareVersion',null);
+    updateAndFlushSimpleActionRead("FFFF00960000000000FE", 'UINT32', 0 , 'boxActionSpeed', 'boxActionSpeed',null);
+    updateAndFlushSimpleActionRead("FFFF008D0000000000FE", 'SFXT', 0 , 'boxActionTorqueIq', 'boxActionTorqueIq',null);
+    updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null);
 
 }
 
@@ -220,13 +229,18 @@ function doActionStopMotor(){
   setTimeout(doAction, 1050,'00','1F','UINT32','01','bActionMotorStop'); 
 }
 
-function doAction(address, command, type, valueOrValueId, boxToColorId ){
+function convertToCammandToSend(address, command, type, valueOrValueId){
   var value = valueOrValueId;
   if(valueOrValueId.toString().length>2){
     value = document.getElementById(valueOrValueId).value
   }
-  
   var commandToSend= "FFFF" + address + command + convertFromType(type,value) + "00FE";
+  
+  return commandToSend;
+}
+
+function doAction(address, command, type, valueOrValueId, boxToColorId ){
+  var commandToSend= convertToCammandToSend(address, command, type, valueOrValueId);
   console.log('Do action: ' + commandToSend);
   doSimpleAction (commandToSend,boxToColorId);
 }
@@ -260,7 +274,7 @@ function convertToType(type,value){
 function doSimpleActionRead (commandToSend, typeToSet, valueToSetId ,boxToColorId , multiply){
   if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleActionRead,250,commandToSend,typeToSet, multiply,valueToSetId, boxToColorId,2);
+    setTimeout(updateAndFlushSimpleActionRead,250,commandToSend,typeToSet, multiply,valueToSetId, boxToColorId, null);
   }
 }
 
@@ -273,51 +287,55 @@ function doSimpleAction(commandToSend,boxToColorId){
   }
 }
 function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readValueToSetId, boxToColorId, historySize) {
-  var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize);
+  if(serial.getWritingStatus() != "OFF"){
+    setTimeout(updateAndFlushSimpleActionRead,250,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
+  }else{
 
-  if(recivedCommand.length>0){
+    var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize);
 
-    var commandRead = recivedCommand.substring(8, 16);
-    var commandToSet= convertToType(typeToSet, commandRead);
-    if(multiply!=0){
-      commandToSet = commandToSet * multiply;
-    }
-    
-    document.getElementById(readValueToSetId).value = commandToSet; 
-    
-    if(readValueToSetId=='boxActionControlType'){
-      document.getElementById(readValueToSetId).onchange(); 
-    }
+    if(recivedCommand.length>0){
 
-    if(boxToColorId!=null){
-      document.getElementById(boxToColorId).classList.add("bg-info");
-      setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
-    }
+      var commandRead = recivedCommand.substring(8, 16);
+      var commandToSet= convertToType(typeToSet, commandRead);
+      if(multiply!=0){
+        commandToSet = commandToSet * multiply;
+      }
+      
+      document.getElementById(readValueToSetId).value = commandToSet; 
+      
+      if(readValueToSetId=='boxActionControlType'){
+        document.getElementById(readValueToSetId).onchange(); 
+      }
 
-  }else
-    if(serial.getWritingStatus() != "OFF"){
-      setTimeout(updateAndFlushSimpleActionRead,250,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
+      if(boxToColorId!=null){
+        document.getElementById(boxToColorId).classList.add("bg-info");
+        setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
+      }
+
     }
   }
+}
 
 
 function updateAndFlushSimpleAction(fullcommand, boxToColorId){
-  var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2);
+  if(serial.getWritingStatus()!= "OFF"){
+    setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
+  }else{
+    var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2);
 
-  if(commandRecived.length>0){
+    if(commandRecived.length>0){
 
-    if(boxToColorId!=null){
-      if(commandRecived == fullcommand){
-        document.getElementById(boxToColorId).classList.add("bg-success");
-      }else{
-        document.getElementById(boxToColorId).classList.add("bg-danger");
+      if(boxToColorId!=null){
+        if(commandRecived == fullcommand){
+          document.getElementById(boxToColorId).classList.add("bg-success");
+        }else{
+          document.getElementById(boxToColorId).classList.add("bg-danger");
+        }
+        setTimeout(clearTimeoutBoxToColor,500,boxToColorId);
       }
-      setTimeout(clearTimeoutBoxToColor,500,boxToColorId);
     }
-  }else
-    if(serial.getWritingStatus()!= "OFF"){
-      setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
-    }
+  }
+    
   }
 
 function clearTimeoutBoxToColor(boxToColorId){

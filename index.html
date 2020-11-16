@@ -396,7 +396,7 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification'); doReadAll();">Motor Identification</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doReadAll(convertToCammandToSend('00','07','UINT32','bActionMotorIdentification'));">Motor Identification</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -489,7 +489,7 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode'); doReadAll();"></i>
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSend('00','02','UINT32','boxActionCommandMode'));"></i>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
                                                                     <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
