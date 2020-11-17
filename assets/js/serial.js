@@ -59,7 +59,8 @@ class Serial {
                   const { value, done } = await this.reader.read();
                   if (value) {
                     var newMessage = this.arrayAlementsToString(value);
-                    console.log('read: '+ newMessage);
+                    
+                    //console.log('read: '+ newMessage);
 
                     this.readingPreList += newMessage;
                     packetReceivedStart = this.readingPreList.indexOf("FF",0);
