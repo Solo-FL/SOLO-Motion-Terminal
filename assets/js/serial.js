@@ -122,7 +122,7 @@ class Serial {
           console.log('Execute multiple commands size ' + this.commandsStrings.length);
           this.writingStatus ="ON";
 
-          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 3));
+          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 20));
         }
     }
 
