@@ -36,16 +36,12 @@ function checkStatus(){
       case "connected":
         connect.style.color = "LimeGreen";
         doReadAll(convertToCammandToSend('00','19','UINT32',"0"));
-        setTimeout(stopAndCleanMonitor,500);
         break;
     }
   }
 
 }
 
-function stopAndCleanMonitor(){
-  serial.readingList = [];
-}
 
 submitButton.addEventListener('click', event => {
   if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
