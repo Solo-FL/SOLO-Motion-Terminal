@@ -14,6 +14,7 @@ class Serial {
         this.isMonitoring = false;
         this.readingList = [];
         this.readingPreList = "";
+        this.monitorIsInStopping = false;
         this.isRecordingActivated = false;
         this.recordingIndex = 0;
     }
@@ -21,9 +22,16 @@ class Serial {
     async disconnect(){
       if(this.myport){
       console.log('disconnection start');
-      //this.writer.close();
-      //await  this.myport.close();
-      //this.connectionStatus="none";
+      
+      await this.reader.cancel();
+      console.log('disconnected reader');
+
+      await this.writer.close();
+      console.log('disconnected writer');
+
+      await this.myport.close();
+      console.log('disconnected port');
+      this.connectionStatus = "none";
       }
       return;
     }
@@ -52,18 +60,31 @@ class Serial {
                 console.log('SIGNALS: ');
                 console.log(signals);
                 
-                var packetReceived ="";
-                var packetReceivedStart =0;
-                var packetReceivedList =[];
+                
                 while (true) {
                   const { value, done } = await this.reader.read();
                   if (value) {
+                    var packetReceived ="";
+                    var packetReceivedStart =0;
+                    var packetReceivedList =[];
+
                     var newMessage = this.arrayAlementsToString(value);
                     
-                    //console.log('read: '+ newMessage);
+                    console.log('read: '+ newMessage);
+                    if(this.monitorIsInStopping){
+                      this.readingPreList += newMessage;
+                      packetReceivedStart = this.readingPreList.indexOf("FFFF00190000000000FE",0);
+                      if(packetReceivedStart>=0){
+                        this.readingList=[];
+                        this.monitorIsInStopping=false;
+                      }else{
+                        continue;
+                      }
+                    }else{
+                      this.readingPreList += newMessage;
+                      packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+                    }
 
-                    this.readingPreList += newMessage;
-                    packetReceivedStart = this.readingPreList.indexOf("FF",0);
                     packetReceived = this.readingPreList.substr
                       (packetReceivedStart,
                       this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
@@ -111,37 +132,44 @@ class Serial {
       if(data!=null){
         const array = this.hexStringToByteArray(data);
         const arrayBuffer = new Uint8Array(array)
-        console.log(`message: ${arrayBuffer}`);
+        console.log(`message: ${data} , ${arrayBuffer}`);
 
           await this.writer.write(arrayBuffer);
       }
     }
 
     multipleWriteStart(data){
+      if(this.writingStatus =="OFF"){
         this.commandsStrings = this.truncateBy20(data);
         if(this.commandsStrings != null){
           console.log('Execute multiple commands size ' + this.commandsStrings.length);
           this.writingStatus ="ON";
 
-          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 20));
+          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 80));
         }
+      }
     }
 
     multipleWrite() {
         this.write(this.commandsStrings.shift());
     
         if (this.commandsStrings.length == 0) {
-            this.writingStatus ="OFF";
             clearInterval(this.commandsStringsTimer.shift());
+            this.writingStatus ="OFF";
+            //setTimeout(this.writingStatusOff.bind(this),200);
         }
+    }
+
+    writingStatusOff(){
+      this.writingStatus ="OFF";
     }
 
     truncateBy20 (data){
         var hexStringOnlyText = data.replace(/(\r\n|\n|\r|\s)/gm, "");
-        //hexStringOnlyText += "FFFF008B0000000000FE"; //TODO add control request
+        //hexStringOnlyText += "FFFF00930000000000FE "; //TODO add control request
         var splitCommands = hexStringOnlyText.match(/.{20}/g);
         if (splitCommands!= null && splitCommands.length>0){
-          splitCommands.push("FFFF008B0000000000FE"); //TODO add control request
+          splitCommands.push("FFFF00930000000000FE"); //TODO add control request
         }
         return splitCommands;
     }
@@ -261,6 +289,14 @@ class Serial {
           }
           this.isRecordingActivated = newRecordingStatus;
         }
+      }
+
+
+      cleanMonitorBuffer(){
+        this.monitorIsInStopping=true;
+        this.multipleWriteStart(
+        'FFFF00190000000000FE'+
+        'FFFF00190000000000FE')
       }
 
       saveRecording(){

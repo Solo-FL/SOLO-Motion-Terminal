@@ -35,7 +35,8 @@ function checkStatus(){
         break;
       case "connected":
         connect.style.color = "LimeGreen";
-        doReadAll(convertToCammandToSend('00','19','UINT32',"0"));
+        this.monitorIsInStopping=true;
+        doReadAll('FFFF00190000000000FE'+'FFFF00190000000000FE');
         break;
     }
   }

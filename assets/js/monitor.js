@@ -367,8 +367,12 @@ function moniotrStart(){
 }
 
 function moniotrStop(){
-    monitorActivation = false;
+        monitorActivation = false;
+        serial.cleanMonitorBuffer();
+        
 }
+
+
 
 function moniotrClean(){
     window.myChart.config.data.datasets.forEach(function(dataset) {
