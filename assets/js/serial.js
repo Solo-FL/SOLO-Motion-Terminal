@@ -202,12 +202,15 @@ class Serial {
 
       
 
-      getLastReadingsByCommand(command, historySize){
+      getLastReadingsByCommand(command, historySize ,isToPop){
         var size = 0;
         for(var px = this.readingList.length-1; px>=0; px--){
           var read = this.readingList[px];
           
           if(read.substr(6,2)==command){
+            if(isToPop){
+              return this.readingList.splice(px,1);
+            }
             return read;
           }
 
@@ -294,6 +297,8 @@ class Serial {
 
       cleanMonitorBuffer(){
         this.monitorIsInStopping=true;
+        this.readingPreList="";
+        this.readingList = [];
         this.multipleWriteStart(
         'FFFF00190000000000FE'+
         'FFFF00190000000000FE')

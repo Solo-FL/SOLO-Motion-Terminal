@@ -59,24 +59,24 @@ clearButton.addEventListener('click', event => {
 
 function updates(commands){
   var text ="";
-  
-  for(var i = 0; i< commands.length-1; i++){
-    text += serial.getLastReadingsByCommand(commands[i].substr(6,2),null);
-  }
-
-  termRxSize= text.replace(/(\r\n|\n|\r|\s)/gm, "").length;
-  termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
-
-  if(termRxSize>=termTxSize){
-    document.querySelector('#termRx').value=text;
-    document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
-  }else{
+  if(monitorActivation==false){
+    
     if(serial.getWritingStatus() != "OFF"){
       setTimeout(updates,250,commands);
+      return;
     }
-  }
 
-  prettifyHex();
+    for(var i = commands.length-2; i>= 0; i--){
+      text =  serial.getLastReadingsByCommand(commands[i].substr(6,2),null, true) + text;
+    }
+
+    document.querySelector('#termRx').value=text;
+
+    prettifyHex();
+  }else{
+    document.getElementById('termRx').classList.add("bg-warning");
+    setTimeout(clearTimeoutBoxToColor,500,'termRx');
+  }
 }
 
 function doDisbale(checkbox,elements){
@@ -288,7 +288,13 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
     setTimeout(updateAndFlushSimpleActionRead,250,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
   }else{
 
-    var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize);
+    if(boxToColorId!=null && monitorActivation==true){
+      document.getElementById(boxToColorId).classList.add("bg-warning");
+      setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
+      return;
+    }
+
+    var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize, false);
 
     if(recivedCommand.length>0){
 
@@ -318,26 +324,29 @@ function updateAndFlushSimpleAction(fullcommand, boxToColorId){
   if(serial.getWritingStatus()!= "OFF"){
     setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
   }else{
-    var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2);
-
-    if(commandRecived.length>0){
-
-      if(boxToColorId!=null){
-        if(commandRecived == fullcommand){
-          document.getElementById(boxToColorId).classList.add("bg-success");
-        }else{
-          document.getElementById(boxToColorId).classList.add("bg-danger");
-        }
+    var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2, false);
+  
+    if(boxToColorId!=null){
+          if(monitorActivation==false){
+            if(commandRecived == fullcommand){
+              document.getElementById(boxToColorId).classList.add("bg-success");
+            }else{
+              document.getElementById(boxToColorId).classList.add("bg-danger");
+            }
+          }else{
+            document.getElementById(boxToColorId).classList.add("bg-warning");
+          }
         setTimeout(clearTimeoutBoxToColor,500,boxToColorId);
-      }
+  
     }
+
   }
     
   }
 
 function clearTimeoutBoxToColor(boxToColorId){
   if(boxToColorId!=null){
-    document.getElementById(boxToColorId).classList.remove("bg-danger","bg-success", "bg-info");
+    document.getElementById(boxToColorId).classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
   }
 }
 
