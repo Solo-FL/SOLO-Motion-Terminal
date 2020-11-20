@@ -360,6 +360,7 @@ window.onload = function() {
 function moniotrStart(){
     if(serialReadingSizeToStart<serial.readingSize()){
         monitorActivation = true;
+        document.getElementById("myChart").classList.remove("bg-warning");
         onRefresh(window.myChart);
     }else{
         setTimeout(moniotrStart,500);    

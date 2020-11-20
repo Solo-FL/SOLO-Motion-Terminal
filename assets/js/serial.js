@@ -114,8 +114,47 @@ class Serial {
                           setTimeout(this.clearRed,500);
                         }
                       }
-
                     }
+
+
+                    if(this.isMonitoring){
+                      for(var li = 0; li <this.readingList.length;li++){
+                        var messageToCheck = this.readingList[li];
+                        if(messageToCheck.substr(0,8)=="FFFF00A1" && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                          document.getElementById("myChart").classList.add("bg-warning");
+
+                          var errorText="";
+                            switch ( messageToCheck.substring(8, 16)){
+                              case 0:
+                                errorText= "0: No Errors";
+                                break;
+                              case 1:
+                                errorText= "1: O.C. (Over-Current)";
+                                break;
+                              case 2:
+                                errorText= "2: O.V. (Over-Voltage)";
+                                break;
+                              case 3:
+                                errorText= "3: O.V., O.C.";
+                                break;
+                              case 4:
+                                errorText= "4: O.T. (Over-Temp.)";
+                                break;
+                              case 5:
+                                errorText= "5: O.C., O.T.";
+                                break;
+                              case 6:
+                                errorText= "6: O.V., O.T.";
+                                break;
+                              case 7: 
+                                errorText= "7: O.C., O.V., O.T";
+                                break;
+                            }
+                            document.querySelector('boxActionErrorRegister').value=errorText;
+                        }
+                      }
+                    }
+
                   
                     if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
                       localStorage.setItem(this.recordingIndex, newMessage);
