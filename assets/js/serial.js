@@ -14,7 +14,7 @@ class Serial {
         this.isMonitoring = false;
         this.readingList = [];
         this.readingPreList = "";
-        this.monitorIsInStopping = false;
+        this.monitorIsInStopping = 0; //pezza: 
         this.isRecordingActivated = false;
         this.recordingIndex = 0;
     }
@@ -70,13 +70,13 @@ class Serial {
 
                     var newMessage = this.arrayAlementsToString(value);
                     
-                    console.log('read: '+ newMessage);
-                    if(this.monitorIsInStopping){
+                    //console.log('read: '+ newMessage);
+                    if(this.monitorIsInStopping==1){
                       this.readingPreList += newMessage;
                       packetReceivedStart = this.readingPreList.indexOf("FFFF00190000000000FE",0);
                       if(packetReceivedStart>=0){
                         this.readingList=[];
-                        this.monitorIsInStopping=false;
+                        this.monitorIsInStopping=2;
                       }else{
                         continue;
                       }
@@ -92,6 +92,29 @@ class Serial {
                     if(packetReceivedList!=null){
                       this.readingList=this.readingList.concat(packetReceivedList);
                       this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
+
+                      if(this.monitorIsInStopping==2){
+                        var countEco =0;
+                        for(var li = 0; li <this.readingList.length;li++){
+                          var messageToCheck = this.readingList[li];
+                          if(messageToCheck.substr(0,8)=="FFFF0019" && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                            this.readingList=[];
+                            this.multipleWriteStart("FFFF00190000000100FE");
+                            //this.cleanMonitorBuffer();
+                            setTimeout(this.cleanMonitorBuffer.bind(this),Math.round(Math.random()*1000+200));
+                          }
+
+                          if(messageToCheck=="FFFF00190000000000FE"){
+                            countEco++;
+                          }
+                        }
+
+                        if(countEco==2){
+                          this.monitorIsInStopping=0;
+                          document.getElementById("bMonitorStop").classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+                        }
+                      }
+
                     }
                   
                     if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
@@ -296,7 +319,8 @@ class Serial {
 
 
       cleanMonitorBuffer(){
-        this.monitorIsInStopping=true;
+        document.getElementById("bMonitorStop").classList.add("bg-danger");
+        this.monitorIsInStopping=1;
         this.readingPreList="";
         this.readingList = [];
         this.multipleWriteStart(
