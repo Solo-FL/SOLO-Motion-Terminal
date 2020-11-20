@@ -111,7 +111,7 @@ class Serial {
 
                         if(countEco==2){
                           this.monitorIsInStopping=0;
-                          document.getElementById("bMonitorStop").classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+                          setTimeout(this.clearRed,500);
                         }
                       }
 
@@ -151,6 +151,10 @@ class Serial {
         }
     }
 
+    clearRed(){
+      document.getElementById("bMonitorStop").classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+    }
+    
     async write(data) {
       if(data!=null){
         const array = this.hexStringToByteArray(data);
@@ -168,7 +172,7 @@ class Serial {
           console.log('Execute multiple commands size ' + this.commandsStrings.length);
           this.writingStatus ="ON";
 
-          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 80));
+          this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 10));
         }
       }
     }

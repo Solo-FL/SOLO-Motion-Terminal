@@ -62,7 +62,7 @@ function updates(commands){
   if(monitorActivation==false){
     
     if(serial.getWritingStatus() != "OFF"){
-      setTimeout(updates,250,commands);
+      setTimeout(updates,100,commands);
       return;
     }
 
@@ -271,7 +271,7 @@ function convertToType(type,value){
 function doSimpleActionRead (commandToSend, typeToSet, valueToSetId ,boxToColorId , multiply){
   if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleActionRead,250,commandToSend,typeToSet, multiply,valueToSetId, boxToColorId, null);
+    setTimeout(updateAndFlushSimpleActionRead,200,commandToSend,typeToSet, multiply,valueToSetId, boxToColorId, null);
   }
 }
 
@@ -280,12 +280,12 @@ function doSimpleAction(commandToSend,boxToColorId){
   
   if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleAction,250,commandToSend,boxToColorId);
+    setTimeout(updateAndFlushSimpleAction,200,commandToSend,boxToColorId);
   }
 }
 function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readValueToSetId, boxToColorId, historySize) {
   if(serial.getWritingStatus() != "OFF"){
-    setTimeout(updateAndFlushSimpleActionRead,250,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
+    setTimeout(updateAndFlushSimpleActionRead,200,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
   }else{
 
     if(boxToColorId!=null && monitorActivation==true){
