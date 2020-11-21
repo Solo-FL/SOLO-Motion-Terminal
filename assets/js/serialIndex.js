@@ -9,20 +9,7 @@ const submitButton = document.getElementById('buttonSimpleTX');
 const clearButton = document.getElementById('buttonClearBuffer'); 
 const serialMessagesContainer = document.getElementById('termRx');
 
-const bActionPoleSize = document.getElementById('?');
-const bActionMaxTorque = document.getElementById('?');
-const bActionMaxSpeed = document.getElementById('?');
-
-this.timeoutBoxToColor = null; 
-this.timeoutCommandSent = null;
-this.timeoutCommandRecived = null;
-this.timeoutReadValueToSetId = null;
-this.timeoutReadTypeToSet = null;
-this.timeoutClearTimeout = null;
-this.timeoutMultiply = 1;
-this.timeoutIsMultiply = false;
-
-this.serialWritingStatus="OFF";
+this.serialOldConnectionStatus;
 
 connect.addEventListener('click', () => {
   switch(serial.getConnectionStatus()){
@@ -37,25 +24,31 @@ connect.addEventListener('click', () => {
 setInterval(checkStatus,1000);
 
 function checkStatus(){
-  switch(serial.getConnectionStatus()){
-    case "error":
-      connect.style.color = "orange";
-      break;
-    case "none":
-      connect.style.color = "gray";
-      break;
-    case "connected":
-      connect.style.color = "LimeGreen";
-      break;
+  if(this.serialOldConnectionStatus != serial.getConnectionStatus()){
+    this.serialOldConnectionStatus=serial.getConnectionStatus();
+    switch(this.serialOldConnectionStatus){
+      case "error":
+        connect.style.color = "orange";
+        break;
+      case "none":
+        connect.style.color = "gray";
+        break;
+      case "connected":
+        connect.style.color = "LimeGreen";
+        this.monitorIsInStopping=true;
+        doReadAll('FFFF00190000000000FE'+'FFFF00190000000000FE');
+        break;
+    }
   }
+
 }
 
+
 submitButton.addEventListener('click', event => {
-  if(serial.getConnectionStatus() == "connected" && this.serialWritingStatus == "OFF"){
+  if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(messageInput.value);
     serialMessagesContainer.value="";
-    this.serialWritingStatus = "START";
-    setTimeout(updateAndFlush,250,messageInput.value.substr(6,2));
+    setTimeout(updates,250,serial.truncateBy20(messageInput.value));
   }
 });
 
@@ -64,26 +57,26 @@ clearButton.addEventListener('click', event => {
   serialMessagesContainer.value="";
 });
 
-function updateAndFlush(command){
-  
-  serialMessagesContainer.value=serial.getLastReadingsByCommand(command,2);
-
-  termRxSize= document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
-  termTxSize= document.querySelector('#termTx').value.replace(/(\r\n|\n|\r|\s)/gm, "").length;
-  if(termRxSize>=termTxSize){
-    this.serialWritingStatus = "OFF";
-    //FIXME serial.flushreadings();
-    //document.querySelector('#termRx').value=document.querySelector('#termRx').value.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
-  }else{
-    if(this.serialWritingStatus == "START"){
-      if(serial.getWritingStatus() =="OFF"){
-        this.serialWritingStatus = "OFF";
-      }
-      setTimeout(updateAndFlush,250,command);
+function updates(commands){
+  var text ="";
+  if(monitorActivation==false){
+    
+    if(serial.getWritingStatus() != "OFF"){
+      setTimeout(updates,100,commands);
+      return;
     }
-  }
 
-  prettifyHex();
+    for(var i = commands.length-2; i>= 0; i--){
+      text =  serial.getLastReadingsByCommand(commands[i].substr(6,2),null, true) + text;
+    }
+
+    document.querySelector('#termRx').value=text;
+
+    prettifyHex();
+  }else{
+    document.getElementById('termRx').classList.add("bg-warning");
+    setTimeout(clearTimeoutBoxToColor,500,'termRx');
+  }
 }
 
 function doDisbale(checkbox,elements){
@@ -93,6 +86,66 @@ function doDisbale(checkbox,elements){
     alert("The current Controller Gains are automatically identified by SOLO when you do the 'Motor Identification'");
   }
   disablePart(toDisable,elements);
+}
+
+function doReadAll(extraCommand){
+  if(extraCommand==null){
+    extraCommand="";
+  }
+  serial.multipleWriteStart(
+    extraCommand+
+    "FFFF008C0000000000FE"+ 
+    "FFFF008B0000000000FE"+
+    "FFFF008F0000000000FE"+
+    "FFFF00900000000000FE"+
+    "FFFF00970000000000FE"+
+    "FFFF00910000000000FE"+
+    "FFFF00920000000000FE"+
+    "FFFF009A0000000000FE"+
+    "FFFF00990000000000FE"+
+    "FFFF009B0000000000FE"+
+    "FFFF00890000000000FE"+
+    "FFFF008A0000000000FE"+
+    "FFFF009D0000000000FE"+
+    "FFFF009E0000000000FE"+
+    "FFFF009C0000000000FE"+
+    "FFFF00A00000000000FE"+
+    "FFFF008E0000000000FE"+
+    "FFFF00860000000000FE"+
+    "FFFF00930000000000FE"+
+    "FFFF00A10000000000FE"+
+    "FFFF00A20000000000FE"+
+    "FFFF00960000000000FE"+
+    "FFFF008D0000000000FE"
+    );
+  
+    updateAndFlushSimpleActionRead("FFFF008C0000000000FE", 'SFXT', 0 , 'boxActionMaxCurrent', 'boxActionMaxCurrent',null);
+    updateAndFlushSimpleActionRead("FFFF008B0000000000FE", 'UINT32', 0.001 , 'boxActionPWMFrequency', 'boxActionPWMFrequency',null);
+    updateAndFlushSimpleActionRead("FFFF008F0000000000FE", 'UINT32', 0 , 'boxActionPoles', 'boxActionPoles',null);
+    updateAndFlushSimpleActionRead("FFFF00900000000000FE", 'UINT32', 0 , 'boxActionEncoderLines', 'boxActionEncoderLines',null);
+    updateAndFlushSimpleActionRead("FFFF00970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null);
+    updateAndFlushSimpleActionRead("FFFF00910000000000FE", 'SFXT', 0 , 'boxActionCurrentControllerKp', 'boxActionCurrentControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF00920000000000FE", 'SFXT', 0.00005 , 'boxActionCurrentControllerKi', 'boxActionCurrentControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
+    updateAndFlushSimpleActionRead("FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
+    updateAndFlushSimpleActionRead("FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);
+    updateAndFlushSimpleActionRead("FFFF00890000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKp', 'boxActionSpeedControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF008A0000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKi', 'boxActionSpeedControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009D0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKp', 'boxActionPositionControllerKp',null);
+    updateAndFlushSimpleActionRead("FFFF009E0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKi', 'boxActionPositionControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF009C0000000000FE", 'UINT32', 0 , 'boxActionSpeedLimit', 'boxActionSpeedLimit',null);
+    updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
+    updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null);
+    updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
+    updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
+    updateAndFlushSimpleActionRead("FFFF00A10000000000FE", 'ERROR', 0 , 'boxActionErrorRegister', 'boxActionErrorRegister',null);
+    updateAndFlushSimpleActionRead("FFFF00A20000000000FE", 'NONE', 0 , 'boxActionFirmwareVersion', 'boxActionFirmwareVersion',null);
+    updateAndFlushSimpleActionRead("FFFF00960000000000FE", 'UINT32', 0 , 'boxActionSpeed', 'boxActionSpeed',null);
+    updateAndFlushSimpleActionRead("FFFF008D0000000000FE", 'SFXT', 0 , 'boxActionTorqueIq', 'boxActionTorqueIq',null);
+    updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null);
+
 }
 
 function doActionSemplification(boxValueId){
@@ -153,15 +206,17 @@ function disablePart(value, ids){
 }
 
 function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToColorId, valueToMultiply ){
-  this.timeoutMultiply = parseFloat(valueToMultiply);
-  this.timeoutIsMultiply = true;
-  doActionRead(address, command, typeToSet, valueToSetId, boxToColorId );
+  doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, parseFloat(valueToMultiply));
 }
 
-function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId ){
-  clearTimeoutBoxToColor();
+function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, multiply){
   var commandToSend= "FFFF" + address + command + "00000000" + "00FE";
-  doSimpleActionRead(commandToSend, typeToSet , valueToSetId, boxToColorId);
+
+  if(multiply==null){
+    multiply =0;
+  }
+
+  doSimpleActionRead(commandToSend, typeToSet , valueToSetId, boxToColorId, multiply);
 }
 
 function doActionStopMotor(){
@@ -171,15 +226,18 @@ function doActionStopMotor(){
   setTimeout(doAction, 1050,'00','1F','UINT32','01','bActionMotorStop'); 
 }
 
-function doAction(address, command, type, valueOrValueId, boxToColorId ){
-  clearTimeoutBoxToColor();
-  
+function convertToCammandToSend(address, command, type, valueOrValueId){
   var value = valueOrValueId;
   if(valueOrValueId.toString().length>2){
     value = document.getElementById(valueOrValueId).value
   }
-  
   var commandToSend= "FFFF" + address + command + convertFromType(type,value) + "00FE";
+  
+  return commandToSend;
+}
+
+function doAction(address, command, type, valueOrValueId, boxToColorId ){
+  var commandToSend= convertToCammandToSend(address, command, type, valueOrValueId);
   console.log('Do action: ' + commandToSend);
   doSimpleAction (commandToSend,boxToColorId);
 }
@@ -210,98 +268,95 @@ function convertToType(type,value){
   }
 }
 
-function doSimpleActionRead (commandToSend, typeToSet, valueToSetId ,boxToColorId){
-  var boxToColor = document.getElementById(boxToColorId)
-  if(serial.getConnectionStatus() == "connected" && this.serialWritingStatus == "OFF"){
-    this.serialWritingStatus = "START";
-    this.timeoutBoxToColor = boxToColor;
-    this.timeoutCommandSent = commandToSend;
-    this.timeoutReadValueToSetId = valueToSetId;
-    this.timeoutReadTypeToSet = typeToSet;
+function doSimpleActionRead (commandToSend, typeToSet, valueToSetId ,boxToColorId , multiply){
+  if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleActionRead,250,commandToSend.substr(6,2));
+    setTimeout(updateAndFlushSimpleActionRead,200,commandToSend,typeToSet, multiply,valueToSetId, boxToColorId, null);
   }
 }
 
 
 function doSimpleAction(commandToSend,boxToColorId){
-  var boxToColor = document.getElementById(boxToColorId)
-  if(serial.getConnectionStatus() == "connected" && this.serialWritingStatus == "OFF"){
-    this.serialWritingStatus = "START";
-    this.timeoutBoxToColor = boxToColor;
-    this.timeoutCommandSent = commandToSend;
+  
+  if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
     serial.multipleWriteStart(commandToSend);
-    setTimeout(updateAndFlushSimpleAction,250,commandToSend.substr(6,2));
+    setTimeout(updateAndFlushSimpleAction,200,commandToSend,boxToColorId);
   }
 }
-function updateAndFlushSimpleActionRead(command){
-  this.timeoutCommandRecived=serial.getLastReadingsByCommand(command,2);
+function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readValueToSetId, boxToColorId, historySize) {
+  if(serial.getWritingStatus() != "OFF"){
+    setTimeout(updateAndFlushSimpleActionRead,200,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
+  }else{
 
-  var termRxSize= this.timeoutCommandRecived.length;
-  var termTxSize= this.timeoutCommandSent.length;
-  if(termRxSize>=termTxSize){
-    this.serialWritingStatus = "OFF";
-    //serial.flushreadings();
-    //this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
-
-    
-    this.timeoutBoxToColor.classList.add("bg-info");
-    var commandRead = this.timeoutCommandRecived.substring(8, 16);
-    var commandToSet= convertToType(this.timeoutReadTypeToSet, commandRead)
-    if(this.timeoutIsMultiply){
-      document.getElementById(this.timeoutReadValueToSetId).value = commandToSet * this.timeoutMultiply; 
-      this.timeoutMultiply = 1;
-      this.timeoutIsMultiply= false;
-    }else{
-      document.getElementById(this.timeoutReadValueToSetId).value = commandToSet; 
+    if(boxToColorId!=null && monitorActivation==true){
+      document.getElementById(boxToColorId).classList.add("bg-warning");
+      setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
+      return;
     }
 
-    if(this.timeoutReadValueToSetId=='boxActionControlType'){
-      document.getElementById(this.timeoutReadValueToSetId).onchange(); 
-    }
-    
-    this.timeoutClearTimeout=setTimeout(clearTimeoutBoxToColor,500);
-  }else
-    if(this.serialWritingStatus == "START"){
-      if(serial.getWritingStatus() =="OFF"){
-        this.serialWritingStatus = "OFF";
+    var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize, false);
+
+    if(recivedCommand.length>0){
+
+      var commandRead = recivedCommand.substring(8, 16);
+      var commandToSet= convertToType(typeToSet, commandRead);
+      if(multiply!=0){
+        commandToSet = commandToSet * multiply;
       }
-      setTimeout(updateAndFlushSimpleActionRead,250,command);
-    }
-  }
-
-
-function updateAndFlushSimpleAction(command){
-  this.timeoutCommandRecived=serial.getLastReadingsByCommand(command,2);
-
-  var termRxSize= this.timeoutCommandRecived.length;
-  var termTxSize= this.timeoutCommandSent.length;
-  if(termRxSize>=termTxSize){
-    this.serialWritingStatus = "OFF";
-    //serial.flushreadings();
-    ///this.timeoutCommandRecived=this.timeoutCommandRecived.replace(/(\r\n|\n|\r|\s)/gm, "").substring(0,20*Math.floor(termTxSize/20));
-
-    if(this.timeoutCommandRecived == this.timeoutCommandSent){
-      this.timeoutBoxToColor.classList.add("bg-success");
-    }else{
-      this.timeoutBoxToColor.classList.add("bg-danger");
-    }
-    this.timeoutClearTimeout = setTimeout(clearTimeoutBoxToColor,500);
-  }else
-    if(this.serialWritingStatus == "START"){
-      if(serial.getWritingStatus() =="OFF"){
-        this.serialWritingStatus = "OFF";
+      
+      document.getElementById(readValueToSetId).value = commandToSet; 
+      
+      if(readValueToSetId=='boxActionControlType'){
+        document.getElementById(readValueToSetId).onchange(); 
       }
-      setTimeout(updateAndFlushSimpleAction,250,command);
+
+      if(boxToColorId!=null){
+        document.getElementById(boxToColorId).classList.add("bg-info");
+        setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
+      }
+
     }
   }
+}
 
-function clearTimeoutBoxToColor(){
-  if(this.timeoutBoxToColor!=null){
-    this.timeoutBoxToColor.classList.remove("bg-danger","bg-success", "bg-info");
+
+function updateAndFlushSimpleAction(fullcommand, boxToColorId){
+  if(serial.getWritingStatus()!= "OFF"){
+    setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
+  }else{
+    var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2, false);
+  
+    if(boxToColorId!=null){
+          if(monitorActivation==false){
+            if(commandRecived == fullcommand){
+              document.getElementById(boxToColorId).classList.add("bg-success");
+            }else{
+              document.getElementById(boxToColorId).classList.add("bg-danger");
+            }
+          }else{
+            document.getElementById(boxToColorId).classList.add("bg-warning");
+          }
+        setTimeout(clearTimeoutBoxToColor,500,boxToColorId);
+  
+    }
+
   }
-  if(this.timeoutClearTimeout!=null){
-    clearTimeout(this.timeoutClearTimeout);
+    
   }
+
+function clearTimeoutBoxToColor(boxToColorId){
+  if(boxToColorId!=null){
+    document.getElementById(boxToColorId).classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+  }
+}
+
+
+function logStart(){
+  serial.setRecording(true);
+}
+
+function logStopAndSave(){
+  serial.setRecording(false);
+  serial.saveRecording();
 }
 

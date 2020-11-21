@@ -14,7 +14,10 @@
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
-    
+
+    <!-- monitor mode -->
+	<script src="assets/js/chart.js@2.8.0"></script>
+	   
 </head>
 
 <body>
@@ -41,7 +44,7 @@
                                 <label for="actionsSwitches" class="sidebar-text">Actions</label></label>
                             </a>
                             <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
-                                <input type="checkbox" class="custom-control-input" id="monitorsSwitches" disabled>
+                                <input type="checkbox" class="custom-control-input" id="monitorsSwitches" checked>
                                 <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
                                     <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
                                 </a>
@@ -77,7 +80,7 @@
                             </nav>
                             
                             
-                            <div id="signalsTable">
+                            <div id="signalsTable" style="display: none;">
                                 
                                 <div class="container-fluid">
                                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
@@ -95,7 +98,7 @@
                                                         <div class="col col-sm-2">
                                                             Packet to send
                                                         </div>
-                                                        <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12">FFFF00860000000000FE</textarea>
+                                                        <div class="col col-sm-8"><textarea id="termTx" class="col-sm-12" style="height: 20px;">FFFF00860000000000FE</textarea>
                                                         </div>
                                                         <div class="col col-sm-2">
                                                             <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
@@ -108,7 +111,7 @@
                                                             Packet received
                                                         </div>
                                                         <div class="col col-sm-8"><textarea id="termRx" type="text"
-                                                            class="col-sm-12"></textarea></div>
+                                                            class="col-sm-12" style="height: 20px;"></textarea></div>
                                                             <div class="col col-sm-2">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear buffer and data">
                                                                     <i class="fas fa-eraser fa-lg" id="buttonClearBuffer"></i>
@@ -171,8 +174,9 @@
                                         
                                     </div>
                                     <br>
-                                </div>
-                                <div id="actionsTable"> 
+                            </div>
+
+                            <div id="actionsTable"> 
                                     <div class="container-fluid">
                                         <div class="d-sm-flex justify-content-between align-items-center mb-4">
                                             <h3 class="text-dark mb-0">Actions</h3>
@@ -353,6 +357,27 @@
                                                             <div class="col col-sm-1"></div>
                                                             
                                                         </div>
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12"  onclick="doReadAll()">Read All Params</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
                                                         
                                                     </div>
                                                 </div>
@@ -371,7 +396,7 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doAction('00','07','UINT32','bActionMotorIdentification','bActionMotorIdentification')">Motor Identification</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doReadAll(convertToCammandToSend('00','07','UINT32','bActionMotorIdentification'));">Motor Identification</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -464,7 +489,7 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doAction('00','02','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSend('00','02','UINT32','boxActionCommandMode'));"></i>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
                                                                     <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
@@ -694,9 +719,7 @@
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
                                                                     <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedReference" onclick="doAction('00','05','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
                                                                 </a>
-                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','96','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
-                                                                </a>
+                                                               
                                                                 
                                                             </div>
                                                             
@@ -1061,39 +1084,72 @@
 
                                     </div>
                                     <br>
-                                </div>
+                            </div>
                                 
-                                <div id="monitorsTable" style="display: none;">
-                                    <div class="container-fluid">
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                                            <h3 class="text-dark mb-0">Monitors</h3>
-                                        </div>
-                                        <div class="d-sm-flex justify-content-between align-items-center mb-4"></div>
+                            <div id="monitorsTable"> 
+                                <div class="container-fluid">
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                        <h3 class="text-dark mb-0">Monitors</h3>
                                     </div>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title">HEX Signal</h4>
-                                                        <div class="row">
-                                                            <div class="col col-sm-8"><input type="text" class="col-sm-12"></div>
-                                                            <div class="col col-sm-2">
-                                                                <a class="text-secondary" href="#">
-                                                                    <i class="fas fa-sign-in-alt fa-2x"></i>
-                                                                </a>
-                                                            </div>
+                                    
+                                </div>
+                                <div class="container col-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Monitors (BETA)</h4>
+                                                    
+                                                    <div class="row mb-2">
+                                                        
+                                                       
+                                                        
+                                                        
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStart" value="1" onclick="monitorStart()">Start Monitoring</button>
                                                         </div>
-                                                        <p>Paragraph</p>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorStop()">Stop Monitoring</button>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorClean()">Clean Monitor</button>
+                                                        </div>
+                                                       
+                                                        
+                                                        
+                                                        
+                                                        <div class="col col-sm-1">
+                                                           
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="logStart()">Start Logging</button>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="logStopAndSave()">Stop & Save Log</button>
+                                                        </div>
+                                                        <div class="col col-sm-1">
+                                                            
+                                                        </div>
+                                                        
                                                     </div>
+                                                    
+                                                    <canvas id="myChart" ></canvas>
+                                                    
+                                                     
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <br>
                                 </div>
+                                <br>
+                        </div>
                                 
+
+
+
+
+
                                 <div id="helpTable">
                                     <div class="container-fluid">
                                         <h3 class="text-dark mb-0">Help</h3>
@@ -1147,7 +1203,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.2.1.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020 - Version 0.3.0.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>
@@ -1170,5 +1226,7 @@
     <script src="assets/js/serialIndex.js"></script>
     <script src="assets/js/indexInteraction.js"></script>
     
+    <script src="assets/js/monitor.js"></script>
+    <script>onWindowLoad()</script>
 </body>
 </html>

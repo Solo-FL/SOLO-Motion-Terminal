@@ -8,6 +8,7 @@
     } else {
       document.querySelector('#signalsTable').style.display = "none";
     }
+    prettifyHex();
   }
   
   function toogleActionsSwitch() {
