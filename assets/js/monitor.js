@@ -357,17 +357,22 @@ window.onload = function() {
 	window.myChart = new Chart(ctx, config);
 };
 
-function moniotrStart(){
+function monitorStart(){
+    serial.monitorStart();
+    monitorStartStep2();
+}
+
+function monitorStartStep2(){
     if(serialReadingSizeToStart<serial.readingSize()){
         monitorActivation = true;
         document.getElementById("myChart").classList.remove("bg-warning");
         onRefresh(window.myChart);
     }else{
-        setTimeout(moniotrStart,500);    
+        setTimeout(monitorStartStep2,500);    
     }
 }
 
-function moniotrStop(){
+function monitorStop(){
         monitorActivation = false;
         serial.cleanMonitorBuffer();
         
@@ -375,7 +380,7 @@ function moniotrStop(){
 
 
 
-function moniotrClean(){
+function monitorClean(){
     window.myChart.config.data.datasets.forEach(function(dataset) {
         dataset.data = [];         
         });

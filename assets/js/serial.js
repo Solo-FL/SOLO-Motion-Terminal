@@ -70,7 +70,7 @@ class Serial {
 
                     var newMessage = this.arrayAlementsToString(value);
                     
-                    //console.log('read: '+ newMessage);
+                    console.log('read: '+ newMessage);
                     if(this.monitorIsInStopping==1){
                       this.readingPreList += newMessage;
                       packetReceivedStart = this.readingPreList.indexOf("FFFF00190000000000FE",0);
@@ -111,6 +111,7 @@ class Serial {
 
                         if(countEco==2){
                           this.monitorIsInStopping=0;
+                          this.isMonitoring =false;
                           setTimeout(this.clearRed,500);
                         }
                       }
@@ -314,7 +315,11 @@ class Serial {
       }
 
 
-
+      monitorStart(){
+        this.isMonitoring=true;
+        this.multipleWriteStart("FFFF00190000000100FE");
+      }
+      
       arrayElementsToString(arrayData) {
         var output = "";
       
