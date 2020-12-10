@@ -1,6 +1,6 @@
 // Copyright: (c) 2020, SOLO motor controllers project
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-import ChartJSEnhancements from 'ChartJSEnhancements.min.js';
+
 var tools = null;
 var monitorActivation = false;
 var serialReadingSizeToStart = 1000;
@@ -360,7 +360,7 @@ window.onload = function() {
 	var ctx = document.getElementById('myChart').getContext('2d');
     window.myChart = new Chart(ctx, config);
     
-    tools = new ChartJSEnhancements(window.myScatter);
+	tools = new ChartJSEnhancements(window.myChart);
         tools.initialize();
         tools.setAfterSelectHandler((selected_points) => {
             if (data_length <= 3000)
@@ -369,7 +369,7 @@ window.onload = function() {
                 document.getElementById("selected").innerText = "Too many data to show!";
         });
         tools.setAfterUnselectHandler(() => {
-            document.getElementById("selected").innerText = "";
+            //document.getElementById("selected").innerText = "";
         })
 };
 
