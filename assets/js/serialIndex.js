@@ -101,6 +101,13 @@ function doReadAll(extraCommand){
     "FFFF00970000000000FE"+
     "FFFF00910000000000FE"+
     "FFFF00920000000000FE"+
+    "FFFF00950000000000FE"+
+    "FFFF00940000000000FE"+
+    "FFFF00AA0000000000FE"+
+    "FFFF00AD0000000000FE"+
+    "FFFF00AB0000000000FE"+
+    "FFFF00AE0000000000FE"+
+    "FFFF00AC0000000000FE"+
     "FFFF009A0000000000FE"+
     "FFFF00990000000000FE"+
     "FFFF009B0000000000FE"+
@@ -108,15 +115,20 @@ function doReadAll(extraCommand){
     "FFFF008A0000000000FE"+
     "FFFF009D0000000000FE"+
     "FFFF009E0000000000FE"+
+    "FFFF00A40000000000FE"+
+    "FFFF00A50000000000FE"+
     "FFFF009C0000000000FE"+
-    "FFFF00A00000000000FE"+
+    "FFFF00A70000000000FE"+
+    "FFFF00A60000000000FE"+
+    "FFFF00A80000000000FE"+
     "FFFF008E0000000000FE"+
     "FFFF00860000000000FE"+
     "FFFF00930000000000FE"+
     "FFFF00A10000000000FE"+
     "FFFF00A20000000000FE"+
     "FFFF00960000000000FE"+
-    "FFFF008D0000000000FE"
+    "FFFF008D0000000000FE"+
+    "FFFF00A30000000000FE"
     );
   
     updateAndFlushSimpleActionRead("FFFF008C0000000000FE", 'SFXT', 0 , 'boxActionMaxCurrent', 'boxActionMaxCurrent',null);
@@ -126,6 +138,13 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF00970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null);
     updateAndFlushSimpleActionRead("FFFF00910000000000FE", 'SFXT', 0 , 'boxActionCurrentControllerKp', 'boxActionCurrentControllerKp',null);
     updateAndFlushSimpleActionRead("FFFF00920000000000FE", 'SFXT', 0.00005 , 'boxActionCurrentControllerKi', 'boxActionCurrentControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF00950000000000FE", 'SFXT', 0 , 'boxActionMotorInductance', 'boxActionMotorInductance',null);
+    updateAndFlushSimpleActionRead("FFFF00940000000000FE", 'SFXT', 0 , 'boxActionMotorResistance', 'boxActionMotorResistance',null);
+    updateAndFlushSimpleActionRead("FFFF00AA0000000000FE", 'SFXT', 0 , 'boxActionNBOG', 'boxActionNBOG',null);
+    updateAndFlushSimpleActionRead("FFFF00AD0000000000FE", 'SFXT', 0 , 'boxActionNBFG', 'boxActionNBFG',null);
+    updateAndFlushSimpleActionRead("FFFF00AB0000000000FE", 'SFXT', 0 , 'boxActionFBOG', 'boxActionFBOG',null);
+    updateAndFlushSimpleActionRead("FFFF00AE0000000000FE", 'SFXT', 0 , 'boxActionFBFG', 'boxActionFBFG',null);
+    updateAndFlushSimpleActionRead("FFFF00AC0000000000FE", 'SFXT', 0 , 'boxActionDCOG', 'boxActionDCOG',null);
     updateAndFlushSimpleActionRead("FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
     updateAndFlushSimpleActionRead("FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
     updateAndFlushSimpleActionRead("FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);
@@ -133,8 +152,12 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF008A0000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKi', 'boxActionSpeedControllerKi',null);
     updateAndFlushSimpleActionRead("FFFF009D0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKp', 'boxActionPositionControllerKp',null);
     updateAndFlushSimpleActionRead("FFFF009E0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKi', 'boxActionPositionControllerKi',null);
+    updateAndFlushSimpleActionRead("FFFF00A40000000000FE", 'SFXT', 0 , 'boxActionTorqueReferenceIq', 'boxActionTorqueReferenceIq ',null);
+    updateAndFlushSimpleActionRead("FFFF00A50000000000FE", 'UINT32', 0 , 'boxActionSpeedReference', 'boxActionSpeedReference ',null);
     updateAndFlushSimpleActionRead("FFFF009C0000000000FE", 'UINT32', 0 , 'boxActionSpeedLimit', 'boxActionSpeedLimit',null);
-    updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
+    updateAndFlushSimpleActionRead("FFFF00A70000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
+    updateAndFlushSimpleActionRead("FFFF00A60000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00A80000000000FE", 'SFXT', 0 , 'boxActionPowerReference', 'boxActionPowerReference',null);
     updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
     updateAndFlushSimpleActionRead("FFFF00860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null);
     updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
@@ -145,7 +168,7 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF008D0000000000FE", 'SFXT', 0 , 'boxActionTorqueIq', 'boxActionTorqueIq',null);
     updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null);
     updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null);
-
+    updateAndFlushSimpleActionRead("FFFF00A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null);
 }
 
 function doActionSemplification(boxValueId){

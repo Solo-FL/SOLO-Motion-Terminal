@@ -7,7 +7,19 @@
     toogleActionsSwitch();
     toogleMonitorsSwitch();
     toogleHelpSwitch();
-    disablePart(true,['boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp','boxActionCurrentControllerKi','rangeActionCurrentControllerKi','bActionCurrentControllerKi']);
+    disablePart(true,
+        [
+            'boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp',
+            'boxActionCurrentControllerKi','rangeActionCurrentControllerKi','bActionCurrentControllerKi',
+            'boxActionMotorInductance','rangeActionMotorInductance','bActionMotorInductance',
+            'boxActionMotorResistance','rangeActionMotorResistance','bActionMotorResistance',
+            'boxActionNBOG','rangeActionNBOG','bActionNBOG',
+            'boxActionNBFG','rangeActionNBFG','bActionNBFG',
+            'boxActionFBOG','rangeActionFBOG','bActionFBOG',
+            'boxActionFBFG','rangeActionFBFG','bActionFBFG',
+            'boxActionDCOG','rangeActionDCOG','bActionDCOG'
+        
+        ]);
   }
 
 document.querySelector('#conversionFloat').oninput = function () {

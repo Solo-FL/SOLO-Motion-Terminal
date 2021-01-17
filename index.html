@@ -477,6 +477,193 @@
                                                             </div>
                                                             
                                                         </div>
+
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionMotorInductance" value="1" onclick="doDisbale('checkActionMotorInductance', ['boxActionMotorInductance','rangeActionMotorInductance','bActionMotorInductance'])" checked > 
+                                                                Motor Inductance [Henry]*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMotorInductance" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionMotorInductance')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionMotorInductance" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionMotorInductance')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorInductance" onclick="doAction('00','0E','SFXT','boxActionMotorInductance','boxActionMotorInductance')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','95','SFXT','boxActionMotorInductance','boxActionMotorInductance')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionMotorResistance" value="1" onclick="doDisbale('checkActionMotorResistance', ['boxActionMotorResistance','rangeActionMotorResistance','bActionMotorResistance'])" checked> 
+                                                                Motor Resistance[Ohm]*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionMotorResistance" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionMotorResistance')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionMotorResistance" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionMotorResistance')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorResistance" onclick="doAction('00','0D','SFXT','boxActionMotorResistance','boxActionMotorResistance')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','94','SFXT','boxActionMotorResistance','boxActionMotorResistance','0.00005')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionNBOG" value="1" onclick="doDisbale('checkActionNBOG', ['boxActionNBOG','rangeActionNBOG','bActionNBOG'])" checked > 
+                                                                Normal Brushless Observer Gain*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionNBOG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionNBOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionNBOG" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionNBOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionNBOG" onclick="doAction('00','21','SFXT','boxActionNBOG','boxActionNBOG')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','AA','SFXT','boxActionNBOG','boxActionNBOG')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionNBFG" value="1" onclick="doDisbale('checkActionNBFG', ['boxActionNBFG','rangeActionNBFG','bActionNBFG'])" checked> 
+                                                                Normal Brushless Filter Gain*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionNBFG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionNBFG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionNBFG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionNBFG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionNBFG" onclick="doAction('00','24','SFXT','boxActionNBFG','boxActionNBFG')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','AD','SFXT','boxActionNBFG','boxActionNBFG','0.00005')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                       
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionFBOG" value="1" onclick="doDisbale('checkActionFBOG', ['boxActionFBOG','rangeActionFBOG','bActionFBOG'])" checked > 
+                                                                Fast Brushless Observer Gain*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionFBOG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionFBOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionFBOG" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionFBOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionFBOG" onclick="doAction('00','22','SFXT','boxActionFBOG','boxActionFBOG')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','AB','SFXT','boxActionFBOG','boxActionFBOG')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionFBFG" value="1" onclick="doDisbale('checkActionFBFG', ['boxActionFBFG','rangeActionFBFG','bActionFBFG'])" checked> 
+                                                                Fast Brushless Filter Gain*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionFBFG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionFBFG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionFBFG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateTextRangeInput(this.value,'boxActionFBFG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionFBFG" onclick="doAction('00','25','SFXT','boxActionFBFG','boxActionFBFG')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiply('00','AE','SFXT','boxActionFBFG','boxActionFBFG','0.00005')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionDCOG" value="1" onclick="doDisbale('checkActionDCOG', ['boxActionDCOG','rangeActionDCOG','bActionDCOG'])" checked > 
+                                                                DC Motor Observer Gain*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionDCOG" class="col-sm-12" value="0.001" min="0" max="2"  step="0.001" oninput="updateRangeInput(this.value,'rangeActionDCOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionDCOG" class="col-sm-12" value="0.001" min="0" max="2" step="0.001" oninput="updateTextRangeInput(this.value,'boxActionDCOG')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDCOG" onclick="doAction('00','23','SFXT','boxActionDCOG','boxActionDCOG')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','AC','SFXT','boxActionDCOG','boxActionDCOG')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                             </div>
+                                                            <div class="col col-sm-1">
+                                                                </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                             </div>
+                                                            
+                                                        </div>
                                                         
                                                     </div>
                                                 </div>
@@ -1088,6 +1275,43 @@
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
                                                                     <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A0','INT32','boxActionPosition','boxActionPosition')"></i>
                                                                 </a>
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                Hardware Version
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input id="boxActionHardwareVersion" class="col-sm-12" value=" " disabled >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','A3','NONE','boxActionHardwareVersion','boxActionHardwareVersion')"></i>
+                                                                </a>  
+                                                            </div>
+                                                            <div class="col col-sm-1">
+    
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                               
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                            
+                                                            </div>
+                                                            <div class="col col-sm-1">
+
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 
