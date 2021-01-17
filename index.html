@@ -339,6 +339,44 @@
                                                         
                                                         <div class="row mb-2">
                                                             
+                                                            <div class="col col-sm-2">
+                                                                UART Line baud-rate[bits/s]*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-3" >
+                                                                <SELECT id="boxActionUartBaudRate"  class="col-sm-12">                                                
+                                                                    <OPTION VALUE="0" >937500 </OPTION> 
+                                                                    <OPTION VALUE="1" SELECTED>115200 </OPTION>
+                                                                </SELECT>
+                                                                
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionUartBaudRate" onclick="doReadAll(convertToCammandToSend('00','26','UINT32','boxActionUartBaudRate'));"></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','B3','UINT32','boxActionUartBaudRate','boxActionUartBaudRate')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12"  onclick="doReadAll()">Read All Params</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            
+                                                        </div>
+
+                                                        
+                                                        <div class="row mb-2">
+                                                            
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
@@ -358,26 +396,7 @@
                                                             
                                                         </div>
 
-                                                        <div class="row mb-2">
-                                                            
-                                                            <div class="col col-sm-2"></div>
-                                                            
-                                                            <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12"  onclick="doReadAll()">Read All Params</button>
-                                                            </div>
-                                                            
-                                                            <div class="col col-sm-1"></div>
-                                                            
-                                                            
-                                                            <div class="col col-sm-2"></div>
-                                                            
-                                                            <div class="col col-sm-3">
-                                                                
-                                                            </div>
-                                                            
-                                                            <div class="col col-sm-1"></div>
-                                                            
-                                                        </div>
+                                                        
                                                         
                                                     </div>
                                                 </div>
@@ -508,6 +527,7 @@
                                                                 <SELECT id="boxActionControlMode"  class="col-sm-12">                                                
                                                                     <OPTION VALUE="0" SELECTED>SENSOR LESS </OPTION>
                                                                     <OPTION VALUE="1" >USING ENCODERS </OPTION>
+                                                                    <OPTION VALUE="2" >USING HALL SENSORS </OPTION>
                                                                 </SELECT>
                                                                 
                                                             </div>
