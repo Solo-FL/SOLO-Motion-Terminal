@@ -112,6 +112,7 @@ function doReadAll(extraCommand){
     "FFFF009A0000000000FE"+
     "FFFF00990000000000FE"+
     "FFFF009B0000000000FE"+
+    "FFFF00A90000000000FE"+
     "FFFF00890000000000FE"+
     "FFFF008A0000000000FE"+
     "FFFF009D0000000000FE"+
@@ -150,6 +151,7 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
     updateAndFlushSimpleActionRead("FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
     updateAndFlushSimpleActionRead("FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);
+    updateAndFlushSimpleActionRead("FFFF00A90000000000FE", 'UINT32', 0 , 'boxActionMotorDirection', 'boxActionMotorDirection',null);
     updateAndFlushSimpleActionRead("FFFF00890000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKp', 'boxActionSpeedControllerKp',null);
     updateAndFlushSimpleActionRead("FFFF008A0000000000FE", 'SFXT', 0 , 'boxActionSpeedControllerKi', 'boxActionSpeedControllerKi',null);
     updateAndFlushSimpleActionRead("FFFF009D0000000000FE", 'SFXT', 0 , 'boxActionPositionControllerKp', 'boxActionPositionControllerKp',null);
