@@ -250,7 +250,6 @@ function doActionStopMotor(){
   setTimeout(doAction, 1, '00','04','UINT32','bActionMotorStop','bActionMotorStop');
   setTimeout(doAction, 350,'00','05','UINT32','bActionMotorStop','bActionMotorStop'); 
   setTimeout(doAction, 700,'00','1B','UINT32','bActionMotorStop','bActionMotorStop'); 
-  setTimeout(doAction, 1050,'00','1F','UINT32','01','bActionMotorStop'); 
 }
 
 function convertToCammandToSend(address, command, type, valueOrValueId){
