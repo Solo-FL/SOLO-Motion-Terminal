@@ -695,6 +695,54 @@
                                                              </div>
                                                             
                                                         </div>
+
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionCcwO" value="1" onclick="doDisbale2('checkActionCcwO', ['boxActionCcwO','rangeActionCcwO','bActionCcwO'])" checked > 
+                                                                Encoder/Hall C.C.W Offset*
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionCcwO" class="col-sm-12" value="0.0001" min="0.0001" max="1"  step="0.0001" oninput="updateRangeInput(this.value,'rangeActionCcwO')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionCcwO" class="col-sm-12" value="0.0001" min="0.0001" max="1" step="0.0001" oninput="updateTextRangeInput(this.value,'boxActionCcwO')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCcwO" onclick="doAction('00','28','SFXT','boxActionCcwO','boxActionCcwO')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','B1','SFXT','boxActionCcwO','boxActionCcwO')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="checkbox" id="checkActionCwO" value="1" onclick="doDisbale2('checkActionCwO', ['boxActionCwO','rangeActionCwO','bActionCwO'])" checked> 
+                                                                Encoder/Hall C.W Offset*
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionCwO" class="col-sm-12" value="0.0001" min="0.0001" max="1"  step="0.0001" oninput="updateRangeInput(this.value,'rangeActionCwO')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionCwO" class="col-sm-12" value="0.0001" min="0.0001" max="1"  step="0.0001" oninput="updateTextRangeInput(this.value,'boxActionCwO')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCwO" onclick="doAction('00','29','SFXT','boxActionCwO','boxActionCwO')" ></i>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('00','B2','SFXT','boxActionCwO','boxActionCwO')"></i>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
                                                         
                                                     </div>
                                                 </div>

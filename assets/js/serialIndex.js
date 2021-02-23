@@ -88,6 +88,15 @@ function doDisbale(checkbox,elements){
   disablePart(toDisable,elements);
 }
 
+function doDisbale2(checkbox,elements){
+  var toDisable = true;
+  if(document.getElementById(checkbox).checked==false){
+    toDisable = false;
+    alert("The Offsets are automatically identified by SOLO when you do the 'Encoder Calibration' or 'Hall Sensors Calibration'");
+  }
+  disablePart(toDisable,elements);
+}
+
 function doReadAll(extraCommand){
   if(extraCommand==null){
     extraCommand="";
@@ -109,6 +118,8 @@ function doReadAll(extraCommand){
     "FFFF00AB0000000000FE"+
     "FFFF00AE0000000000FE"+
     "FFFF00AC0000000000FE"+
+    "FFFF00B10000000000FE"+
+    "FFFF00B20000000000FE"+
     "FFFF009A0000000000FE"+
     "FFFF00990000000000FE"+
     "FFFF009B0000000000FE"+
@@ -130,6 +141,7 @@ function doReadAll(extraCommand){
     "FFFF00A20000000000FE"+
     "FFFF00960000000000FE"+
     "FFFF008D0000000000FE"+
+    "FFFF00A00000000000FE"+
     "FFFF00A30000000000FE"
     );
   
@@ -148,6 +160,8 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF00AB0000000000FE", 'SFXT', 0 , 'boxActionFBOG', 'boxActionFBOG',null);
     updateAndFlushSimpleActionRead("FFFF00AE0000000000FE", 'SFXT', 0 , 'boxActionFBFG', 'boxActionFBFG',null);
     updateAndFlushSimpleActionRead("FFFF00AC0000000000FE", 'SFXT', 0 , 'boxActionDCOG', 'boxActionDCOG',null);
+    updateAndFlushSimpleActionRead("FFFF00B10000000000FE", 'SFXT', 0 , 'boxActionCcwO', 'boxActionCcwO',null);
+    updateAndFlushSimpleActionRead("FFFF00B20000000000FE", 'SFXT', 0 , 'boxActionCwO', 'boxActionCwO',null);
     updateAndFlushSimpleActionRead("FFFF009A0000000000FE", 'UINT32', 0 , 'boxActionCommandMode', 'boxActionCommandMode',null);
     updateAndFlushSimpleActionRead("FFFF00990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null);
     updateAndFlushSimpleActionRead("FFFF009B0000000000FE", 'UINT32', 0 , 'boxActionControlType', 'boxActionControlType',null);

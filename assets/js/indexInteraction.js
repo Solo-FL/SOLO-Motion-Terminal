@@ -17,7 +17,9 @@
             'boxActionNBFG','rangeActionNBFG','bActionNBFG',
             'boxActionFBOG','rangeActionFBOG','bActionFBOG',
             'boxActionFBFG','rangeActionFBFG','bActionFBFG',
-            'boxActionDCOG','rangeActionDCOG','bActionDCOG'
+            'boxActionDCOG','rangeActionDCOG','bActionDCOG',
+            'boxActionCcwO','rangeActionCcwO','bActionCcwO',
+            'boxActionCwO','rangeActionCwO','bActionCwO'
         
         ]);
   }

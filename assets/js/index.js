@@ -121,6 +121,10 @@
         return "6: O.V., O.T.";
       case 7: 
         return "7: O.C., O.V., O.T";
+      case 8: 
+      return "8: Enc. Cal. Timeout";
+      case 9: 
+      return "9: Hall. Cal. Timeout";
     }
     return "";
   }
