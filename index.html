@@ -1428,7 +1428,58 @@
                                         <div class="col">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h4 class="card-title">Monitors (BETA)</h4>
+                                                    <h4 class="card-title">Performance Monitors</h4>
+                                                    
+                                                    <div class="row mb-2">
+                                                        
+                                                       
+                                                        
+                                                        
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStartPosition" value="1" onclick="performanceMonitorStart()">Start Monitoring</button>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPosition" value="0" onclick="performanceMonitorStop()">Stop Monitoring</button>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPosition" value="0" onclick="performanceMonitorClean()">Clean Monitor</button>
+                                                        </div>
+                                                       
+                                                        
+                                                        
+                                                        
+                                                        <div class="col col-sm-1">
+                                                           
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="logStart()">Start Logging</button>
+                                                        </div>
+                                                        <div class="col col-sm-2">
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="logStopAndSave()">Stop & Save Log</button>
+                                                        </div>
+                                                        <div class="col col-sm-1">
+                                                            
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <canvas id="myPerformanceChart" ></canvas>
+                                                   
+                                                     
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <br>
+
+                                <div class="container col-12">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Overview Monitors</h4>
                                                     
                                                     <div class="row mb-2">
                                                         
@@ -1472,7 +1523,7 @@
                                     </div>
                                     
                                 </div>
-                                <br>
+
                         </div>
                                 
 
@@ -1556,6 +1607,7 @@
     <script src="assets/js/serialIndex.js"></script>
     <script src="assets/js/indexInteraction.js"></script>
     
+    <script src="assets/js/performanceMonitor.js"></script>
     <script src="assets/js/monitor.js"></script>
     <script>onWindowLoad()</script>
 </body>

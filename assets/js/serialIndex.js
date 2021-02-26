@@ -59,7 +59,7 @@ clearButton.addEventListener('click', event => {
 
 function updates(commands){
   var text ="";
-  if(monitorActivation==false){
+  if(performanceMonitorActivation==false && monitorActivation == false){
     
     if(serial.getWritingStatus() != "OFF"){
       setTimeout(updates,100,commands);
@@ -328,7 +328,7 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
     setTimeout(updateAndFlushSimpleActionRead,200,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
   }else{
 
-    if(boxToColorId!=null && monitorActivation==true){
+    if(boxToColorId!=null && (performanceMonitorActivation==true || monitorActivation == true )){
       document.getElementById(boxToColorId).classList.add("bg-warning");
       setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
       return;
@@ -367,7 +367,7 @@ function updateAndFlushSimpleAction(fullcommand, boxToColorId){
     var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2, false);
   
     if(boxToColorId!=null){
-          if(monitorActivation==false){
+          if(performanceMonitorActivation==false && monitorActivation == false){
             if(commandRecived == fullcommand){
               document.getElementById(boxToColorId).classList.add("bg-success");
             }else{

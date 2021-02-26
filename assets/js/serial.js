@@ -123,7 +123,7 @@ class Serial {
                         var messageToCheck = this.readingList[li];
                         if(messageToCheck.substr(0,8)=="FFFF00A1" && !(messageToCheck.substr(8,12)=="0000000000FE")){
                           document.getElementById("myChart").classList.add("bg-warning");
-
+                          document.getElementById("myPerformanceChart").classList.add("bg-warning");
                           var errorText="";
                             switch ( messageToCheck.substring(8, 16)){
                               case 0:
@@ -295,6 +295,23 @@ class Serial {
         return this.readingList.length;
       }
 
+      itHasAllReadingsByCommand(command,size){
+        var count = 0;
+        for(var px = 0; px < this.readingList.length; px++){
+          var read = this.readingList[px];
+          if(read.substr(6,2)==command){
+            count++;
+          }
+
+          if (count>=size){
+            return true;
+          }
+          
+        }
+        
+        return false;
+      }
+
       shiftAllReadingsByCommand(command, size){
         var readings = [];
         var count = 0;
@@ -315,9 +332,9 @@ class Serial {
       }
 
 
-      monitorStart(){
+      monitorStart(monitorType){
         this.isMonitoring=true;
-        this.multipleWriteStart("FFFF00190000000100FE");
+        this.multipleWriteStart("FFFF0019000000"+monitorType+"00FE");
       }
       
       arrayElementsToString(arrayData) {

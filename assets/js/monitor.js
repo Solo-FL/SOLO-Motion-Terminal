@@ -358,10 +358,11 @@ var config = {
 window.onload = function() {
 	var ctx = document.getElementById('myChart').getContext('2d');
 	window.myChart = new Chart(ctx, config);
+    performanceOnLoad();
 };
 
 function monitorStart(){
-    serial.monitorStart();
+    serial.monitorStart("01");
     monitorStartStep2();
 }
 
