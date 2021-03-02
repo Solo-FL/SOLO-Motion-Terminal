@@ -295,6 +295,19 @@ class Serial {
         return this.readingList.length;
       }
 
+      readingSizeByCommand(command){
+        var count = 0;
+        for(var px = 0; px < this.readingList.length; px++){
+          var read = this.readingList[px];
+          if(read.substr(6,2)==command){
+            count++;
+          }
+          
+        }
+        
+        return count;
+      }
+
       itHasAllReadingsByCommand(command,size){
         var count = 0;
         for(var px = 0; px < this.readingList.length; px++){

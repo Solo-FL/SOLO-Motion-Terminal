@@ -30,6 +30,9 @@ function onRefresh(chart) {
         return;
     }
 
+    var userdSerialShiftSize = serialShiftSize;
+    var realSize = serial.readingSizeByCommand('82');
+
     if(xVal < duration){
         //load duration at start
         for(var li = 0; li<duration; li ++){
@@ -37,9 +40,14 @@ function onRefresh(chart) {
         }
         xVal = li;
     }else{
+        if(realSize>userdSerialShiftSize*1.3){
+            userdSerialShiftSize = realSize -20;
+        }
+
+
         if(datasetSize>=duration){
         //after duration is full add new value
-            for (var li = xVal; li<xVal+serialShiftSize;li++){
+            for (var li = xVal; li<xVal+userdSerialShiftSize;li++){
                 chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
                 if(chart.config.data.labels.length >duration){
                     chart.config.data.labels.shift();
@@ -47,12 +55,15 @@ function onRefresh(chart) {
             }
             xVal=li;
         }
+
+
+    
     }
 
 	chart.config.data.datasets.forEach(function(dataset) {
 
         if(!(dataset.commandValue=='SUM')){
-            var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,serialShiftSize);
+            var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,userdSerialShiftSize);
 
 
             var myValues = myMessages.map(message => message.toString().substring(8, 16));
@@ -64,6 +75,25 @@ function onRefresh(chart) {
             }
 
             datasetSize = dataset.data.length;
+
+            /*debug*/
+            if(dataset.commandValue == '96') {
+                for (var vii = 0; vii<myConvertedValues.length ; vii++){
+                    var valuee = parseInt(myConvertedValues[vii])
+                    if(valuee!=0){
+                        datasetSize = dataset.data.length;
+                    }
+                }
+            }
+            if(dataset.commandValue == '83') {
+                for (var vii = 0; vii<myConvertedValues.length ; vii++){
+                    var valuee = parseInt(myConvertedValues[vii])
+                    if(valuee>100 || valuee <100){
+                        datasetSize = dataset.data.length;
+                    }
+                }
+            }
+            
 
         }else{
             if(dataset.label=='VC [V]'){
@@ -362,6 +392,11 @@ window.onload = function() {
 };
 
 function monitorStart(){
+    if(performanceMonitorActivation) {
+        alert("Performance Monitor is in action, stop it before activate Generic Monitor");
+        return;
+    }
+
     serial.monitorStart("01");
     monitorStartStep2();
 }
@@ -377,9 +412,10 @@ function monitorStartStep2(){
 }
 
 function monitorStop(){
+    if(monitorActivation){
         monitorActivation = false;
         serial.cleanMonitorBuffer();
-        
+    }
 }
 
 

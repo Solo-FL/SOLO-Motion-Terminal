@@ -3,9 +3,9 @@
 
 var performanceMonitorActivation = false;
 var performanceSerialReadingSizeToStart = 1000;
-var performanceSerialShiftSize = 100;
+var performanceSerialShiftSize = 50;
 var performanceDuration = 1000;
-var performanceRefreshTimeout = 200;
+var performanceRefreshTimeout = 25;
 //var delay = 100;
 var performanceXVal= 0;
 var performanceDatasetSize = 0;
@@ -31,6 +31,9 @@ function performanceOnRefresh(chart) {
         return;
     }
 
+    var userdSerialShiftSize = performanceSerialShiftSize;
+    var realSize = serial.readingSizeByCommand('A0');
+
     if(performanceXVal < performanceDuration){
         //load duration at start
         for(var li = 0; li<performanceDuration; li ++){
@@ -38,9 +41,13 @@ function performanceOnRefresh(chart) {
         }
         performanceXVal = li;
     }else{
+        if(realSize>userdSerialShiftSize*1.3){
+            userdSerialShiftSize = realSize -20;
+        }
+
         if(performanceDatasetSize>=performanceDuration){
         //after duration is full add new value
-            for (var li = performanceXVal; li<performanceXVal+performanceSerialShiftSize;li++){
+            for (var li = performanceXVal; li<performanceXVal+userdSerialShiftSize;li++){
                 chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
                 if(chart.config.data.labels.length >performanceDuration){
                     chart.config.data.labels.shift();
@@ -50,13 +57,15 @@ function performanceOnRefresh(chart) {
         }
     }
 
+    serial.shiftAllReadingsByCommand('00',null);
+
     chart.config.data.datasets.forEach(function(dataset) {
 
-        if(serial.itHasAllReadingsByCommand(dataset.commandValue,performanceSerialShiftSize)==false){
+        if(serial.itHasAllReadingsByCommand(dataset.commandValue,userdSerialShiftSize)==false){
             return;
         }
 
-        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,performanceSerialShiftSize);
+        var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,userdSerialShiftSize);
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
 
@@ -81,8 +90,8 @@ var performanceConfig = {
 		labels: [],
 		datasets: [{
             label: 'Position [Quad Pulses]',
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
+            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.green,
             yAxisID: 'y-axis-PS',
             commandValue: 'A0',
             commandConversion: 'INT32',
@@ -97,8 +106,8 @@ var performanceConfig = {
             data: []
 		}, {
             label: 'Iq [A]',
-            backgroundColor: window.chartColors.green,
-            borderColor: window.chartColors.green,
+            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.blue,
             yAxisID: 'y-axis-A',
             commandValue: '8D',
             commandConversion: 'SFXT',
@@ -113,8 +122,8 @@ var performanceConfig = {
 			data: []
         }, {
             label: 'IM [A]',
-            backgroundColor: window.chartColors.black,
-            borderColor: window.chartColors.black,
+            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.blue,
             yAxisID: 'y-axis-A',
             commandValue: '87',
             commandConversion: 'SFXT',
@@ -129,10 +138,10 @@ var performanceConfig = {
 			data: []
 		}, {
             label: 'Angle [P.U.]',
-            borderColor: window.chartColors.navy,
-            backgroundColor: window.chartColors.navy,
+            borderColor: window.chartColors.orange,
+            backgroundColor: window.chartColors.orange,
             yAxisID: 'y-axis-PU',
-            commandValue: '84',
+            commandValue: 'B0',
             commandConversion: 'SFXT',
             
 
@@ -145,10 +154,10 @@ var performanceConfig = {
 			data: []
 		}, {
             label: 'Speed [RPM]',
-            borderColor: window.chartColors.teal,
-            backgroundColor: window.chartColors.teal,
+            borderColor: window.chartColors.red,
+            backgroundColor: window.chartColors.red,
             yAxisID: 'y-axis-RPM',
-            commandValue: '85',
+            commandValue: '96',
             commandConversion: 'UINT32',
            
 
@@ -185,7 +194,7 @@ var performanceConfig = {
 			yAxes: [{
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
-                position: 'left',
+                position: 'right',
                 id: 'y-axis-PS',
                 scaleLabel: {
                     display: true,
@@ -260,6 +269,11 @@ function performanceOnLoad() {
 };
 
 function performanceMonitorStart(){
+    if(monitorActivation) {
+        alert("Generic Monitor is in action, stop it before activate Performance Monitor");
+        return;
+    }
+
     serial.monitorStart("02");
     performanceMonitorStartStep2();
 }
@@ -275,8 +289,10 @@ function performanceMonitorStartStep2(){
 }
 
 function performanceMonitorStop(){
+    if(performanceMonitorActivation){
         performanceMonitorActivation = false;
         serial.cleanMonitorBuffer();
+    }
         
 }
 
