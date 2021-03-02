@@ -59,24 +59,20 @@ clearButton.addEventListener('click', event => {
 
 function updates(commands){
   var text ="";
-  if(performanceMonitorActivation==false && monitorActivation == false){
-    
-    if(serial.getWritingStatus() != "OFF"){
-      setTimeout(updates,100,commands);
-      return;
-    }
-
-    for(var i = commands.length-2; i>= 0; i--){
-      text =  serial.getLastReadingsByCommand(commands[i].substr(6,2),null, true) + text;
-    }
-
-    document.querySelector('#termRx').value=text;
-
-    prettifyHex();
-  }else{
-    document.getElementById('termRx').classList.add("bg-warning");
-    setTimeout(clearTimeoutBoxToColor,500,'termRx');
+  
+  if(serial.getWritingStatus() != "OFF"){
+    setTimeout(updates,100,commands);
+    return;
   }
+
+  for(var i = commands.length-2; i>= 0; i--){
+    text =  serial.getLastReadingsByCommand(commands[i].substr(6,2),null, true) + text;
+  }
+
+  document.querySelector('#termRx').value=text;
+
+  prettifyHex();
+  
 }
 
 function doDisbale(checkbox,elements){
@@ -328,12 +324,6 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
     setTimeout(updateAndFlushSimpleActionRead,200,fullcommand,typeToSet, multiply, readValueToSetId, boxToColorId, historySize);
   }else{
 
-    if(boxToColorId!=null && (performanceMonitorActivation==true || monitorActivation == true )){
-      document.getElementById(boxToColorId).classList.add("bg-warning");
-      setTimeout(clearTimeoutBoxToColor,500, boxToColorId);
-      return;
-    }
-
     var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize, false);
 
     if(recivedCommand.length>0){
@@ -364,18 +354,23 @@ function updateAndFlushSimpleAction(fullcommand, boxToColorId){
   if(serial.getWritingStatus()!= "OFF"){
     setTimeout(updateAndFlushSimpleAction,250,fullcommand, boxToColorId);
   }else{
-    var commandRecived =serial.getLastReadingsByCommand(fullcommand.substr(6,2),2, false);
-  
+
+    var commandRecived = null;
+
+    if(performanceMonitorActivation==false && monitorActivation == false){
+      commandRecived = serial.getLastReadingsByCommand(fullcommand.substr(6,2),2, false);
+    }else{
+      commandRecived = serial.getLastReadingsByCommand(fullcommand.substr(6,2),null, false);
+    }
+
     if(boxToColorId!=null){
-          if(performanceMonitorActivation==false && monitorActivation == false){
-            if(commandRecived == fullcommand){
-              document.getElementById(boxToColorId).classList.add("bg-success");
-            }else{
-              document.getElementById(boxToColorId).classList.add("bg-danger");
-            }
+         
+          if(commandRecived == fullcommand){
+            document.getElementById(boxToColorId).classList.add("bg-success");
           }else{
-            document.getElementById(boxToColorId).classList.add("bg-warning");
+            document.getElementById(boxToColorId).classList.add("bg-danger");
           }
+          
         setTimeout(clearTimeoutBoxToColor,500,boxToColorId);
   
     }
