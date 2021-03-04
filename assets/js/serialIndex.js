@@ -18,8 +18,15 @@ connect.addEventListener('click', () => {
       break;
     default:
       serial.init();
+      setTimeout( checkFirmwareVersion, 6000);
   }
 });
+
+function checkFirmwareVersion(){
+  if(document.querySelector('#boxActionFirmwareVersion').value!="0000B006"){
+    alert("The latest version of Firmware is the V006. Please update it for a better user experience, to get the updater tool please contact us.");
+  }
+}
 
 setInterval(checkStatus,1000);
 
