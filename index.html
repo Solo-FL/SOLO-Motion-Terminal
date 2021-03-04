@@ -1436,13 +1436,13 @@
                                                         
                                                         
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStartPosition" value="1" onclick="performanceMonitorStart()">Start Monitoring</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStartPerformance" value="1" onclick="performanceMonitorStart()">Start Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPosition" value="0" onclick="performanceMonitorStop()">Stop Monitoring</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPerformance" value="0" onclick="performanceMonitorStop()">Stop Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPosition" value="0" onclick="performanceMonitorClean()">Clean Monitor</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorCleanPerformance" value="0" onclick="performanceMonitorClean()">Clean Monitor</button>
                                                         </div>
                                                        
                                                         
@@ -1462,7 +1462,19 @@
                                                         </div>
                                                         
                                                     </div>
-                                                    
+
+                                                    <div class="row mb-2">
+                                                        <div class="col col-sm-2">
+                                                            <input type="range"  class="col-sm-12" id="rangePerfromanceScale" value="2000" min="1000" max="20000"  step="10" oninput="performanceDurationUpdate(this.value)" disabled= true>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col col-sm-2">
+                                                          <!-- <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="performanceDurationUpdate('rangePerfromanceScale')">change scale</button>
+                                                        --> 
+                                                        </div>
+                                                    </div>
+
                                                     <canvas id="myPerformanceChart" ></canvas>
                                                    
                                                      
@@ -1493,7 +1505,7 @@
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorStop()">Stop Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorClean()">Clean Monitor</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorClean" value="0" onclick="monitorClean()">Clean Monitor</button>
                                                         </div>
                                                        
                                                         
@@ -1513,7 +1525,12 @@
                                                         </div>
                                                         
                                                     </div>
-                                                    
+
+                                                    <div class="row mb-2">
+                                                        <div class="col col-sm-2">
+                                                            <input type="range"  id="rangeScale"  class="col-sm-12" value="1000" min="500" max="20000"  step="10" oninput="durationUpdate(this.value)" disabled=true>
+                                                        </div>
+                                                    </div>
                                                     <canvas id="myChart" ></canvas>
                                                     
                                                      

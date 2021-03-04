@@ -4,11 +4,13 @@
 var performanceMonitorActivation = false;
 var performanceSerialReadingSizeToStart = 1000;
 var performanceSerialShiftSize = 50;
-var performanceDuration = 1000;
+var performanceDuration = 10000;
 var performanceRefreshTimeout = 25;
 //var delay = 100;
 var performanceXVal= 0;
-var performanceDatasetSize = 0;
+var performanceDataSize = 0;
+var performanceRangeScaleId = "rangePerfromanceScale";
+var performanceMonitorCleanId = "bMonitorCleanPerformance";
 
 var chartColors = {
 	navy: '#84144B',
@@ -32,32 +34,18 @@ function performanceOnRefresh(chart) {
     }
 
     var userdSerialShiftSize = performanceSerialShiftSize;
+    var usedPerformanceDuration = performanceDuration;
+
     var realSize = serial.readingSizeByCommand('A0');
-
-    if(performanceXVal < performanceDuration){
-        //load duration at start
-        for(var li = 0; li<performanceDuration; li ++){
-            chart.config.data.labels.push(li); 
-        }
-        performanceXVal = li;
-    }else{
-        if(realSize>userdSerialShiftSize*1.3){
-            userdSerialShiftSize = realSize -20;
-        }
-
-        if(performanceDatasetSize>=performanceDuration){
-        //after duration is full add new value
-            for (var li = performanceXVal; li<performanceXVal+userdSerialShiftSize;li++){
-                chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
-                if(chart.config.data.labels.length >performanceDuration){
-                    chart.config.data.labels.shift();
-                }
-            }
-            performanceXVal=li;
-        }
+    if(realSize>userdSerialShiftSize*1.3){
+        userdSerialShiftSize = realSize -20;
     }
 
     serial.shiftAllReadingsByCommand('00',null);
+
+    var dataToSplice = 0;
+    var dataPushed = 0;
+    
 
     chart.config.data.datasets.forEach(function(dataset) {
 
@@ -69,15 +57,37 @@ function performanceOnRefresh(chart) {
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
 
-        dataset.data.push(...myConvertedValues);    
+        dataset.data.push(...myConvertedValues); 
+        dataPushed = myConvertedValues.length;
 
-        if(dataset.data.length >performanceDuration){
-            dataset.data.splice(0,dataset.data.length-performanceDuration);
+        performanceDataSize = dataset.data.length;
+        dataToSplice = performanceDataSize-usedPerformanceDuration;
+
+        if(dataToSplice > 0){
+            dataset.data.splice(0,dataToSplice);
+        }
+        performanceDataSize = dataset.data.length;
+
+    }); 
+
+    if(dataToSplice > 0){
+        chart.config.data.labels.splice(0,dataToSplice);
+    }
+
+    var xSize = chart.config.data.labels.length;
+    if(dataPushed > 0 && performanceDataSize-usedPerformanceDuration>=0){
+        
+        var lastValue = 0;
+        if(xSize>0){
+            lastValue = chart.config.data.labels[xSize-1];
         }
 
-        performanceDatasetSize = dataset.data.length;
-        
-    });  
+
+        for(var li = 0; li<usedPerformanceDuration-xSize; li ++){
+            chart.config.data.labels.push(lastValue+li); 
+        }
+    }
+
 
     chart.update();
     setTimeout( performanceOnRefresh, performanceRefreshTimeout, chart);
@@ -263,6 +273,37 @@ var performanceConfig = {
 };
 
 
+function performanceDurationUpdate(duration){
+    var xSize = window.myChart2.config.data.labels.length;
+
+    if(performanceMonitorActivation){
+        if(duration> performanceDuration){
+            var lastValue = 0;
+            if(xSize>0){
+                lastValue =  window.myChart2.config.data.labels[xSize-1];
+            }
+
+            for(var li = 0; li<duration-performanceDuration; li ++){
+                window.myChart2.config.data.labels.push(lastValue+1+li); 
+            }
+        }else{
+            var unloadedData = performanceDuration - performanceDataSize;
+            var toDelete = performanceDuration - duration ;
+            if( unloadedData > 0){
+                for(var li = 0; li<toDelete; li ++){
+                    window.myChart2.config.data.labels.pop(); 
+
+                    if(li>= unloadedData){
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    window.myChart2.update();
+    performanceDuration = duration;
+}
+
 function performanceOnLoad() {
 	var ctx = document.getElementById('myPerformanceChart').getContext('2d');
 	window.myChart2 = new Chart(ctx, performanceConfig);
@@ -273,6 +314,15 @@ function performanceMonitorStart(){
         alert("Generic Monitor is in action, stop it before activate Performance Monitor");
         return;
     }
+
+    if(performanceDataSize == 0){
+        for(var li = 0; li<performanceDuration; li ++){
+            window.myChart2.config.data.labels.push(li); 
+        }
+    }
+
+    document.getElementById(performanceRangeScaleId).disabled = false;
+    document.getElementById(performanceMonitorCleanId).disabled = true;
 
     serial.monitorStart("02");
     performanceMonitorStartStep2();
@@ -292,6 +342,8 @@ function performanceMonitorStop(){
     if(performanceMonitorActivation){
         performanceMonitorActivation = false;
         serial.cleanMonitorBuffer();
+        document.getElementById(performanceRangeScaleId).disabled = true;
+        document.getElementById(performanceMonitorCleanId).disabled = false;
     }
         
 }
@@ -305,4 +357,5 @@ function performanceMonitorClean(){
     window.myChart2.config.data.labels =[];
     performanceXVal = 0;
     window.myChart2.update();
+    performanceDataSize = 0
 }

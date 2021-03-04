@@ -8,7 +8,9 @@ var duration = 1000;
 var refresh = 50;
 //var delay = 100;
 var xVal= 0;
-var datasetSize = 0;
+var dataSize = 0;
+var rangeScaleId = "rangeScale";
+var monitorCleanId = "bMonitorClean";
 
 var chartColors = {
 	navy: '#84144B',
@@ -30,35 +32,16 @@ function onRefresh(chart) {
         return;
     }
 
+    var usedDuration = duration;
     var userdSerialShiftSize = serialShiftSize;
+
     var realSize = serial.readingSizeByCommand('82');
-
-    if(xVal < duration){
-        //load duration at start
-        for(var li = 0; li<duration; li ++){
-            chart.config.data.labels.push(li); 
-        }
-        xVal = li;
-    }else{
-        if(realSize>userdSerialShiftSize*1.3){
-            userdSerialShiftSize = realSize -20;
-        }
-
-
-        if(datasetSize>=duration){
-        //after duration is full add new value
-            for (var li = xVal; li<xVal+userdSerialShiftSize;li++){
-                chart.config.data.labels.push(li); //not the same size at start of dataset (this one have fix value, ds less)
-                if(chart.config.data.labels.length >duration){
-                    chart.config.data.labels.shift();
-                }
-            }
-            xVal=li;
-        }
-
-
-    
+    if(realSize>userdSerialShiftSize*1.3){
+        userdSerialShiftSize = realSize -20;
     }
+    
+    var dataToSplice = 0;
+    var dataPushed = 0;
 
 	chart.config.data.datasets.forEach(function(dataset) {
 
@@ -69,12 +52,15 @@ function onRefresh(chart) {
             var myValues = myMessages.map(message => message.toString().substring(8, 16));
             var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
             dataset.data.push(...myConvertedValues);    
+            dataPushed = myConvertedValues.length;
 
-            if(dataset.data.length >duration){
-                dataset.data.splice(0,dataset.data.length-duration);
+            dataSize = dataset.data.length;
+            dataToSplice = dataSize-usedDuration;
+
+            if(dataToSplice > 0){
+                dataset.data.splice(0,dataToSplice);
             }
-
-            datasetSize = dataset.data.length;
+            dataSize = dataset.data.length;
 
             /*debug*/
             if(dataset.commandValue == '96') {
@@ -107,6 +93,23 @@ function onRefresh(chart) {
 
     });
     
+    if(dataToSplice > 0){
+        chart.config.data.labels.splice(0,dataToSplice);
+    }
+
+    var xSize = chart.config.data.labels.length;
+    if(dataPushed > 0 && dataSize-usedDuration>=0){
+        
+        var lastValue = 0;
+        if(xSize>0){
+            lastValue = chart.config.data.labels[xSize-1];
+        }
+
+
+        for(var li = 0; li<usedDuration-xSize; li ++){
+            chart.config.data.labels.push(lastValue+li); 
+        }
+    }
 
     chart.update();
     setTimeout( onRefresh, refresh, chart);
@@ -391,14 +394,57 @@ window.onload = function() {
     performanceOnLoad();
 };
 
+function durationUpdate(inputDuration){
+    var xSize = window.myChart.config.data.labels.length;
+
+    if(monitorActivation){
+        if(inputDuration> duration){
+            var lastValue = 0;
+            if(xSize>0){
+                lastValue =  window.myChart.config.data.labels[xSize-1];
+            }
+
+            for(var li = 0; li<inputDuration-duration; li ++){
+                window.myChart.config.data.labels.push(lastValue+1+li); 
+            }
+        }else{
+            var unloadedData = duration - dataSize;
+            var toDelete = duration - inputDuration ;
+            if( unloadedData > 0){
+                for(var li = 0; li<toDelete; li ++){
+                    window.myChart.config.data.labels.pop(); 
+
+                    if(li>= unloadedData){
+                        break;
+                    }
+                }
+            }
+        }
+
+        window.myChart.update();
+    }
+    
+    duration = inputDuration;
+}
+
 function monitorStart(){
     if(performanceMonitorActivation) {
         alert("Performance Monitor is in action, stop it before activate Generic Monitor");
         return;
     }
 
+    if(dataSize == 0){
+        for(var li = 0; li<duration; li ++){
+            window.myChart.config.data.labels.push(li); 
+        }
+    }
+
+    document.getElementById(rangeScaleId).disabled = false;
+    document.getElementById(monitorCleanId).disabled = true;
+    
     serial.monitorStart("01");
     monitorStartStep2();
+    
 }
 
 function monitorStartStep2(){
@@ -415,6 +461,9 @@ function monitorStop(){
     if(monitorActivation){
         monitorActivation = false;
         serial.cleanMonitorBuffer();
+        document.getElementById(rangeScaleId).disabled = true;
+        document.getElementById(monitorCleanId).disabled = false;
+        
     }
 }
 
@@ -427,4 +476,5 @@ function monitorClean(){
     window.myChart.config.data.labels =[];
     xVal = 0;
     window.myChart.update();
+    dataSize = 0;
 }
