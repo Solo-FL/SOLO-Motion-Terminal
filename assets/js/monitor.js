@@ -39,7 +39,14 @@ function onRefresh(chart) {
     if(realSize>userdSerialShiftSize*1.3){
         userdSerialShiftSize = realSize -20;
     }
-    
+
+    /*debug buffer size*/
+    /*
+    document.getElementById("boxActionHardwareVersion").value = serial.readingSize();
+    document.getElementById("boxActionPosition").value = realSize;
+    document.getElementById("boxActionTorqueIq").value = userdSerialShiftSize;
+    */
+   
     var dataToSplice = 0;
     var dataPushed = 0;
 
@@ -63,6 +70,7 @@ function onRefresh(chart) {
             dataSize = dataset.data.length;
 
             /*debug*/
+            /*
             if(dataset.commandValue == '96') {
                 for (var vii = 0; vii<myConvertedValues.length ; vii++){
                     var valuee = parseInt(myConvertedValues[vii])
@@ -79,7 +87,7 @@ function onRefresh(chart) {
                     }
                 }
             }
-            
+            */
 
         }else{
             if(dataset.label=='VC [V]'){
