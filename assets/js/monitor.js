@@ -471,7 +471,6 @@ function monitorStop(){
         serial.cleanMonitorBuffer();
         document.getElementById(rangeScaleId).disabled = true;
         document.getElementById(monitorCleanId).disabled = false;
-        
     }
 }
 
