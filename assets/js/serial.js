@@ -69,7 +69,7 @@ class Serial {
 
                     var newMessage = this.arrayAlementsToString(value);
                     
-                    console.log('read: '+ newMessage);
+                    //console.log('read: '+ newMessage);
                     
                     this.readingPreList += newMessage;
                     packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
@@ -368,6 +368,7 @@ class Serial {
         this.readingPreList="";
         this.readingList = [];
         this.multipleWriteStart(
+        'FFFF00190000000000FE'+
         'FFFF00190000000000FE'+
         'FFFF00190000000000FE')
       }

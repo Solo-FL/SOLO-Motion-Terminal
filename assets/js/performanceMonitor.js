@@ -46,6 +46,12 @@ function performanceOnRefresh(chart) {
     var dataToSplice = 0;
     var dataPushed = 0;
     
+    /*debug buffer size*/
+    /*
+    document.getElementById("boxActionHardwareVersion").value = serial.readingSize();
+    document.getElementById("boxActionPosition").value = realSize;
+    document.getElementById("boxActionTorqueIq").value = userdSerialShiftSize;
+    */
 
     chart.config.data.datasets.forEach(function(dataset) {
 
