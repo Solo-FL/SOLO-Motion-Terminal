@@ -148,8 +148,8 @@ var performanceConfig = {
 			data: []
 		}, {
             label: 'Angle [P.U.]',
-            borderColor: window.chartColors.orange,
-            backgroundColor: window.chartColors.orange,
+            borderColor: window.chartColors.black,
+            backgroundColor: window.chartColors.black,
             yAxisID: 'y-axis-PU',
             commandValue: 'B0',
             commandConversion: 'SFXT',
