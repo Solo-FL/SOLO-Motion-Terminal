@@ -364,7 +364,6 @@ class Serial {
 
 
       cleanMonitorBuffer(){
-        document.getElementById("bMonitorStop").classList.add("bg-danger");
         this.readingPreList="";
         this.readingList = [];
         this.multipleWriteStart(
