@@ -210,3 +210,9 @@
   function updateRangeInput(val,rangeActionName) {
     document.getElementById(rangeActionName).value=val; 
   }
+
+  function pressIfEnter(event,bActionName) {
+    if(event.keyCode  == 13) {
+      document.getElementById(bActionName).onclick();
+    }
+  }
