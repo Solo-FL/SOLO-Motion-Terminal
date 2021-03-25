@@ -202,7 +202,7 @@ class Serial {
         var hexStringOnlyText = data.replace(/(\r\n|\n|\r|\s)/gm, "");
         //hexStringOnlyText += "FFFF00930000000000FE "; //TODO add control request
         var splitCommands = hexStringOnlyText.match(/.{20}/g);
-        if (splitCommands!= null && splitCommands.length>0){
+        if (splitCommands!= null && splitCommands.length>0 && this.isMonitoring==false){
           splitCommands.push("FFFF00930000000000FE"); //TODO add control request
         }
         return splitCommands;
