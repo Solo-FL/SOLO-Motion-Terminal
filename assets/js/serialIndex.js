@@ -23,7 +23,7 @@ connect.addEventListener('click', () => {
 });
 
 function checkFirmwareVersion(){
-  if(document.querySelector('#boxActionFirmwareVersion').value!="0000B006"){
+  if(document.querySelector('#boxActionFirmwareVersion').value!="0000B006" && serial.connectionStatus=="connected"){
     alert("The latest version of Firmware is the V006. Please update it for a better user experience, to get the updater tool please contact us.");
   }
 }
