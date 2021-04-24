@@ -3,7 +3,7 @@
 
 var performanceMonitorActivation = false;
 var performanceSerialReadingSizeToStart = 1000;
-var performanceSerialShiftSize = 50;
+var performanceSerialShiftSize = 25;
 var performanceDuration = 10000;
 var performanceRefreshTimeout = 25;
 //var delay = 100;

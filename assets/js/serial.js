@@ -53,91 +53,100 @@ class Serial {
                     stopBitsVal:stopBitsVal });
                 this.connectionStatus = "connected"
                 console.log('LOG: '+port.log);
-                this.reader = port.readable.getReader();
+                //this.reader = port.readable.getReader();
                 this.writer = port.writable.getWriter();
                 let signals = await port.getSignals();
                 console.log('SIGNALS: ');
                 console.log(signals);
                 
-                
-                while (true) {
-                  const { value, done } = await this.reader.read();
-                  if (value) {
-                    var packetReceived ="";
-                    var packetReceivedStart =0;
-                    var packetReceivedList =[];
-
-                    var newMessage = this.arrayAlementsToString(value);
-                    
-                    //console.log('read: '+ newMessage);
-                    
-                    this.readingPreList += newMessage;
-                    packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
-                    
-
-                    packetReceived = this.readingPreList.substr
-                      (packetReceivedStart,
-                      this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
-                    packetReceivedList = packetReceived.match(/.{20}/g);
-                    if(packetReceivedList!=null){
-                      this.readingList=this.readingList.concat(packetReceivedList);
-                      this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
-                    }
-
-
-                    if(this.isMonitoring){
-                      for(var li = 0; li <this.readingList.length;li++){
-                        var messageToCheck = this.readingList[li];
-                        if(messageToCheck.substr(0,8)=="FFFF00A1" && !(messageToCheck.substr(8,12)=="0000000000FE")){
-                          document.getElementById("myChart").classList.add("bg-warning");
-                          document.getElementById("myPerformanceChart").classList.add("bg-warning");
-                          var errorText="";
-                            switch ( messageToCheck.substring(8, 16)){
-                              case 0:
-                                errorText= "0: No Errors";
-                                break;
-                              case 1:
-                                errorText= "1: O.C. (Over-Current)";
-                                break;
-                              case 2:
-                                errorText= "2: O.V. (Over-Voltage)";
-                                break;
-                              case 3:
-                                errorText= "3: O.V., O.C.";
-                                break;
-                              case 4:
-                                errorText= "4: O.T. (Over-Temp.)";
-                                break;
-                              case 5:
-                                errorText= "5: O.C., O.T.";
-                                break;
-                              case 6:
-                                errorText= "6: O.V., O.T.";
-                                break;
-                              case 7: 
-                                errorText= "7: O.C., O.V., O.T";
-                                break;
-                            }
-                            document.querySelector('boxActionErrorRegister').value=errorText;
+                while (port.readable){
+                  this.reader = port.readable.getReader();
+                  try {
+                    while (true) {
+                      const { value, done } = await this.reader.read();
+                      if (value) {
+                        var packetReceived ="";
+                        var packetReceivedStart =0;
+                        var packetReceivedList =[];
+    
+                        var newMessage = this.arrayAlementsToString(value);
+                        
+                        //console.log('read: '+ newMessage);
+                        
+                        this.readingPreList += newMessage;
+                        packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+                        
+    
+                        packetReceived = this.readingPreList.substr
+                          (packetReceivedStart,
+                          this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
+                        packetReceivedList = packetReceived.match(/.{20}/g);
+                        if(packetReceivedList!=null){
+                          this.readingList=this.readingList.concat(packetReceivedList);
+                          this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
                         }
+    
+    
+                        if(this.isMonitoring){
+                          for(var li = 0; li <this.readingList.length;li++){
+                            var messageToCheck = this.readingList[li];
+                            if(messageToCheck.substr(0,8)=="FFFF00A1" && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                              document.getElementById("myChart").classList.add("bg-warning");
+                              document.getElementById("myPerformanceChart").classList.add("bg-warning");
+                              var errorText="";
+                                switch ( messageToCheck.substring(8, 16)){
+                                  case 0:
+                                    errorText= "0: No Errors";
+                                    break;
+                                  case 1:
+                                    errorText= "1: O.C. (Over-Current)";
+                                    break;
+                                  case 2:
+                                    errorText= "2: O.V. (Over-Voltage)";
+                                    break;
+                                  case 3:
+                                    errorText= "3: O.V., O.C.";
+                                    break;
+                                  case 4:
+                                    errorText= "4: O.T. (Over-Temp.)";
+                                    break;
+                                  case 5:
+                                    errorText= "5: O.C., O.T.";
+                                    break;
+                                  case 6:
+                                    errorText= "6: O.V., O.T.";
+                                    break;
+                                  case 7: 
+                                    errorText= "7: O.C., O.V., O.T";
+                                    break;
+                                }
+                                document.querySelector('boxActionErrorRegister').value=errorText;
+                            }
+                          }
+                        }
+    
+                      
+                        if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
+                          localStorage.setItem(this.recordingIndex, newMessage);
+                          this.recordingIndex++;
+                        } else {
+                         // console.log("Sorry, your browser does not support Web Storage...");
+                        }
+                      
+                      }
+                      if (done) {
+                        console.log('[readLoop] DONE', done);
+                        this.reader.releaseLock();
+                        break;
                       }
                     }
 
-                  
-                    if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
-                      localStorage.setItem(this.recordingIndex, newMessage);
-                      this.recordingIndex++;
-                    } else {
-                     // console.log("Sorry, your browser does not support Web Storage...");
-                    }
-                  
-                  }
-                  if (done) {
-                    console.log('[readLoop] DONE', done);
-                    this.reader.releaseLock();
-                    break;
+                  }catch (error) {
+                    console.log("Handle non-fatal read error.");
                   }
                 }
+
+                
             }
             catch (err) {
                 console.error('There was an error opening the serial port:', err);
