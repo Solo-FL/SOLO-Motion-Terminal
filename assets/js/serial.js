@@ -59,7 +59,7 @@ class Serial {
                 console.log('SIGNALS: ');
                 console.log(signals);
                 
-                while (port.readable){
+                //while (port.readable){
                   this.reader = port.readable.getReader();
                   try {
                     while (true) {
@@ -144,7 +144,7 @@ class Serial {
                   }catch (error) {
                     console.log("Handle non-fatal read error.");
                   }
-                }
+                //}
 
                 
             }
