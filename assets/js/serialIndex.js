@@ -254,6 +254,10 @@ function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToCo
 }
 
 function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, multiply){
+  if (serial.connectionStatus!= "connected"){
+    alert("please check the connection of SOLO");
+  }
+
   var commandToSend= "FFFF" + address + command + "00000000" + "00FE";
 
   if(multiply==null){
@@ -280,6 +284,10 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
 }
 
 function doAction(address, command, type, valueOrValueId, boxToColorId ){
+  if (serial.connectionStatus!= "connected"){
+    alert("please check the connection of SOLO");
+  }
+
   var commandToSend= convertToCammandToSend(address, command, type, valueOrValueId);
   console.log('Do action: ' + commandToSend);
   doSimpleAction (commandToSend,boxToColorId);
