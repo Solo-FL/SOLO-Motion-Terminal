@@ -96,8 +96,7 @@ class Serial {
                             switch ( messageToCheck.substring(8, 16)){
                               case 0:
                                 errorText= "0: No Errors";
-                                document.getElementById("myChart").classList.remove("bg-warning");
-                                document.getElementById("myPerformanceChart").classList.add("bg-warning");
+                                resetMonitorsBG();
                                 break;
                               case 1:
                                 errorText= "1: O.C. (Over-Current)";
@@ -162,6 +161,11 @@ class Serial {
             'edge://flags/#enable-experimental-web-platform-features \n');
             this.connectionStatus = "error";
         }
+    }
+
+    resetMonitorsBG(){
+      document.getElementById("myChart").classList.remove("bg-warning");
+      document.getElementById("myPerformanceChart").classList.add("bg-warning");
     }
 
     clearRed(){
