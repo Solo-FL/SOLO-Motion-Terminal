@@ -350,6 +350,11 @@ function performanceMonitorStartStep2(){
 }
 
 function performanceMonitorStop(){
+    if (serial.connectionStatus!= "connected"){
+        alert("please check the connection of SOLO");
+        return;
+      }
+      
     if(performanceMonitorActivation){
         performanceMonitorActivation = false;
         serial.cleanMonitorBuffer();

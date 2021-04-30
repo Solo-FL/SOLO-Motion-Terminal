@@ -440,7 +440,7 @@ function monitorStart(){
         alert("please check the connection of SOLO");
         return;
     }
-    
+
     if(performanceMonitorActivation) {
         alert("Performance Monitor is in action, stop it before activate Generic Monitor");
         return;
@@ -471,6 +471,11 @@ function monitorStartStep2(){
 }
 
 function monitorStop(){
+    if (serial.connectionStatus!= "connected"){
+        alert("please check the connection of SOLO");
+        return;
+      }
+      
     if(monitorActivation){
         monitorActivation = false;
         serial.cleanMonitorBuffer();

@@ -104,6 +104,11 @@ function doDisbale2(checkbox,elements){
 }
 
 function doReadAll(extraCommand){
+  if (serial.connectionStatus!= "connected"){
+    alert("please check the connection of SOLO");
+    return;
+  }
+  
   if(extraCommand==null){
     extraCommand="";
   }
@@ -259,6 +264,7 @@ function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToCo
 function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, multiply){
   if (serial.connectionStatus!= "connected"){
     alert("please check the connection of SOLO");
+    return
   }
 
   var commandToSend= "FFFF" + address + command + "00000000" + "00FE";
@@ -289,6 +295,7 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
 function doAction(address, command, type, valueOrValueId, boxToColorId ){
   if (serial.connectionStatus!= "connected"){
     alert("please check the connection of SOLO");
+    return;
   }
 
   var commandToSend= convertToCammandToSend(address, command, type, valueOrValueId);
