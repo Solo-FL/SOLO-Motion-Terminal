@@ -165,7 +165,7 @@ class Serial {
 
     resetMonitorsBG(){
       document.getElementById("myChart").classList.remove("bg-warning");
-      document.getElementById("myPerformanceChart").classList.add("bg-warning");
+      document.getElementById("myPerformanceChart").classList.remove("bg-warning");
     }
 
     clearRed(){
