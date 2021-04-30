@@ -316,6 +316,11 @@ function performanceOnLoad() {
 };
 
 function performanceMonitorStart(){
+    if (serial.connectionStatus!= "connected"){
+        alert("please check the connection of SOLO");
+        return;
+    }
+
     if(monitorActivation) {
         alert("Generic Monitor is in action, stop it before activate Performance Monitor");
         return;

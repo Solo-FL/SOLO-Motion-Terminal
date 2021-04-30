@@ -436,6 +436,11 @@ function durationUpdate(inputDuration){
 }
 
 function monitorStart(){
+    if (serial.connectionStatus!= "connected"){
+        alert("please check the connection of SOLO");
+        return;
+    }
+    
     if(performanceMonitorActivation) {
         alert("Performance Monitor is in action, stop it before activate Generic Monitor");
         return;
