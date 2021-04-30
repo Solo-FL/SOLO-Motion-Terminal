@@ -84,17 +84,20 @@ class Serial {
                       this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
                     }
 
-
-                    if(this.isMonitoring){
-                      for(var li = 0; li <this.readingList.length;li++){
-                        var messageToCheck = this.readingList[li];
-                        if(messageToCheck.substr(0,8)=="FFFF00A1" && !(messageToCheck.substr(8,12)=="0000000000FE")){
-                          document.getElementById("myChart").classList.add("bg-warning");
-                          document.getElementById("myPerformanceChart").classList.add("bg-warning");
+                    if(packetReceivedList!=null ){
+                      for(var li = 0; li <packetReceivedList.length;li++){
+                        var messageToCheck = packetReceivedList[li];
+                        if(messageToCheck.substr(0,8)=="FFFF00A1"){
+                          if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                            document.getElementById("myChart").classList.add("bg-warning");
+                            document.getElementById("myPerformanceChart").classList.add("bg-warning");
+                          }
                           var errorText="";
                             switch ( messageToCheck.substring(8, 16)){
                               case 0:
                                 errorText= "0: No Errors";
+                                document.getElementById("myChart").classList.remove("bg-warning");
+                                document.getElementById("myPerformanceChart").classList.add("bg-warning");
                                 break;
                               case 1:
                                 errorText= "1: O.C. (Over-Current)";
@@ -117,8 +120,11 @@ class Serial {
                               case 7: 
                                 errorText= "7: O.C., O.V., O.T";
                                 break;
+                              default:
+                                errorText= "error"
+                                break;
                             }
-                            document.querySelector('boxActionErrorRegister').value=errorText;
+                            document.querySelector('#boxActionErrorRegister').value=errorText;
                         }
                       }
                     }
