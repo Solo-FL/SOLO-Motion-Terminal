@@ -314,7 +314,7 @@ class Serial {
           }
 
           if (size != null && count>=size){
-            break;
+            return readings;
           }
           
         }
