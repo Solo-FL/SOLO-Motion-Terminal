@@ -36,13 +36,16 @@ function checkStatus(){
     switch(this.serialOldConnectionStatus){
       case "error":
         connect.style.color = "orange";
+        document.getElementById("buttonConnectionTooltip").title="Connection error";
         break;
       case "none":
         connect.style.color = "gray";
+        document.getElementById("buttonConnectionTooltip").title="Press to connect SOLO";
         break;
       case "connected":
         connect.style.color = "LimeGreen";
         this.monitorIsInStopping=true;
+        document.getElementById("buttonConnectionTooltip").title="Connection OM";
         doReadAll('FFFF00190000000000FE'+'FFFF00190000000000FE');
         break;
     }
