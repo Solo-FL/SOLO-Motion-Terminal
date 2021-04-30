@@ -78,7 +78,7 @@ class Serial {
                     packetReceived = this.readingPreList.substr
                       (packetReceivedStart,
                       this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
-                    packetReceivedList = packetReceived.match(/.{20}/g);
+                    packetReceivedList = packetReceived.match(/FFFF.{14}FE/g);
                     if(packetReceivedList!=null){
                       this.readingList=this.readingList.concat(packetReceivedList);
                       this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
