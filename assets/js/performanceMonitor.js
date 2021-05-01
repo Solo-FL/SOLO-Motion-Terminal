@@ -3,9 +3,9 @@
 
 var performanceMonitorActivation = false;
 var performanceSerialReadingSizeToStart = 1000;
-var performanceSerialShiftSize = 50;
+var performanceSerialShiftSize = 25;
 var performanceDuration = 10000;
-var performanceRefreshTimeout = 50;
+var performanceRefreshTimeout = 25;
 //var delay = 100;
 var performanceXVal= 0;
 var performanceDataSize = 0;
@@ -112,180 +112,164 @@ function performanceOnRefresh(chart) {
 
 var color = Chart.helpers.color;
 var performanceConfig = {
-	type: 'bar',
+	type: 'line',
 	data: {
 		labels: [],
 		datasets: [{
             label: 'Position [Quad Pulses]',
             backgroundColor: window.chartColors.green,
             borderColor: window.chartColors.green,
-            yAxisID: 'y-axis-PS',
+            yAxisID: 'y_axis_PS',
             commandValue: 'A0',
             commandConversion: 'INT32',
             
-
 			type: 'line',
-			fill: false,
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            pointRadius: 0,
-            lineTension: 0,
             data: []
 		}, {
             label: 'Iq [A]',
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            yAxisID: 'y-axis-A',
+            yAxisID: 'y_axis_A',
             commandValue: '8D',
             commandConversion: 'SFXT',
             
-
 			type: 'line',
-			fill: false,
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            pointRadius: 0,
-            lineTension: 0,
 			data: []
         }, {
             label: 'IM [A]',
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            yAxisID: 'y-axis-A',
+            yAxisID: 'y_axis_A',
             commandValue: '87',
             commandConversion: 'SFXT',
             
-
 			type: 'line',
-			fill: false,
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            pointRadius: 0,
-            lineTension: 0,
 			data: []
 		}, {
             label: 'Angle [P.U.]',
             borderColor: window.chartColors.black,
             backgroundColor: window.chartColors.black,
-            yAxisID: 'y-axis-PU',
+            yAxisID: 'y_axis_PU',
             commandValue: 'B0',
             commandConversion: 'SFXT',
             
-
 			type: 'line',
-			fill: false,
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            pointRadius: 0,
-            lineTension: 0,
 			data: []
 		}, {
             label: 'Speed [RPM]',
             borderColor: window.chartColors.red,
             backgroundColor: window.chartColors.red,
-            yAxisID: 'y-axis-RPM',
+            yAxisID: 'y_axis_RPM',
             commandValue: '96',
             commandConversion: 'UINT32',
            
-
 			type: 'line',
-			fill: false,
-            cubicInterpolationMode: 'monotone',
-            borderWidth: 1,
-            pointRadius: 0,
-            lineTension: 0,
 			data: []
         }]
 	},
-	options: {
 
-        legend: {
-            labels: {
-              padding: 20,
-              fontSize:14,
-            }
-          },
-    
-        animation: {
-            duration: 0
-        },
-		scales: {
-			xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Samples',
-                    fontSize:14,
+	options: {
+        animation: false,
+        spanGaps: true,
+        pointRadius : 0,
+        borderWidth: 1,
+        cubicInterpolationMode: 'monotone',
+
+        plugins :{
+            tooltip: {
+                //enabled : false,
+               position : 'nearest',
+		    },
+            legend: {
+                labels: {
+                  padding: 20,
+                  font:{
+                    size:14,
+                  },
                 }
-			}],
-			yAxes: [{
+              },
+        },
+        
+    
+        
+		scales: {
+			x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Samples',
+                    font:{
+                        size:14,
+                    },
+                }
+			},
+			y_axis_PS: {
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'right',
-                id: 'y-axis-PS',
-                scaleLabel: {
+                title: {
                     display: true,
-                    labelString: 'Quad Pulses',
-                    fontSize:14,
+                    text: 'Quad Pulses',
+                    font:{
+                        size:14,
+                    },
 
                 },
                  // grid line settings
-                gridLines: {
+                grid: {
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
-            }, {
+            },
+            y_axis_A: {
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'left',
-                id: 'y-axis-A',
-                scaleLabel: {
+                title: {
                     display: true,
-                    labelString: 'Amps',
-                    fontSize:14,
+                    text: 'Amps',
+                    font:{
+                        size:14,
+                    },
                 },
 
                 // grid line settings
-                gridLines: {
+                grid: {
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
-            },{
+            },
+            y_axis_PU:{
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'left',
-                id: 'y-axis-PU',
-                scaleLabel: {
+                title: {
                     display: true,
-                    labelString: 'P.U.',
-                    fontSize:14,
+                    text: 'P.U.',
+                    font:{
+                        size:14,
+                    },
                 },
 
                 // grid line settings
-                gridLines: {
+                grid: {
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
             },
 
-            {
+            y_axis_RPM:{
                 type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'right',
-                id: 'y-axis-RPM',
-                labelString: '[RPM]',
-                scaleLabel: {
+                title: {
                     display: true,
-                    labelString: 'RPM',
-                    fontSize:14,
+                    text: 'RPM',
+                    font:{
+                        size:14,
+                    },
                 },
-            }]
+            }
 		},
-		tooltips: {
-			mode: 'nearest',
-			intersect: false
-		},
-		hover: {
-			mode: 'nearest',
-			intersect: false
-		}
+
+        
 	}
 };
 

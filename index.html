@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
 
     <!-- monitor mode -->
-	<script src="assets/js/chart.js@2.8.0"></script>
+	<script src="assets/js/chart.js@3.2.0"></script>
 	   
 </head>
 
@@ -1488,7 +1488,9 @@
 
                                                     <div class="row mb-2">
                                                         <div class="col col-sm-2">
-                                                            <input type="range"  class="col-sm-12" id="rangePerfromanceScale" value="2000" min="100" max="7000"  step="10" oninput="performanceDurationUpdate(this.value)" disabled= true>
+                                                            <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Increase/Decrease fot change the simple in the Monitor">
+                                                                <input type="range"  class="col-sm-12" id="rangePerfromanceScale" value="2000" min="100" max="7000"  step="10" oninput="performanceDurationUpdate(this.value)" disabled= true>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -1551,7 +1553,9 @@
 
                                                     <div class="row mb-2">
                                                         <div class="col col-sm-2">
-                                                            <input type="range"  id="rangeScale"  class="col-sm-12" value="1000" min="100" max="2000"  step="10" oninput="durationUpdate(this.value)" disabled=true>
+                                                            <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Increase/Decrease fot change the simple in the Monitor">
+                                                                <input type="range"  id="rangeScale"  class="col-sm-12" value="1000" min="100" max="2000"  step="10" oninput="durationUpdate(this.value)" disabled=true>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                     <canvas id="myChart" ></canvas>
