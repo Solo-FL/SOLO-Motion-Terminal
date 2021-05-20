@@ -202,7 +202,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The address of SOLO in the network">
                                                                 Device Address*
                                                             </div>
                                                             
@@ -226,7 +226,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The Maximum allowed Current into the Motor">
                                                                 Current Limit [A]*
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -251,7 +251,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The output switching frequency on motor in kilo-Hertz format">
                                                                 PWM Frequency [kHz]*
                                                             </div>
                                                             
@@ -273,7 +273,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom"   
+                                                            title="The number of Poles for 3 phase Motors, &#013;for brushless motors it’s equal to the number of magnets mounted on the rotor of the motor &#013;Number of Motor Poles = Number of Motor pole pairs * 2">
                                                                 Number of Poles*
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -298,7 +299,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The pulse per revolution (PPR) of the incremental encoder pre-quad, &#013;it also can be referred as physical Encoder lines’ engraved on the Encoder disk">
                                                                 Encoder Lines*
                                                             </div>
                                                             
@@ -349,7 +351,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The data baud-rate of UART line in bits per second">
                                                                 UART Line baud-rate[bits/s]*
                                                             </div>
                                                             
@@ -393,7 +395,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionResetAddressToZero" value="0" onclick="doAction('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')">Reset Device Address to Zero</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" data-toggle="tooltip" data-placement="bottom" title="Reset the address of connected SOLO to Zero" 
+                                                                id="bActionResetAddressToZero" value="0" onclick="doAction('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')">Reset Device Address to Zero</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -402,7 +405,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionResetFactory" value="1" onclick="doAction('00','14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" data-toggle="tooltip" data-placement="bottom" title="Reset all the settings of SOLO to factory mode, &#013;after this you need to recycle the power of SOLO so the new parameters will take effect."
+                                                                id="bActionResetFactory" value="1" onclick="doAction('00','14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -428,7 +432,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionMotorIdentification" value="01" onclick="doReadAll(convertToCammandToSend('00','07','UINT32','bActionMotorIdentification'));">Motor Identification</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" data-toggle="tooltip" data-placement="bottom" title="Identify the Electrical parameters of the Motor &#013;and tune the current controller (torque controller) gains"
+                                                                id="bActionMotorIdentification" value="01" onclick="doReadAll(convertToCammandToSend('00','07','UINT32','bActionMotorIdentification'));">Motor Identification</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -447,7 +452,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The Proportional gain of PI controller of current controller ( torque controller), &#013;if you change this value manually you need to recycle the power of SOLO so it will take effect">
                                                                 <input type="checkbox" id="checkActionCurrentControllerKp" value="1" onclick="doDisbale('checkActionCurrentControllerKp', ['boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp'])" checked > 
                                                                 Current Controller Kp*
                                                             </div>
@@ -470,7 +475,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The Integral gain of the PI controller of current controller ( torque controller), &#013;if you change this value manually you need to recycle the power of SOLO so it will take effect">
                                                                 <input type="checkbox" id="checkActionCurrentControllerKi" value="1" onclick="doDisbale('checkActionCurrentControllerKi', ['boxActionCurrentControllerKi','rangeActionCurrentControllerKi','bActionCurrentControllerKi'])" checked> 
                                                                 Current Controller Ki*
                                                             </div>
@@ -496,7 +501,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The Identified Phase Inductance of the Motor, if you change this value &#013;manually you need to recycle the power of SOLO so it will take effect">
                                                                 <input type="checkbox" id="checkActionMotorInductance" value="1" onclick="doDisbale('checkActionMotorInductance', ['boxActionMotorInductance','rangeActionMotorInductance','bActionMotorInductance'])" checked > 
                                                                 Motor Inductance [Henry]*
                                                             </div>
@@ -519,7 +524,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The Identified Phase Resistance of the Motor, if you change this value &#013;manually you need to recycle the power of SOLO so it will take effect">
                                                                 <input type="checkbox" id="checkActionMotorResistance" value="1" onclick="doDisbale('checkActionMotorResistance', ['boxActionMotorResistance','rangeActionMotorResistance','bActionMotorResistance'])" checked> 
                                                                 Motor Resistance[Ohm]*
                                                             </div>
@@ -546,7 +551,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The sensorless speed observer Main Gain for Normal BLDC or PMSM Motors, &#013;this value is normally between 0.001 to 1, and it’s useful only in sensorless mode">
                                                                 <input type="checkbox" id="checkActionNBOG" value="1" onclick="doDisbale('checkActionNBOG', ['boxActionNBOG','rangeActionNBOG','bActionNBOG'])" checked > 
                                                                 Normal Brushless Observer Gain*
                                                             </div>
@@ -569,7 +574,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The sensorless speed observer Filter Gain for Normal BLDC or PMSM Motors, &#013;this value is normally between 1 to 1000, and it’s useful only in sensorless mode">
                                                                 <input type="checkbox" id="checkActionNBFG" value="1" onclick="doDisbale('checkActionNBFG', ['boxActionNBFG','rangeActionNBFG','bActionNBFG'])" checked> 
                                                                 Normal Brushless Filter Gain*
                                                             </div>
@@ -595,7 +600,7 @@
                                                        
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The sensorless speed observer Main Gain for Ultrafast BLDC or PMSM Motors, &#013;this value is normally between 0.001 to 1, and it’s useful only in sensorless mode">
                                                                 <input type="checkbox" id="checkActionFBOG" value="1" onclick="doDisbale('checkActionFBOG', ['boxActionFBOG','rangeActionFBOG','bActionFBOG'])" checked > 
                                                                 Fast Brushless Observer Gain*
                                                             </div>
@@ -618,7 +623,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The sensorless speed observer Filter Gain for Ultrafast BLDC or PMSM Motors, &#013;this value is normally between 1 to 1000, and it’s useful only in sensorless mode">
                                                                 <input type="checkbox" id="checkActionFBFG" value="1" onclick="doDisbale('checkActionFBFG', ['boxActionFBFG','rangeActionFBFG','bActionFBFG'])" checked> 
                                                                 Fast Brushless Filter Gain*
                                                             </div>
@@ -644,7 +649,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="The sensorless speed observer Main Gain for DC brushed Motors, &#013;this value is normally between 1 to 100, and it’s useful only in sensorless mode">
                                                                 <input type="checkbox" id="checkActionDCOG" value="1" onclick="doDisbale('checkActionDCOG', ['boxActionDCOG','rangeActionDCOG','bActionDCOG'])" checked > 
                                                                 DC Motor Observer Gain*
                                                             </div>
@@ -687,7 +692,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionEncoderCalibration" value="01" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionEncoderCalibration'));">Encoder Calibration</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionEncoderCalibration" data-toggle="tooltip" data-placement="bottom" title="By pressing this button, SOLO will start calibrating the Incremental Encoder connected to it &#013;and finds its CW and CCW offset values,Before pressing this, make sure SOLO is in Closed-loop mode, &#013;to learn more please visit: https://www.solomotorcontrollers.com/how-to-connect-calibrate-incremental-encoder-with-solo/"
+                                                                value="01" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionEncoderCalibration'));">Encoder Calibration</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -696,7 +702,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionHallSensorsCalibration" value="02" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionHallSensorsCalibration'));">Hall Sensors Calibration</button>
+                                                                <button type="button" class="btn btn-primary col-sm-12" id="bActionHallSensorsCalibration" data-toggle="tooltip" data-placement="bottom" title="By pressing this button, SOLO will start calibrating the Hall sensors connected to it &#013;and finds its CW and CCW offset values, Before pressing this, make sure SOLO is in Closed-loop mode, &#013;to learn more please visit: https://www.solomotorcontrollers.com/hall-sensors-to-solo-for-controlling-speed-torque-brushless-motor/ "
+                                                                value="02" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionHallSensorsCalibration'));">Hall Sensors Calibration</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -708,7 +715,8 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
-                                                                <button type="button" class="btn btn-danger col-sm-12" id="bActionCalibrationStop" value="00" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionCalibrationStop'));">Calibration STOP</button>
+                                                                <button type="button" class="btn btn-danger col-sm-12" id="bActionCalibrationStop" data-toggle="tooltip" data-placement="bottom" title="Stop the Calibration process"
+                                                                value="00" onclick="doReadAll(convertToCammandToSend('00','27','UINT32','bActionCalibrationStop'));">Calibration STOP</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -725,7 +733,7 @@
 
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="Identified Encoder or Hall offset in CCW direction">
                                                                 <input type="checkbox" id="checkActionCcwO" value="1" onclick="doDisbale2('checkActionCcwO', ['boxActionCcwO','rangeActionCcwO','bActionCcwO'])" checked > 
                                                                 Encoder/Hall C.C.W Offset*
                                                             </div>
@@ -748,7 +756,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="Identified Encoder or Hall offset in CW direction">
                                                                 <input type="checkbox" id="checkActionCwO" value="1" onclick="doDisbale2('checkActionCwO', ['boxActionCwO','rangeActionCwO','bActionCwO'])" checked> 
                                                                 Encoder/Hall C.W Offset*
                                                             </div>
@@ -787,7 +795,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This mode defines if SOLO gets commanded through packets from UART, USB or CAN bus &#013;or it will get commands through its Analogue inputs for controlling Torque, Speed or Position.">
                                                                 Command Mode*
                                                             </div>
                                                             
@@ -812,7 +820,8 @@
                                                             
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="This defines using what type of methodology or sensors SOLO should control the Motor">
                                                                 Speed/Torque Control Mode*
                                                             </div>
                                                             
@@ -841,7 +850,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="Defines what type of control is desired to be done by SOLO">
                                                                 Control type*
                                                             </div>
                                                             <div class="col col-sm-3" >
@@ -866,7 +876,7 @@
                                                             
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This defines the direction of rotation of the Motor">
                                                                 Motor Direction
                                                             </div>
                                                             
@@ -895,7 +905,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The Proportional gain of PI controller of Speed controller, &#013;this gain should be set based on the dynamics of your system">
                                                                 Speed Controller Kp
                                                             </div>
                                                             
@@ -917,7 +928,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The Integral gain of PI controller of Speed controller, &#013;this gain should be set based on the dynamics of your system">
                                                                 Speed Controller Ki
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -945,7 +957,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The Proportional gain of PI controller of Position controller, &#013;this gain should be set based on the dynamics of your system">
                                                                 Position Controller Kp
                                                             </div>
                                                             
@@ -967,7 +980,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The Integral gain of PI controller of Position controller, &#013;this gain should be set based on the dynamics of your system">
                                                                 Position Controller Ki
                                                             </div>
                                                             
@@ -995,7 +1009,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The desired acting current in Torque generation in Amps, for both 3-phase or DC brushed motors &#013;the amount of this value has linear relationship with real torque of the Motor as: &#013;The Desired Torque on the shaft [N.m] = The Desired Iq or &#013;Current ref.[A] x Torque constant of the Motor [N.m/A]">
                                                                 Torque Reference_Iq [A]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1017,7 +1032,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The desired Speed to reach in RPM">
                                                                 Speed Reference [RPM]
                                                             </div>
                                                             
@@ -1045,7 +1061,8 @@
                                                         <div class="row mb-2">
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The Speed limit in RPM, this value during Position control will define the speed &#013;of the motor during traversing the position trajectory, &#013;this value can be changed dynamically during the trajectory">
                                                                 Speed Limit [RPM]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1066,7 +1083,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="The desired number or quadrature pulses that the user wants the Motor to travers, &#013;this value can have positive and negative values in range of &#013;[-2,147,483,647 to +2,147,483,647]">
                                                                 Desired Position [Quad_Pulses]
                                                             </div>
                                                             
@@ -1092,7 +1110,8 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="This defines the amount of desired Magnetizing current for an AC induction motor">
                                                                 Magnetizing Current_Id [A]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1113,7 +1132,8 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" 
+                                                            title="This is the value of injected power into 3-phase Motors in &#013;open-loop mode in percentage from 0% to 100%.">
                                                                 Power Reference [%]
                                                             </div>
                                                             
@@ -1166,7 +1186,10 @@
                                                             
                                                             <div class="col col-sm-2"></div>
                                                             
-                                                            <div class="col col-sm-3"><button type="button" class="btn btn-primary col-sm-12" id="bActionResetErrors" value="0" onclick="doAction('00','20','UINT32','bActionResetErrors','bActionResetErrors'); serial.resetMonitorsBG()">Reset Errors</button>
+                                                            <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-primary col-sm-12" 
+                                                                data-toggle="tooltip" data-placement="bottom" title="This button Resets all the Errors in Error register &#013;if they don’t keep occurring, so as long as the errors are not gone, &#013;this button will have no effect"
+                                                                id="bActionResetErrors" value="0" onclick="doAction('00','20','UINT32','bActionResetErrors','bActionResetErrors'); serial.resetMonitorsBG()">Reset Errors</button>
                                                             
                                                             </div>
                                                             
@@ -1175,7 +1198,10 @@
                                                             
                                                             <div class="col col-sm-2"></div>
                                                             
-                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-danger col-sm-12" id="bActionResetEmergencyStop" value="0" onclick="doAction('00','08','UINT32','bActionResetEmergencyStop','bActionResetEmergencyStop')">Emergency STOP</button>
+                                                            <div class="col col-sm-3"> 
+                                                                <button type="button" class="btn btn-danger col-sm-12" 
+                                                                data-toggle="tooltip" data-placement="bottom" title="This will stop immediately the SOLO controller &#013;from feeding any current into motor, after pressing this button, &#013;you must recycle the power to get back into normal condition"
+                                                                id="bActionResetEmergencyStop" value="0" onclick="doAction('00','08','UINT32','bActionResetEmergencyStop','bActionResetEmergencyStop')">Emergency STOP</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -1197,7 +1223,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This shows the Bus or Battery voltage connected to SOLO at the input">
                                                                 Supply Voltage [V]
                                                             </div>
                                                             
@@ -1215,7 +1241,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the on-board Temperature of SOLO ">
                                                                 Temperature [°C]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1235,7 +1261,7 @@
                                                         
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This shows the possible errors that happened">
                                                                 Error Register
                                                             </div>
                                                             
@@ -1252,7 +1278,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the Firmware version of SOLO connected to Motion Terminal">
                                                                 Firmware Version
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1313,7 +1339,7 @@
 
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the Speed feedback read from the Motor">
                                                                 Speed [RPM]
                                                             </div>
                                                             
@@ -1331,7 +1357,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the “Iq” current feedback read from the Motor">
                                                                 Torque_Iq [A]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1353,7 +1379,7 @@
 
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the Magnetizing [Id] current feedback read from the Motor">
                                                                 Magnetizing Current_Id [A]
                                                             </div>
                                                             
@@ -1371,7 +1397,7 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the Position of the Motor read from the Encoder (post-quad)">
                                                                 Position [Quad_Pulses]
                                                             </div>
                                                             <div class="col col-sm-2">
@@ -1393,7 +1419,7 @@
 
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-2">
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="This is the Hardware version of SOLO connected to Motion Terminal">
                                                                 Hardware Version
                                                             </div>
                                                             <div class="col col-sm-2">
