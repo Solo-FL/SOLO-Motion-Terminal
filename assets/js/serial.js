@@ -244,7 +244,7 @@ class Serial {
       return byteBuffer;
     }
 
-    
+
 
     getLastReadingsByCommand(command, historySize ,isToPop){
       var size = 0;
@@ -267,6 +267,10 @@ class Serial {
       return "";
     }
 
+    getLastReadingsByCommandAndAppend(command, historySize ,isToPop, appendO){
+      var read = this.getLastReadingsByCommand(command, historySize ,isToPop);
+      appendO.value = appendO.value + read;
+    }
 
     readingSize(){
       return this.readingList.length;

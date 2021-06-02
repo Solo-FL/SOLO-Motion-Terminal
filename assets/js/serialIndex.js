@@ -55,15 +55,26 @@ function checkStatus(){
 
 
 submitButton.addEventListener('click', event => {
-  if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
-    serial.multipleWriteStart(messageInput.value);
-    serialMessagesContainer.value="";
-    setTimeout(updates,250,serial.truncateBy20(messageInput.value));
+  document.querySelector('#termRx').value="";
+  var splitCommands = serial.truncateBy20(messageInput.value);
+  if(splitCommands != null){
+    var time = 1;
+    for(var i = 0 ; i < splitCommands.length; i++){
+      setTimeout(doSimpleAction, time, splitCommands[i] ,null);
+      time += 100;
+      if(i<splitCommands.length-1 || serial.isMonitoring){
+        setTimeout(serial.getLastReadingsByCommandAndAppend.bind(serial), time, splitCommands[i].substr(6,2) ,null, true,document.querySelector('#termRx') );
+        time += 100;
+        setTimeout(prettifyHex,time);
+      }
+    }
+    setTimeout(prettifyHex,time);
   }
+
 });
 
 clearButton.addEventListener('click', event => {
-  serial.flushreadings();
+  //serial.flushreadings();
   serialMessagesContainer.value="";
 });
 
