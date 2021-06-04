@@ -25,27 +25,45 @@
   }
 
 document.querySelector('#conversionFloat').oninput = function () {
-    document.querySelector('#conversionDecimal').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionInt32').value = '';
+    var value = document.querySelector('#conversionFloat').value;
+    if(value.trim().length == 0){
+        document.querySelector('#conversionDecimal').value = '';
+        document.querySelector('#conversionHex').value = '';
+        document.querySelector('#conversionInt32').value = '';
+        return;
+    }
 
-    document.querySelector('#conversionHex').value = conversionFromFloat(document.querySelector('#conversionFloat').value);
+    var hexValue = document.querySelector('#conversionHex').value = conversionFromFloat(value);
+    document.querySelector('#conversionDecimal').value = conversionToDecimal(hexValue);
+    document.querySelector('#conversionInt32').value = conversionToInt32(hexValue);
 };
 
 document.querySelector('#conversionInt32').oninput = function () {
-    document.querySelector('#conversionDecimal').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionFloat').value = '';
+    var value = document.querySelector('#conversionInt32').value;
+    if(value.trim().length == 0){
+        document.querySelector('#conversionDecimal').value = '';
+        document.querySelector('#conversionHex').value = '';
+        document.querySelector('#conversionFloat').value = '';
+        return;
+    }
 
-    document.querySelector('#conversionHex').value = conversionFromInt32(document.querySelector('#conversionInt32').value);
+    var hexValue = document.querySelector('#conversionHex').value = conversionFromInt32(value);
+    document.querySelector('#conversionDecimal').value = conversionToDecimal(hexValue);
+    document.querySelector('#conversionFloat').value = conversionToFloat(hexValue);
 };
 
 document.querySelector('#conversionDecimal').oninput = function () {
-    document.querySelector('#conversionFloat').value = '';
-    document.querySelector('#conversionHex').value = '';
-    document.querySelector('#conversionInt32').value = '';
+    var value = document.querySelector('#conversionDecimal').value;
+    if(value.trim().length == 0){
+        document.querySelector('#conversionFloat').value = '';
+        document.querySelector('#conversionHex').value = '';
+        document.querySelector('#conversionInt32').value = '';
+        return 0;
+    }
 
-    document.querySelector('#conversionHex').value = conversionFromDecimal(document.querySelector('#conversionDecimal').value);
+    var hexValue = document.querySelector('#conversionHex').value = conversionFromDecimal(value);
+    document.querySelector('#conversionFloat').value = conversionToFloat(hexValue);
+    document.querySelector('#conversionInt32').value = conversionToInt32(hexValue);
 };
 
 document.querySelector('#conversionHex').oninput = function () {

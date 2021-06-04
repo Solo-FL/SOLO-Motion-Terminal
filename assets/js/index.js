@@ -159,7 +159,7 @@ function conversionFromHex() {
   console.log('hex conversion of: ' + hexValue);
   document.querySelector('#conversionDecimal').value = conversionToDecimal(hexValue);
   document.querySelector('#conversionFloat').value = conversionToFloat(hexValue);
-  document.querySelector('#conversionInt32').value = conversionFromInt32(hexValue);
+  document.querySelector('#conversionInt32').value = conversionToInt32(hexValue);
 }
 
 function truncate(num, places) {
