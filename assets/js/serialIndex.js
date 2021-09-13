@@ -18,13 +18,15 @@ connect.addEventListener('click', () => {
       break;
     default:
       serial.init();
-      setTimeout( checkFirmwareVersion, 6000);
+      setTimeout( checkFirmwareVersion, 8000);
   }
 });
 
 function checkFirmwareVersion(){
-  if(document.querySelector('#boxActionFirmwareVersion').value!="0000B008" && serial.connectionStatus=="connected"){
-    alert("The latest version of Firmware is the V008. Please update it for a better user experience, to get the updater tool please contact us.");
+  if((document.querySelector('#boxActionFirmwareVersion').value!="0000B009" &&
+  document.querySelector('#boxActionFirmwareVersion').value!="0002B008" )
+   && serial.connectionStatus=="connected"){
+    alert("The latest version of Firmware is the V009. Please update it for a better user experience, to get the updater tool please contact us.");
   }
 }
 
@@ -164,6 +166,11 @@ function doReadAll(extraCommand){
     "FFFF00960000000000FE"+
     "FFFF008D0000000000FE"+
     "FFFF00A00000000000FE"+
+
+    "FFFF00B60000000000FE"+
+    "FFFF00B40000000000FE"+
+    "FFFF00B50000000000FE"+
+
     "FFFF00A30000000000FE"
     );
   
@@ -173,6 +180,7 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF00900000000000FE", 'UINT32', 0 , 'boxActionEncoderLines', 'boxActionEncoderLines',null);
     updateAndFlushSimpleActionRead("FFFF00970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null);
     updateAndFlushSimpleActionRead("FFFF00B30000000000FE", 'UINT32', 0 , 'boxActionUartBaudRate', 'boxActionUartBaudRate',null);
+    updateAndFlushSimpleActionRead("FFFF00B60000000000FE", 'UINT32', 0 , 'boxActionCanopenBaudRate', 'boxActionCanopenBaudRate',null);
     updateAndFlushSimpleActionRead("FFFF00910000000000FE", 'SFXT', 0 , 'boxActionCurrentControllerKp', 'boxActionCurrentControllerKp',null);
     updateAndFlushSimpleActionRead("FFFF00920000000000FE", 'SFXT', 0.00005 , 'boxActionCurrentControllerKi', 'boxActionCurrentControllerKi',null);
     updateAndFlushSimpleActionRead("FFFF00950000000000FE", 'SFXT', 0 , 'boxActionMotorInductance', 'boxActionMotorInductance',null);
@@ -198,13 +206,14 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF00A70000000000FE", 'INT32', 0 , 'boxActionDesiredPosition', 'boxActionDesiredPosition',null);
     updateAndFlushSimpleActionRead("FFFF00A60000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
     updateAndFlushSimpleActionRead("FFFF00A80000000000FE", 'SFXT', 0 , 'boxActionPowerReference', 'boxActionPowerReference',null);
-    updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionMagnetizingCurrentId', 'boxActionMagnetizingCurrentId',null);
+    updateAndFlushSimpleActionRead("FFFF00B40000000000FE", 'SFXT', 0 , 'boxActionSpeedAcceleration', 'boxActionSpeedAcceleration',null);
+    updateAndFlushSimpleActionRead("FFFF00B50000000000FE", 'SFXT', 0 , 'boxActionSpeedDeceleration', 'boxActionSpeedDeceleration',null);
     updateAndFlushSimpleActionRead("FFFF00860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null);
     updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
     updateAndFlushSimpleActionRead("FFFF00930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null);
     updateAndFlushSimpleActionRead("FFFF00A10000000000FE", 'ERROR', 0 , 'boxActionErrorRegister', 'boxActionErrorRegister',null);
     updateAndFlushSimpleActionRead("FFFF00A20000000000FE", 'NONE', 0 , 'boxActionFirmwareVersion', 'boxActionFirmwareVersion',null);
-    updateAndFlushSimpleActionRead("FFFF00960000000000FE", 'UINT32', 0 , 'boxActionSpeed', 'boxActionSpeed',null);
+    updateAndFlushSimpleActionRead("FFFF00960000000000FE", 'INT32', 0 , 'boxActionSpeed', 'boxActionSpeed',null);
     updateAndFlushSimpleActionRead("FFFF008D0000000000FE", 'SFXT', 0 , 'boxActionTorqueIq', 'boxActionTorqueIq',null);
     updateAndFlushSimpleActionRead("FFFF008E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null);
     updateAndFlushSimpleActionRead("FFFF00A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null);

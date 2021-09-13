@@ -252,7 +252,7 @@ var config = {
             backgroundColor: window.chartColors.red,
             yAxisID: 'y_axis_RPM',
             commandValue: '96',
-            commandConversion: 'UINT32',
+            commandConversion: 'INT32',
             
 
 			type: 'line',
