@@ -23,10 +23,14 @@ connect.addEventListener('click', () => {
 });
 
 function checkFirmwareVersion(){
-  if((document.querySelector('#boxActionFirmwareVersion').value!="0000B009" &&
+ if((document.querySelector('#boxActionFirmwareVersion').value!="0000B009" &&
   document.querySelector('#boxActionFirmwareVersion').value!="0002B008" &&
   document.querySelector('#boxActionFirmwareVersion').value!="0001B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0002B009")
+  document.querySelector('#boxActionFirmwareVersion').value!="0002B009"&&
+  document.querySelector('#boxActionFirmwareVersion').value!="0003B009" &&
+  document.querySelector('#boxActionFirmwareVersion').value!="0004B009" &&
+  document.querySelector('#boxActionFirmwareVersion').value!="0005B009" &&
+  document.querySelector('#boxActionFirmwareVersion').value!="0006B009")
    && serial.connectionStatus=="connected"){
     alert("The latest version of Firmware is the V009. Please update it for a better user experience, to get the updater tool please contact us.");
   }
