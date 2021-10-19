@@ -16,6 +16,7 @@ class Serial {
       this.readingPreList = "";
       this.isRecordingActivated = false;
       this.recordingIndex = 0;
+      this.soloId = "00";
   }
 
   async disconnect(){
@@ -69,7 +70,8 @@ class Serial {
 
                   var newMessage = this.arrayAlementsToString(value);
                   
-                  //console.log('read: '+ newMessage);
+                  //TO TEST READ
+                  console.log('read: '+ newMessage);
                   
                   this.readingPreList += newMessage;
                   packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
@@ -87,7 +89,7 @@ class Serial {
                   if(packetReceivedList!=null ){
                     for(var li = 0; li <packetReceivedList.length;li++){
                       var messageToCheck = packetReceivedList[li];
-                      if(messageToCheck.substr(0,8)=="FFFF00A1"){
+                      if(messageToCheck.substr(0,8)=="FFFF"+ this.soloId  +"A1"){
                         if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
                           document.getElementById("myChart").classList.add("bg-warning");
                           document.getElementById("myPerformanceChart").classList.add("bg-warning");
@@ -213,7 +215,7 @@ class Serial {
       //hexStringOnlyText += "FFFF00930000000000FE "; //TODO add control request
       var splitCommands = hexStringOnlyText.match(/.{20}/g);
       if (splitCommands!= null && splitCommands.length>0 && this.isMonitoring==false){
-        splitCommands.push("FFFF00930000000000FE"); //TODO add control request
+        splitCommands.push("FFFF"+ this.soloId + "930000000000FE"); //TODO add control request
       }
       return splitCommands;
   }
@@ -328,7 +330,7 @@ class Serial {
 
     monitorStart(monitorType){
       this.isMonitoring=true;
-      this.multipleWriteStart("FFFF0019000000"+monitorType+"00FE");
+      this.multipleWriteStart("FFFF" + this.soloId + "19000000"+monitorType+"00FE");
     }
     
     arrayElementsToString(arrayData) {
@@ -381,9 +383,9 @@ class Serial {
       this.readingPreList="";
       this.readingList = [];
       this.multipleWriteStart(
-      'FFFF00190000000000FE'+
-      'FFFF00190000000000FE'+
-      'FFFF00190000000000FE')
+      'FFFF'+this.soloId+'190000000000FE'+
+      'FFFF'+this.soloId+'190000000000FE'+
+      'FFFF'+this.soloId+'190000000000FE')
     }
 
     saveRecording(){
