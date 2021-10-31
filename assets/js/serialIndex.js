@@ -125,18 +125,19 @@ function doDisbale2(checkbox,elements){
   disablePart(toDisable,elements);
 }
 
-function doReadAll(extraCommand ){
+function doReadAll(extraCommand){
   soloId = convertFromType('UINT32',document.getElementById('boxActionDeviceAddress').value).slice(-2);
   if (serial.connectionStatus!= "connected"){
     alert("please check the connection of SOLO");
     return;
   }
-  
-  if(extraCommand==null){
+  //console.log("Extra command: "+extraCommand);
+  if(extraCommand==null || extraCommand==undefined){
     extraCommand="";
   }
   serial.multipleWriteStart(
     extraCommand+
+    "FFFF"+"FF"+"810000000000FE"+
     "FFFF"+soloId+"8C0000000000FE"+ 
     "FFFF"+soloId+"8B0000000000FE"+
     "FFFF"+soloId+"8F0000000000FE"+
@@ -226,6 +227,8 @@ function doReadAll(extraCommand ){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"8E0000000000FE", 'SFXT', 0 , 'boxActionCurrentId', 'boxActionCurrentId',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null ,null);
+    updateAndFlushSimpleActionRead("FFFF"+"FF"+"810000000000FE", 'UINT32', 0 , 'boxActionDeviceAddress', 'boxActionDeviceAddress',null ,null);
+    setTimeout(doStoreIp, 500,'boxActionDeviceAddress');
 }
 
 function doActionSemplification(boxValueId){
@@ -317,7 +320,7 @@ function doActionStopMotor(){
   setTimeout(doAction, 700,serial.soloId,'1B','UINT32','bActionMotorStop','bActionMotorStop'); 
 }
 function convertToCammandToSendCore( command, type, valueOrValueId){
-  convertToCammandToSend(serial.soloId, command, type, valueOrValueId);
+  return convertToCammandToSend(serial.soloId, command, type, valueOrValueId);
 }
 
 function convertToCammandToSend(address, command, type, valueOrValueId){
@@ -326,13 +329,13 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
     value = document.getElementById(valueOrValueId).value
   }
   var commandToSend= "FFFF" + address + command + convertFromType(type,value) + "00FE";
-  
+  //console.log('command to send: '+ commandToSend);
   return commandToSend;
 }
 
 function doStoreIp(valueOrValueId){
   serial.soloId = convertFromType('UINT32',document.getElementById(valueOrValueId).value).slice(-2); 
-  console.log("new ip: " +serial.soloId );
+  //console.log("new ip: " +serial.soloId );
 }
 
 function doActionCore(command, type, valueOrValueId, boxToColorId ){

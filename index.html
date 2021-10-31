@@ -434,7 +434,7 @@
                                                             
                                                             <div class="col col-sm-3">
                                                                 <button type="button" class="btn btn-primary col-sm-12" data-toggle="tooltip" data-placement="bottom" title="Reset the address of connected SOLO to Zero" 
-                                                                id="bActionResetAddressToZero" value="0" onclick="doActionCore('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')">Reset Device Address to Zero</button>
+                                                                id="bActionResetAddressToZero" value="0" onclick="doReadAll(convertToCammandToSend('FF','12','UINT32','bActionResetAddressToZero','bActionResetAddressToZero')+convertToCammandToSend('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress') )">Reset Device Address to Zero</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -444,7 +444,7 @@
                                                             
                                                             <div class="col col-sm-3">
                                                                 <button type="button" class="btn btn-primary col-sm-12" data-toggle="tooltip" data-placement="bottom" title="Reset all the settings of SOLO to factory mode, &#013;after this you need to recycle the power of SOLO so the new parameters will take effect."
-                                                                id="bActionResetFactory" value="1" onclick="doActionCore('14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
+                                                                id="bActionResetFactory" value="1" onclick="doAction('FF','14','UINT32','bActionResetFactory','bActionResetFactory')">Reset Factory</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -910,7 +910,7 @@
                                                                 Control type*
                                                             </div>
                                                             <div class="col col-sm-3" >
-                                                                <SELECT id="boxActionControlType"  class="col-sm-12" onchange="doActionCore('16','UINT32','boxActionControlType','boxActionControlType');doActionSemplification('boxActionControlType');">                                                
+                                                                <SELECT id="boxActionControlType"  class="col-sm-12" onchange="doStoreIp('boxActionDeviceAddress');doActionCore('16','UINT32','boxActionControlType','boxActionControlType');doActionSemplification('boxActionControlType');">                                                
                                                                     <OPTION VALUE="0" SELECTED>SPEED </OPTION>
                                                                     <OPTION VALUE="1">TORQUE </OPTION>
                                                                     <OPTION VALUE="2">POSITION </OPTION>
