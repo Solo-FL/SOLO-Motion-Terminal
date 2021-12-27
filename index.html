@@ -855,7 +855,7 @@
                                                             </div>
                                                             
                                                             <div class="col col-sm-3" >
-                                                                <SELECT id="boxActionCommandMode"  class="col-sm-12" onchange="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));">                                                
+                                                                <SELECT id="boxActionCommandMode"  class="col-sm-12" onchange="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');">                                                
                                                                     <OPTION VALUE="0" >ANALOGUE </OPTION> 
                                                                     <OPTION VALUE="1" SELECTED>DIGITAL </OPTION>
                                                                 </SELECT>
@@ -864,10 +864,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));"></i>
+                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');"></i>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode')"></i>
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode');doActionSemplification('boxActionCommandMode');"></i>
                                                                 </a>
                                                                 
                                                             </div>
@@ -923,7 +923,7 @@
                                                                     <i class="fas fa-sign-in-alt fa-lg" id="bActionControlType" onclick="doActionCore('16','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9B','UINT32','boxActionControlType','boxActionControlType'); "></i>
+                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9B','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
                                                                 </a>
                                                                 
                                                             </div>
