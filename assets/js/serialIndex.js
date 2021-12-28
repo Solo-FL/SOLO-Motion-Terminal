@@ -240,7 +240,7 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+"FF"+"810000000000FE", 'UINT32', 0 , 'boxActionDeviceAddress', 'boxActionDeviceAddress',null ,null);
     setTimeout(doStoreIp, 500,'boxActionDeviceAddress');
-    setTimeout(doActionSemplifications, 1000,['boxActionCommandMode','boxActionControlType']);
+    setTimeout(doActionSemplifications, 1000,['boxActionControlType','boxActionCommandMode']);
     
 }
 
