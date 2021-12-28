@@ -855,7 +855,7 @@
                                                             </div>
                                                             
                                                             <div class="col col-sm-3" >
-                                                                <SELECT id="boxActionCommandMode"  class="col-sm-12" onchange="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');">                                                
+                                                                <SELECT id="boxActionCommandMode"  class="col-sm-12" onchange="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplifications(['boxActionControlType','boxActionCommandMode']);">                                                
                                                                     <OPTION VALUE="0" >ANALOGUE </OPTION> 
                                                                     <OPTION VALUE="1" SELECTED>DIGITAL </OPTION>
                                                                 </SELECT>
@@ -864,10 +864,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');"></button>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplifications(['boxActionControlType','boxActionCommandMode']);"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode');doActionSemplification('boxActionCommandMode');"></button>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode');doActionSemplifications(['boxActionControlType','boxActionCommandMode']);"></button>
                                                                 </a>
                                                                 
                                                             </div>

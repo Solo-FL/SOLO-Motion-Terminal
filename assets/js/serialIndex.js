@@ -302,24 +302,7 @@ function doActionSemplification(boxValueId){
   if(boxValueId=='boxActionCommandMode'){
     var actionValue = document.getElementById(boxValueId).value;
     
-    disablePart(false, ["boxActionMotorType","bActionMotorType"] );
-    disablePart(false, ["boxActionControlType","bActionControlType"] );
-    disablePart(false, ["boxActionMotorDirection","bActionMotorDirection"] );
 
-    disablePart(false, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
-    disablePart(false, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
-    disablePart(false, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
-    disablePart(false, ["boxActionPositionControllerKi","rangeActionPositionControllerKi","bActionPositionControllerKi"] );
-
-    disablePart(false, ["boxActionTorqueReferenceIq","rangeActionTorqueReferenceIq","bActionTorqueReferenceIq"] );
-    disablePart(false, ["boxActionSpeedReference","rangeActionSpeedReference","bActionSpeedReference"] );
-    disablePart(false, ["boxActionSpeedLimit","rangeActionSpeedLimit","bActionSpeedLimit"] );
-
-    disablePart(false, ["boxActionDesiredPosition","rangeActionDesiredPosition","bActionDesiredPosition"] );
-    disablePart(false, ["boxActionMagnetizingCurrentId","rangeActionMagnetizingCurrentId","bActionMagnetizingCurrentId"] );
-    disablePart(false, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
-    
-    disablePart(false, ["bActionMotorStop"] );
     
     
     switch (actionValue){
@@ -344,7 +327,25 @@ function doActionSemplification(boxValueId){
       disablePart(true, ["bActionMotorStop"] );
         break;
       case '1': //DIGITAL
-        
+      disablePart(false, ["boxActionMotorType","bActionMotorType"] );
+      disablePart(false, ["boxActionControlType","bActionControlType"] );
+      disablePart(false, ["boxActionMotorDirection","bActionMotorDirection"] );
+  
+      disablePart(false, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
+      disablePart(false, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
+      disablePart(false, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
+      disablePart(false, ["boxActionPositionControllerKi","rangeActionPositionControllerKi","bActionPositionControllerKi"] );
+  
+      disablePart(false, ["boxActionTorqueReferenceIq","rangeActionTorqueReferenceIq","bActionTorqueReferenceIq"] );
+      disablePart(false, ["boxActionSpeedReference","rangeActionSpeedReference","bActionSpeedReference"] );
+      disablePart(false, ["boxActionSpeedLimit","rangeActionSpeedLimit","bActionSpeedLimit"] );
+  
+      disablePart(false, ["boxActionDesiredPosition","rangeActionDesiredPosition","bActionDesiredPosition"] );
+      disablePart(false, ["boxActionMagnetizingCurrentId","rangeActionMagnetizingCurrentId","bActionMagnetizingCurrentId"] );
+      disablePart(false, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
+      
+      disablePart(false, ["bActionMotorStop"] );
+      doActionSemplification('boxActionControlType');
         break;
     }
   }
