@@ -16,6 +16,3 @@ button {
 button[disabled=disabled], button:disabled {
     color: #b4b4b4;
 }
-a.custom-switch{
-    margin-left: 35px;
-}
