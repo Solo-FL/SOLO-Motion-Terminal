@@ -112,7 +112,7 @@
                                                         </div>
                                                         <div class="col col-sm-2">
                                                             <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                <i class="fas fa-sign-in-alt fa-lg" id="buttonSimpleTX"></i>
+                                                                <button class="fas fa-sign-in-alt fa-lg" id="buttonSimpleTX"></button>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -124,7 +124,7 @@
                                                             class="col-sm-12" style="height: 20px;"></textarea></div>
                                                             <div class="col col-sm-2">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear buffer and data">
-                                                                    <i class="fas fa-eraser fa-lg" id="buttonClearBuffer"></i>
+                                                                    <button class="fas fa-eraser fa-lg" id="buttonClearBuffer"></button>
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -217,10 +217,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" >
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDeviceAddress" onclick="doActionCore('01','UINT32','boxActionDeviceAddress','boxActionDeviceAddress');doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress'); doStoreIp('boxActionDeviceAddress')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionDeviceAddress" onclick="doActionCore('01','UINT32','boxActionDeviceAddress','boxActionDeviceAddress');doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress'); doStoreIp('boxActionDeviceAddress')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read" >
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); doStoreIp('boxActionDeviceAddress')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); doStoreIp('boxActionDeviceAddress')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -238,10 +238,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" >
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMaxCurrent" onclick="doActionCore('03','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMaxCurrent" onclick="doActionCore('03','SFXT','boxActionMaxCurrent','boxActionMaxCurrent')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent',null,'rangeActionMaxCurrent')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent',null,'rangeActionMaxCurrent')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -264,10 +264,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPWMFrequency" onclick="doActionCore('09','UINT32','boxActionPWMFrequency','boxActionPWMFrequency')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionPWMFrequency" onclick="doActionCore('09','UINT32','boxActionPWMFrequency','boxActionPWMFrequency')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('8B','UINT32','boxActionPWMFrequency','boxActionPWMFrequency','0.001','rangeActionPWMFrequency')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('8B','UINT32','boxActionPWMFrequency','boxActionPWMFrequency','0.001','rangeActionPWMFrequency')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -286,10 +286,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPoles" onclick="doActionCore('0F','UINT32','boxActionPoles','boxActionPoles')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionPoles" onclick="doActionCore('0F','UINT32','boxActionPoles','boxActionPoles')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8F','UINT32','boxActionPoles','boxActionPoles',null,'rangeActionPoles')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8F','UINT32','boxActionPoles','boxActionPoles',null,'rangeActionPoles')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -313,10 +313,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionEncoderLines" onclick="doActionCore('10','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionEncoderLines" onclick="doActionCore('10','UINT32','boxActionEncoderLines','boxActionEncoderLines')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('90','UINT32','boxActionEncoderLines','boxActionEncoderLines',null,'rangeActionEncoderLines')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('90','UINT32','boxActionEncoderLines','boxActionEncoderLines',null,'rangeActionEncoderLines')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -338,10 +338,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorType" onclick="doActionCore('15','UINT32','boxActionMotorType','boxActionMotorType')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMotorType" onclick="doActionCore('15','UINT32','boxActionMotorType','boxActionMotorType')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('97','UINT32','boxActionMotorType',null,'boxActionMotorType')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('97','UINT32','boxActionMotorType',null,'boxActionMotorType')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -368,10 +368,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionUartBaudRate" onclick="doReadAll(convertToCammandToSendCore('26','UINT32','boxActionUartBaudRate'));"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionUartBaudRate" onclick="doReadAll(convertToCammandToSendCore('26','UINT32','boxActionUartBaudRate'));"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B3','UINT32','boxActionUartBaudRate','boxActionUartBaudRate')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B3','UINT32','boxActionUartBaudRate','boxActionUartBaudRate')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -396,10 +396,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCanopenBaudRate" onclick="doReadAll(convertToCammandToSendCore('2C','UINT32','boxActionCanopenBaudRate'));"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCanopenBaudRate" onclick="doReadAll(convertToCammandToSendCore('2C','UINT32','boxActionCanopenBaudRate'));"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B6','UINT32','boxActionCanopenBaudRate','boxActionCanopenBaudRate')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B6','UINT32','boxActionCanopenBaudRate','boxActionCanopenBaudRate')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -504,10 +504,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKp" onclick="doActionCore('17','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKp" onclick="doActionCore('17','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('91','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp', null ,'rangeActionCurrentControllerKp')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('91','SFXT','boxActionCurrentControllerKp','boxActionCurrentControllerKp', null ,'rangeActionCurrentControllerKp')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -526,10 +526,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKi" onclick="doActionCore('18','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCurrentControllerKi" onclick="doActionCore('18','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('92','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi','0.00005','rangeActionCurrentControllerKi')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('92','SFXT','boxActionCurrentControllerKi','boxActionCurrentControllerKi','0.00005','rangeActionCurrentControllerKi')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -553,10 +553,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorInductance" onclick="doActionCore('0E','SFXT','boxActionMotorInductance','boxActionMotorInductance')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMotorInductance" onclick="doActionCore('0E','SFXT','boxActionMotorInductance','boxActionMotorInductance')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('95','SFXT','boxActionMotorInductance','boxActionMotorInductance',null,'rangeActionMotorInductance')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('95','SFXT','boxActionMotorInductance','boxActionMotorInductance',null,'rangeActionMotorInductance')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -575,10 +575,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorResistance" onclick="doActionCore('0D','SFXT','boxActionMotorResistance','boxActionMotorResistance')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMotorResistance" onclick="doActionCore('0D','SFXT','boxActionMotorResistance','boxActionMotorResistance')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('94','SFXT','boxActionMotorResistance','boxActionMotorResistance','0.00005','rangeActionMotorResistance')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadMultiplyCore('94','SFXT','boxActionMotorResistance','boxActionMotorResistance','0.00005','rangeActionMotorResistance')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -603,10 +603,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionNBOG" onclick="doActionCore('21','SFXT','boxActionNBOG','boxActionNBOG')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionNBOG" onclick="doActionCore('21','SFXT','boxActionNBOG','boxActionNBOG')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AA','SFXT','boxActionNBOG','boxActionNBOG',null,'rangeActionNBOG')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AA','SFXT','boxActionNBOG','boxActionNBOG',null,'rangeActionNBOG')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -625,10 +625,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionNBFG" onclick="doActionCore('24','SFXT','boxActionNBFG','boxActionNBFG')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionNBFG" onclick="doActionCore('24','SFXT','boxActionNBFG','boxActionNBFG')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AD','SFXT','boxActionNBFG','boxActionNBFG',null,'rangeActionNBFG')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AD','SFXT','boxActionNBFG','boxActionNBFG',null,'rangeActionNBFG')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -652,10 +652,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionFBOG" onclick="doActionCore('22','SFXT','boxActionFBOG','boxActionFBOG')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionFBOG" onclick="doActionCore('22','SFXT','boxActionFBOG','boxActionFBOG')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AB','SFXT','boxActionFBOG','boxActionFBOG',null,'rangeActionFBOG')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AB','SFXT','boxActionFBOG','boxActionFBOG',null,'rangeActionFBOG')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -674,10 +674,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionFBFG" onclick="doActionCore('25','SFXT','boxActionFBFG','boxActionFBFG')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionFBFG" onclick="doActionCore('25','SFXT','boxActionFBFG','boxActionFBFG')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AE','SFXT','boxActionFBFG','boxActionFBFG',null,'rangeActionFBFG')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AE','SFXT','boxActionFBFG','boxActionFBFG',null,'rangeActionFBFG')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -701,10 +701,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDCOG" onclick="doActionCore('23','SFXT','boxActionDCOG','boxActionDCOG')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionDCOG" onclick="doActionCore('23','SFXT','boxActionDCOG','boxActionDCOG')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AC','SFXT','boxActionDCOG','boxActionDCOG',null,'rangeActionDCOG')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('AC','SFXT','boxActionDCOG','boxActionDCOG',null,'rangeActionDCOG')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -748,7 +748,7 @@
                                                             
                                                             <div class="col col-sm-3">
                                                                 <button type="button" class="btn btn-primary col-sm-12" id="bActionEncoderCalibration" data-toggle="tooltip" data-placement="bottom" title="By pressing this button, SOLO will start calibrating the Incremental Encoder connected to it &#013;and finds its CW and CCW offset values,Before pressing this, make sure SOLO is in Closed-loop mode, &#013;to learn more please visit: https://www.solomotorcontrollers.com/how-to-connect-calibrate-incremental-encoder-with-solo/"
-                                                                value="01" onclick="doReadAll(convertToCammandToSendCore('27','UINT32','bActionEncoderCalibration'));">Encoder Calibration</button>
+                                                                value="01" onclick="doAgree(convertToCammandToSendCore('27','UINT32','bActionEncoderCalibration'))">Encoder Calibration</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -758,7 +758,7 @@
                                                             
                                                             <div class="col col-sm-3">
                                                                 <button type="button" class="btn btn-primary col-sm-12" id="bActionHallSensorsCalibration" data-toggle="tooltip" data-placement="bottom" title="By pressing this button, SOLO will start calibrating the Hall sensors connected to it &#013;and finds its CW and CCW offset values, Before pressing this, make sure SOLO is in Closed-loop mode, &#013;to learn more please visit: https://www.solomotorcontrollers.com/hall-sensors-to-solo-for-controlling-speed-torque-brushless-motor/ "
-                                                                value="02" onclick="doReadAll(convertToCammandToSendCore('27','UINT32','bActionHallSensorsCalibration'));">Hall Sensors Calibration</button>
+                                                                value="02" onclick="doAgree(convertToCammandToSendCore('27','UINT32','bActionHallSensorsCalibration'));">Hall Sensors Calibration</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -801,10 +801,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCcwO" onclick="doActionCore('28','SFXT','boxActionCcwO','boxActionCcwO')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCcwO" onclick="doActionCore('28','SFXT','boxActionCcwO','boxActionCcwO')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B1','SFXT','boxActionCcwO','boxActionCcwO',null,'rangeActionCcwO')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B1','SFXT','boxActionCcwO','boxActionCcwO',null,'rangeActionCcwO')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -823,10 +823,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCwO" onclick="doActionCore('29','SFXT','boxActionCwO','boxActionCwO')" ></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCwO" onclick="doActionCore('29','SFXT','boxActionCwO','boxActionCwO')" ></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B2','SFXT','boxActionCwO','boxActionCwO',null,'rangeActionCwO')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B2','SFXT','boxActionCwO','boxActionCwO',null,'rangeActionCwO')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -864,10 +864,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionCommandMode" onclick="doReadAll(convertToCammandToSendCore('02','UINT32','boxActionCommandMode'));doActionSemplification('boxActionCommandMode');"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode');doActionSemplification('boxActionCommandMode');"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9A','UINT32','boxActionCommandMode','boxActionCommandMode');doActionSemplification('boxActionCommandMode');"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -891,10 +891,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlMode" onclick="doActionCore('13','UINT32','boxActionControlMode','boxActionControlMode')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionControlMode" onclick="doActionCore('13','UINT32','boxActionControlMode','boxActionControlMode')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('99','UINT32','boxActionControlMode','boxActionControlMode')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('99','UINT32','boxActionControlMode','boxActionControlMode')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -920,10 +920,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionControlType" onclick="doActionCore('16','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionControlType" onclick="doActionCore('16','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9B','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9B','UINT32','boxActionControlType','boxActionControlType'); doActionSemplification('boxActionControlType');"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -945,11 +945,11 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMotorDirection" onclick="doActionCore('0C','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMotorDirection" onclick="doActionCore('0C','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></button>
                                                                 </a>
                                                                 
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A9','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A9','UINT32','boxActionMotorDirection','boxActionMotorDirection')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -974,10 +974,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKp" onclick="doActionCore('0A','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKp" onclick="doActionCore('0A','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('89','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp',null,'rangeActionSpeedControllerKp')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('89','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp',null,'rangeActionSpeedControllerKp')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -996,10 +996,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKi" onclick="doActionCore('0B','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionSpeedControllerKi" onclick="doActionCore('0B','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8A','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi',null,'rangeActionSpeedControllerKi')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8A','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi',null,'rangeActionSpeedControllerKi')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1026,10 +1026,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKp" onclick="doActionCore('1C','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKp" onclick="doActionCore('1C','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9D','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp',null,'rangeActionPositionControllerKp')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9D','SFXT','boxActionPositionControllerKp','boxActionPositionControllerKp',null,'rangeActionPositionControllerKp')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1049,10 +1049,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKi" onclick="doActionCore('1D','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionPositionControllerKi" onclick="doActionCore('1D','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9E','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi',null,'rangeActionPositionControllerKi')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9E','SFXT','boxActionPositionControllerKi','boxActionPositionControllerKi',null,'rangeActionPositionControllerKi')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1077,11 +1077,11 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionTorqueReferenceIq" onclick="doActionCore('04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionTorqueReferenceIq" onclick="doActionCore('04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq')"></button>
                                                                 </a>
                                                                 
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A4','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq',null,'rangeActionTorqueReferenceIq')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A4','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq',null,'rangeActionTorqueReferenceIq')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1101,11 +1101,11 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedReference" onclick="doActionCore('05','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionSpeedReference" onclick="doActionCore('05','UINT32','boxActionSpeedReference','boxActionSpeedReference')"></button>
                                                                 </a>
                                                                
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A5','UINT32','boxActionSpeedReference','boxActionSpeedReference',null,'rangeActionSpeedReference')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A5','UINT32','boxActionSpeedReference','boxActionSpeedReference',null,'rangeActionSpeedReference')"></button>
                                                                 </a>
 
                                                             </div>
@@ -1129,10 +1129,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedLimit" onclick="doActionCore('11','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionSpeedLimit" onclick="doActionCore('11','UINT32','boxActionSpeedLimit','boxActionSpeedLimit')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9C','UINT32','boxActionSpeedLimit','boxActionSpeedLimit',null,'rangeActionSpeedLimit')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('9C','UINT32','boxActionSpeedLimit','boxActionSpeedLimit',null,'rangeActionSpeedLimit')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1152,10 +1152,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionDesiredPosition" onclick="doActionCore('1B','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionDesiredPosition" onclick="doActionCore('1B','INT32','boxActionDesiredPosition','boxActionDesiredPosition')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A7','INT32','boxActionDesiredPosition','boxActionDesiredPosition',null,'rangeActionDesiredPosition')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A7','INT32','boxActionDesiredPosition','boxActionDesiredPosition',null,'rangeActionDesiredPosition')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1178,10 +1178,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionMagnetizingCurrentId" onclick="doActionCore('1A','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionMagnetizingCurrentId" onclick="doActionCore('1A','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A6','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId',null,'rangeActionMagnetizingCurrentId')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A6','SFXT','boxActionMagnetizingCurrentId','boxActionMagnetizingCurrentId',null,'rangeActionMagnetizingCurrentId')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1201,11 +1201,11 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionPowerReference" onclick="doActionCore('06','SFXT','boxActionPowerReference','boxActionPowerReference')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionPowerReference" onclick="doActionCore('06','SFXT','boxActionPowerReference','boxActionPowerReference')"></button>
                                                                 </a>
                                                                 
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A8','SFXT','boxActionPowerReference','boxActionPowerReference',null,'rangeActionPowerReference')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A8','SFXT','boxActionPowerReference','boxActionPowerReference',null,'rangeActionPowerReference')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1231,10 +1231,10 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionActionSpeedAcceleration" onclick="doActionCore('2A','SFXT','boxActionSpeedAcceleration','boxActionSpeedAcceleration')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionActionSpeedAcceleration" onclick="doActionCore('2A','SFXT','boxActionSpeedAcceleration','boxActionSpeedAcceleration')"></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B4','SFXT','boxActionSpeedAcceleration','boxActionSpeedAcceleration',null,'rangeActionSpeedAcceleration')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B4','SFXT','boxActionSpeedAcceleration','boxActionSpeedAcceleration',null,'rangeActionSpeedAcceleration')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1254,11 +1254,11 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
-                                                                    <i class="fas fa-sign-in-alt fa-lg" id="bActionSpeedDeceleration" onclick="doActionCore('2B','SFXT','boxActionSpeedDeceleration','boxActionSpeedDeceleration')"></i>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionSpeedDeceleration" onclick="doActionCore('2B','SFXT','boxActionSpeedDeceleration','boxActionSpeedDeceleration')"></button>
                                                                 </a>
                                                                 
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B5','SFXT','boxActionSpeedDeceleration','boxActionSpeedDeceleration',null,'rangeActionSpeedDeceleration')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B5','SFXT','boxActionSpeedDeceleration','boxActionSpeedDeceleration',null,'rangeActionSpeedDeceleration')"></button>
                                                                 </a>
                                                                 
                                                             </div>
@@ -1339,7 +1339,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('86','SFXT','boxActionSupplyVoltage','boxActionSupplyVoltage')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('86','SFXT','boxActionSupplyVoltage','boxActionSupplyVoltage')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1356,7 +1356,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('93','SFXT','boxActionTemperature','boxActionTemperature')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('93','SFXT','boxActionTemperature','boxActionTemperature')"></button>
                                                                 </a>   
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1377,7 +1377,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A1','ERROR','boxActionErrorRegister','boxActionErrorRegister')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A1','ERROR','boxActionErrorRegister','boxActionErrorRegister')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1393,7 +1393,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A2','NONE','boxActionFirmwareVersion','boxActionFirmwareVersion')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A2','NONE','boxActionFirmwareVersion','boxActionFirmwareVersion')"></button>
                                                                 </a>  
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1416,7 +1416,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('00','94','SFXT','boxActionMotorResistance','boxActionMotorResistance')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('00','94','SFXT','boxActionMotorResistance','boxActionMotorResistance')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1432,7 +1432,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('00','95','SFXT','boxActionMotorInductance','boxActionMotorInductance')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('00','95','SFXT','boxActionMotorInductance','boxActionMotorInductance')"></button>
                                                                 </a>  
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1455,7 +1455,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('96','INT32','boxActionSpeed','boxActionSpeed')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('96','INT32','boxActionSpeed','boxActionSpeed')"></button>
                                                                 </a>    
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1472,7 +1472,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8D','SFXT','boxActionTorqueIq','boxActionTorqueIq')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8D','SFXT','boxActionTorqueIq','boxActionTorqueIq')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1495,7 +1495,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8E','SFXT','boxActionCurrentId','boxActionCurrentId')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('8E','SFXT','boxActionCurrentId','boxActionCurrentId')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1512,7 +1512,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A0','INT32','boxActionPosition','boxActionPosition')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A0','INT32','boxActionPosition','boxActionPosition')"></button>
                                                                 </a>
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1534,7 +1534,7 @@
                                                             </div>
                                                             <div class="col col-sm-1">
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
-                                                                    <i class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A3','NONE','boxActionHardwareVersion','boxActionHardwareVersion')"></i>
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A3','NONE','boxActionHardwareVersion','boxActionHardwareVersion')"></button>
                                                                 </a>  
                                                             </div>
                                                             <div class="col col-sm-1">
@@ -1798,7 +1798,7 @@
     <script src="assets/js/serial.js?version=5"></script>
     <script src="assets/js/index.js?version=5"></script>
     
-    <script src="assets/js/serialIndex.js?version=6"></script>
+    <script src="assets/js/serialIndex.js?version=7"></script>
     <script src="assets/js/indexInteraction.js?version=5"></script>
     
     <script src="assets/js/performanceMonitor.js?version=4"></script>

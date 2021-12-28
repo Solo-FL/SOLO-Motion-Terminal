@@ -4,3 +4,15 @@ body {
 a.custom-switch{
     margin-left: 35px;
 }
+button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: #858796;
+}
+button[disabled=disabled], button:disabled {
+    color: #b4b4b4;
+}

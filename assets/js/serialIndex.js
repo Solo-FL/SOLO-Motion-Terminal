@@ -106,6 +106,17 @@ function updates(commands){
   prettifyHex();
   
 }
+function doAgree(...args){
+  var limit = document.getElementById('boxActionMaxCurrent').value;
+  if (confirm('ALERT: The calibration will be done with ' + limit + ' AMPs ( selected by current Limit), do you want to proceed? \n\nNote: Make sure the selected current limit is within the standard range for your motor')) {
+    //OK SECTION
+    //Previus version was in HTML doReadAll(.....), now we pass the arguments ..... but we cable doReadAll
+    doReadAll(...args);
+  } else {
+    //NO SECTION
+   
+  }
+}
 
 function doDisbale(checkbox,elements){
   var toDisable = true;
@@ -393,6 +404,10 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
 
 function doStoreIp(valueOrValueId){
   serial.soloId = convertFromType('UINT32',document.getElementById(valueOrValueId).value).slice(-2); 
+  if( messageInput.value.toString().match(/FFFF..860000000000FE/)  ){
+    messageInput.value = "FFFF"+ serial.soloId +"860000000000FE";
+  } 
+
   //console.log("new ip: " +serial.soloId );
 }
 
