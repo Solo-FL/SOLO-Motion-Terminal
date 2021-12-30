@@ -307,7 +307,6 @@ function doActionSemplification(boxValueId){
     
     switch (actionValue){
       case '0': //ANALOGUE
-      disablePart(true, ["boxActionMotorType","bActionMotorType"] );
       disablePart(true, ["boxActionControlType","bActionControlType"] );
       disablePart(true, ["boxActionMotorDirection","bActionMotorDirection"] );
   
@@ -327,7 +326,6 @@ function doActionSemplification(boxValueId){
       disablePart(true, ["bActionMotorStop"] );
         break;
       case '1': //DIGITAL
-      disablePart(false, ["boxActionMotorType","bActionMotorType"] );
       disablePart(false, ["boxActionControlType","bActionControlType"] );
       disablePart(false, ["boxActionMotorDirection","bActionMotorDirection"] );
   
