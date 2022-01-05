@@ -411,7 +411,26 @@
 
                                                         <div class="row mb-2">
                                                             
-                                                            <div class="col col-sm-6"></div>
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title='Reads the Analogue Speed resolution at S/T input by reading "Max Analogue Speed Division Coefficient" and converting it back to RPM scale based on selected Motor type in analogue Mode and Feedback control mode'>
+                                                                Analogue IN Max Speed *
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionAnalogueMaxSpeed" class="col-sm-12" value="8000" min="1" max="30000"  step="1" oninput="updateRangeInput(this.value,'rangeActionAnalogueMaxSpeed')" onkeypress="pressIfEnter(event,'bActionAnalogueMaxSpeed')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionAnalogueMaxSpeed" class="col-sm-12" value="8000" min="1" max="30000" step="1" oninput="updateTextRangeInput(this.value,'boxActionAnalogueMaxSpeed')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set">
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionAnalogueMaxSpeed" onclick="doActionCoreComplex('2D','SFXT','boxActionAnalogueMaxSpeed',0,'boxActionAnalogueMaxSpeed')"></button>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadComplexCore('B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed')"></button>
+                                                                </a>
+                                                                
+                                                            </div>
                                                             
                                                             
                                                             
@@ -1543,17 +1562,19 @@
                                                             </div>
                                                             
                                                             
-                                                            <div class="col col-sm-2">
-                                                               
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="Reads the number of occurrence of Index pulse for Incremental Encoders">
+                                                                Encoder Index counts
                                                             </div>
                                                             <div class="col col-sm-2">
-                                                            
+                                                                <input id="boxActionEconderIndexCount" class="col-sm-12" value="0" disabled >
                                                             </div>
                                                             <div class="col col-sm-1">
-
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B8','UINT32','boxActionEconderIndexCount','boxActionEconderIndexCount')"></button>
+                                                                </a>  
                                                             </div>
                                                             <div class="col col-sm-1">
-                                                                
+    
                                                                 
                                                             </div>
                                                             

@@ -191,6 +191,7 @@ function doReadAll(extraCommand){
     "FFFF"+soloId+"B60000000000FE"+
     "FFFF"+soloId+"B40000000000FE"+
     "FFFF"+soloId+"B50000000000FE"+
+    "FFFF"+soloId+"B80000000000FE"+
     "FFFF"+soloId+"A30000000000FE"
     );
   
@@ -239,7 +240,9 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A00000000000FE", 'INT32', 0 , 'boxActionPosition', 'boxActionPosition',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+"FF"+"810000000000FE", 'UINT32', 0 , 'boxActionDeviceAddress', 'boxActionDeviceAddress',null ,null);
+    updateAndFlushSimpleActionRead("FFFF"+soloId+"B80000000000FE", 'UINT32', 0 , 'boxActionEconderIndexCount', 'boxActionEconderIndexCount',null ,null);
     setTimeout(doStoreIp, 500,'boxActionDeviceAddress');
+    setTimeout(doActionReadComplexCore, 700,'B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed');
     setTimeout(doActionSemplifications, 1000,['boxActionControlType','boxActionCommandMode']);
     
 }
@@ -322,6 +325,8 @@ function doActionSemplification(boxValueId){
       disablePart(true, ["boxActionDesiredPosition","rangeActionDesiredPosition","bActionDesiredPosition"] );
       disablePart(true, ["boxActionMagnetizingCurrentId","rangeActionMagnetizingCurrentId","bActionMagnetizingCurrentId"] );
       disablePart(true, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
+
+      disablePart(false, ["boxActionAnalogueMaxSpeed","rangeActionAnalogueMaxSpeed","bActionAnalogueMaxSpeed"] );
       
       disablePart(true, ["bActionMotorStop"] );
         break;
@@ -341,6 +346,8 @@ function doActionSemplification(boxValueId){
       disablePart(false, ["boxActionDesiredPosition","rangeActionDesiredPosition","bActionDesiredPosition"] );
       disablePart(false, ["boxActionMagnetizingCurrentId","rangeActionMagnetizingCurrentId","bActionMagnetizingCurrentId"] );
       disablePart(false, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
+
+      disablePart(true, ["boxActionAnalogueMaxSpeed","rangeActionAnalogueMaxSpeed","bActionAnalogueMaxSpeed"] );
       
       disablePart(false, ["bActionMotorStop"] );
       doActionSemplification('boxActionControlType');
@@ -367,6 +374,57 @@ function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToCo
 function doActionReadCore(command, typeToSet, valueToSetId, boxToColorId, multiply, slideToUpdate){
   doActionRead(serial.soloId, command, typeToSet, valueToSetId, boxToColorId, multiply, slideToUpdate);
 }
+function getAnalogueSpeed(){
+  var motoryType = document.getElementById('boxActionMotorType').value;
+  var encoderMode = document.getElementById('boxActionControlMode').value;
+  switch (motoryType){
+    case '0': //DC
+      if(encoderMode==1){ //ENCODERS
+        return 8000;
+      }
+      return 30000;
+      break;
+    case '1': //BLDC
+      return 8000;
+      break;
+    case '2': //ACIM
+      return 4000;
+      break;
+    case '3': //BLDC ultrafast
+      return 30000;
+      break;
+    }
+    return 1;
+}
+function doActionCoreComplex(command, type, valueId, complexSytuation, boxToColorId ){
+  var valA = document.getElementById(valueId).value;
+  switch(complexSytuation){
+    case 0:
+      var valB =getAnalogueSpeed();
+      var value = (valB/valA).toFixed(2);
+      break;
+    }
+
+  if (serial.connectionStatus!= "connected"){
+    alert("please check the connection of SOLO");
+    return;
+  }
+
+  
+  var commandToSend= convertToCammandToSendCoreWithValue(command, type, value);
+  doSimpleAction (commandToSend,boxToColorId);
+}
+
+function doActionReadComplexCore(command, typeToSet, valueToSetId, boxToColorId, complexSytuation, slideToUpdate){
+  var value =1;
+  switch(complexSytuation){
+    case 0:
+      value =getAnalogueSpeed();
+      break;
+    }
+      
+  doActionRead(serial.soloId, command, typeToSet, valueToSetId, boxToColorId, "I"+value, slideToUpdate);
+}
 
 function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, multiply, slideToUpdate){
   if (serial.connectionStatus!= "connected"){
@@ -389,6 +447,16 @@ function doActionStopMotor(){
 }
 function convertToCammandToSendCore( command, type, valueOrValueId){
   return convertToCammandToSend(serial.soloId, command, type, valueOrValueId);
+}
+
+function convertToCammandToSendCoreWithValue( command, type, value){
+  return convertToCammandToSendWithValue(serial.soloId, command, type, value);
+}
+
+function convertToCammandToSendWithValue(address, command, type, value){
+  var commandToSend= "FFFF" + address + command + convertFromType(type,value) + "00FE";
+  //console.log('command to send: '+ commandToSend);
+  return commandToSend;
 }
 
 function convertToCammandToSend(address, command, type, valueOrValueId){
@@ -477,8 +545,15 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
 
       var commandRead = recivedCommand.substring(8, 16);
       var commandToSet= convertToType(typeToSet, commandRead);
-      if(multiply!=0){
+      
+      if(multiply.toString()[0]=='I'){
+        commandToSet = multiply.substr(1) / commandToSet ;
+      }else if(multiply!=0){
         commandToSet = commandToSet * multiply;
+      }
+
+      if(fullcommand.substr(6,2)=='8B'){ //Peculiar situation, rounded condition for 8B read command
+        commandToSet = Math.round(commandToSet);
       }
       
       document.getElementById(readValueToSetId).value = commandToSet; 
