@@ -327,6 +327,8 @@ function doActionSemplification(boxValueId){
       disablePart(true, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
 
       disablePart(false, ["boxActionAnalogueMaxSpeed","rangeActionAnalogueMaxSpeed","bActionAnalogueMaxSpeed"] );
+
+      disablePart(true, ["boxActionMotorType","bActionMotorType"] );
       
       disablePart(true, ["bActionMotorStop"] );
         break;
@@ -348,6 +350,8 @@ function doActionSemplification(boxValueId){
       disablePart(false, ["boxActionPowerReference","rangeActionPowerReference","bActionPowerReference"] );
 
       disablePart(true, ["boxActionAnalogueMaxSpeed","rangeActionAnalogueMaxSpeed","bActionAnalogueMaxSpeed"] );
+
+      disablePart(false, ["boxActionMotorType","bActionMotorType"] );
       
       disablePart(false, ["bActionMotorStop"] );
       doActionSemplification('boxActionControlType');
@@ -397,6 +401,8 @@ function getAnalogueSpeed(){
     return 1;
 }
 function doActionCoreComplex(command, type, valueId, complexSytuation, boxToColorId ){
+  updateAndFlushSimpleActionRead("FFFF"+soloId+"970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null, null);
+  updateAndFlushSimpleActionRead("FFFF"+soloId+"990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null ,null);
   var valA = document.getElementById(valueId).value;
   switch(complexSytuation){
     case 0:
@@ -416,6 +422,8 @@ function doActionCoreComplex(command, type, valueId, complexSytuation, boxToColo
 }
 
 function doActionReadComplexCore(command, typeToSet, valueToSetId, boxToColorId, complexSytuation, slideToUpdate){
+  updateAndFlushSimpleActionRead("FFFF"+soloId+"970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null, null);
+  updateAndFlushSimpleActionRead("FFFF"+soloId+"990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null ,null);
   var value =1;
   switch(complexSytuation){
     case 0:
@@ -547,7 +555,7 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
       var commandToSet= convertToType(typeToSet, commandRead);
       
       if(multiply.toString()[0]=='I'){
-        commandToSet = multiply.substr(1) / commandToSet ;
+        commandToSet = Math.round(multiply.substr(1) / commandToSet) ;
       }else if(multiply!=0){
         commandToSet = commandToSet * multiply;
       }
