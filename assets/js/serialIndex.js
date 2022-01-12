@@ -361,6 +361,51 @@ function doActionSemplification(boxValueId){
 
 }
 
+function doGetForFactory(){
+  doReadAll();
+  messageInput.value = convertToCammandToSend('FF','81','UINT32','boxActionDeviceAddress')
+  messageInput.value += convertToCammandToSendCore('03','SFXT','boxActionMaxCurrent');
+  messageInput.value += convertToCammandToSendCore('09','UINT32','boxActionPWMFrequency');
+  messageInput.value += convertToCammandToSendCore('0F','UINT32','boxActionPoles');
+  messageInput.value += convertToCammandToSendCore('10','UINT32','boxActionEncoderLines');
+  messageInput.value += convertToCammandToSendCore('15','UINT32','boxActionMotorType');
+  messageInput.value += convertToCammandToSendCore('26','UINT32','boxActionUartBaudRate');
+  messageInput.value += convertToCammandToSendCore('2C','UINT32','boxActionCanopenBaudRate');
+  messageInput.value += convertToCammandToSendCoreComplex('2D','SFXT','boxActionAnalogueMaxSpeed',0);
+
+  messageInput.value += convertToCammandToSendCore('17','SFXT','boxActionCurrentControllerKp');
+  messageInput.value += convertToCammandToSendCore('18','SFXT','boxActionCurrentControllerKi');
+  messageInput.value += convertToCammandToSendCore('0E','SFXT','boxActionMotorInductance');
+  messageInput.value += convertToCammandToSendCore('0D','SFXT','boxActionMotorResistance');
+  messageInput.value += convertToCammandToSendCore('21','SFXT','boxActionNBOG');
+  messageInput.value += convertToCammandToSendCore('24','SFXT','boxActionNBFG');
+  messageInput.value += convertToCammandToSendCore('22','SFXT','boxActionFBOG');
+  messageInput.value += convertToCammandToSendCore('25','SFXT','boxActionFBFG');
+  messageInput.value += convertToCammandToSendCore('23','SFXT','boxActionDCOG');
+
+  messageInput.value += convertToCammandToSendCore('28','SFXT','boxActionCcwO');
+  messageInput.value += convertToCammandToSendCore('29','SFXT','boxActionCwO');
+
+  messageInput.value += convertToCammandToSendCore('02','UINT32','boxActionCommandMode');
+  messageInput.value += convertToCammandToSendCore('13','UINT32','boxActionControlMode');
+  messageInput.value += convertToCammandToSendCore('16','UINT32','boxActionControlType');
+  messageInput.value += convertToCammandToSendCore('0C','UINT32','boxActionMotorDirection');
+  messageInput.value += convertToCammandToSendCore('0A','SFXT','boxActionSpeedControllerKp');
+  messageInput.value += convertToCammandToSendCore('0B','SFXT','boxActionSpeedControllerKi');
+  messageInput.value += convertToCammandToSendCore('1C','SFXT','boxActionPositionControllerKp');
+  messageInput.value += convertToCammandToSendCore('1D','SFXT','boxActionPositionControllerKi');
+  messageInput.value += convertToCammandToSendCore('04','SFXT','boxActionTorqueReferenceIq');
+  messageInput.value += convertToCammandToSendCore('05','UINT32','boxActionSpeedReference');
+  messageInput.value += convertToCammandToSendCore('11','UINT32','boxActionSpeedLimit');
+  messageInput.value += convertToCammandToSendCore('1B','INT32','boxActionDesiredPosition');
+  messageInput.value += convertToCammandToSendCore('1A','SFXT','boxActionMagnetizingCurrentId');
+  messageInput.value += convertToCammandToSendCore('06','SFXT','boxActionPowerReference');
+  messageInput.value += convertToCammandToSendCore('2A','SFXT','boxActionSpeedAcceleration');
+  messageInput.value += convertToCammandToSendCore('2B','SFXT','boxActionSpeedDeceleration');
+  
+  prettifyHex();
+}
+
 function disablePart(value, ids){
   for(var i in ids){
     document.getElementById(ids[i]).disabled = value;
@@ -401,8 +446,18 @@ function getAnalogueSpeed(){
     return 1;
 }
 function doActionCoreComplex(command, type, valueId, complexSytuation, boxToColorId ){
+  if (serial.connectionStatus!= "connected"){
+    alert("please check the connection of SOLO");
+    return;
+  }
+
   updateAndFlushSimpleActionRead("FFFF"+soloId+"970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null, null);
   updateAndFlushSimpleActionRead("FFFF"+soloId+"990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null ,null);
+  var commandToSend= convertToCammandToSendCoreComplex(command, type, valueId,complexSytuation);
+  doSimpleAction (commandToSend,boxToColorId);
+}
+
+function convertToCammandToSendCoreComplex(command,type,valueId,complexSytuation){
   var valA = document.getElementById(valueId).value;
   switch(complexSytuation){
     case 0:
@@ -411,14 +466,7 @@ function doActionCoreComplex(command, type, valueId, complexSytuation, boxToColo
       break;
     }
 
-  if (serial.connectionStatus!= "connected"){
-    alert("please check the connection of SOLO");
-    return;
-  }
-
-  
-  var commandToSend= convertToCammandToSendCoreWithValue(command, type, value);
-  doSimpleAction (commandToSend,boxToColorId);
+  return convertToCammandToSendCoreWithValue(command, type, value);
 }
 
 function doActionReadComplexCore(command, typeToSet, valueToSetId, boxToColorId, complexSytuation, slideToUpdate){
