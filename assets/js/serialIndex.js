@@ -313,8 +313,11 @@ function doActionSemplification(boxValueId){
       disablePart(true, ["boxActionControlType","bActionControlType"] );
       disablePart(true, ["boxActionMotorDirection","bActionMotorDirection"] );
   
-      disablePart(true, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
-      disablePart(true, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
+      if(document.querySelector('#boxActionFirmwareVersion').value!="0004B00A"){
+        disablePart(true, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
+        disablePart(true, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
+      }
+
       disablePart(true, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
       disablePart(true, ["boxActionPositionControllerKi","rangeActionPositionControllerKi","bActionPositionControllerKi"] );
   
@@ -335,7 +338,7 @@ function doActionSemplification(boxValueId){
       case '1': //DIGITAL
       disablePart(false, ["boxActionControlType","bActionControlType"] );
       disablePart(false, ["boxActionMotorDirection","bActionMotorDirection"] );
-  
+      
       disablePart(false, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
       disablePart(false, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
       disablePart(false, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
@@ -361,9 +364,9 @@ function doActionSemplification(boxValueId){
 
 }
 
-function doGetForFactory(){
+function scanAllParams(){
   doReadAll();
-  messageInput.value = convertToCammandToSend('FF','81','UINT32','boxActionDeviceAddress')
+  messageInput.value = convertToCammandToSend('FF','01','UINT32','boxActionDeviceAddress')
   messageInput.value += convertToCammandToSendCore('03','SFXT','boxActionMaxCurrent');
   messageInput.value += convertToCammandToSendCore('09','UINT32','boxActionPWMFrequency');
   messageInput.value += convertToCammandToSendCore('0F','UINT32','boxActionPoles');
