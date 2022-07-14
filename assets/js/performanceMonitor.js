@@ -63,13 +63,29 @@ function performanceOnRefresh(chart) {
     document.getElementById("boxActionPosition").value = realSize;
     document.getElementById("boxActionTorqueIq").value = userdSerialShiftSize;
     */
+    var torqueConstant = document.getElementById("boxTorqueConstant").value;
+    if(torqueConstant!=0){
+        chart.config.data.datasets[1].label = "Torque [N.m]";
+        chart.options.scales.y_axis_A.title.text = "Amps / N.m";
+    }else{
+        chart.config.data.datasets[1].label = "Iq [A]";
+        chart.options.scales.y_axis_A.title.text = "Amps";
+    }
 
     chart.config.data.datasets.forEach(function(dataset) {
 
+        
         var myMessages = serial.shiftAllReadingsByCommand(dataset.commandValue,userdSerialShiftSize);
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
 
+        
+        if(dataset.commandValue == '8D' ){
+            if(torqueConstant!=0){
+                myConvertedValues = myConvertedValues.map(e => e  * torqueConstant);
+            }
+        }
+ 
         dataset.data.push(...myConvertedValues);
         performanceSoloLog.saveItem(dataset.label, myConvertedValues ); 
 

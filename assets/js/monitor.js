@@ -51,6 +51,15 @@ function onRefresh(chart) {
     var dataToSplice = 0;
     var dataPushed = 0;
 
+    var torqueConstant = document.getElementById("boxTorqueConstant").value;
+    if(torqueConstant!=0){
+        chart.config.data.datasets[9].label = "Torque [N.m]";
+        chart.options.scales.y_axis_A.title.text = "Amps / N.m";
+    }else{
+        chart.config.data.datasets[9].label = "Iq [A]";
+        chart.options.scales.y_axis_A.title.text = "Amps";
+    }
+
 	chart.config.data.datasets.forEach(function(dataset) {
 
         if(!(dataset.commandValue=='SUM')){
@@ -59,6 +68,14 @@ function onRefresh(chart) {
 
             var myValues = myMessages.map(message => message.toString().substring(8, 16));
             var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
+
+
+            if(dataset.commandValue == '8D' ){
+                if(torqueConstant!=0){
+                    myConvertedValues = myConvertedValues.map(e => e  * torqueConstant);
+                }
+            }
+
             dataset.data.push(...myConvertedValues);
             monitorSoloLog.saveItem(dataset.label, myConvertedValues ); 
 
@@ -228,7 +245,7 @@ var config = {
 			type: 'line',
 			data: []
 		}, {
-            label: 'Iq _ Torque [A]',
+            label: 'Iq [A]',
             borderColor: window.chartColors.purple,
             backgroundColor: window.chartColors.purple,
             yAxisID: 'y_axis_A',
