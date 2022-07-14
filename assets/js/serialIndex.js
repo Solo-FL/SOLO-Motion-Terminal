@@ -255,6 +255,7 @@ function doActionSemplifications(boxValueIds){
 }
 
 function doActionSemplification(boxValueId){
+  return;
   if(boxValueId=='boxActionControlType'){
     var actionValue = document.getElementById(boxValueId).value;
     disablePart(false, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
