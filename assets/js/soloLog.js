@@ -63,7 +63,8 @@ class soloLog{
                 var myValues = myMap.get(myKeys[j]);
                 a.href = a.href + encodeURIComponent(myValues[i]?myValues[i]:0) + ',';
             }
-            a.href = a.href + encodeURIComponent(myValues[myKeys.length-1][i]?myValues[myKeys.length-1][i]:0 ) + encodeURIComponent('\n');
+            var myValues = myMap.get(myKeys[myKeys.length-1]);
+            a.href = a.href +  encodeURIComponent(myValues[i]?myValues[i]:0) + encodeURIComponent('\n');
         }
 
     
