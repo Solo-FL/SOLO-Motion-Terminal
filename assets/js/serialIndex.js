@@ -312,10 +312,12 @@ function doActionSemplification(boxValueId){
       case '0': //ANALOGUE
       disablePart(true, ["boxActionControlType","bActionControlType"] );
       disablePart(true, ["boxActionMotorDirection","bActionMotorDirection"] );
-  
-      if(document.querySelector('#boxActionFirmwareVersion').value!="0004B00A"){
+      if(!(document.querySelector('#boxActionFirmwareVersion').value=="0004B00A" || document.querySelector('#boxActionFirmwareVersion').value=="1006B00A")){
         disablePart(true, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
         disablePart(true, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
+      }else{
+        disablePart(false, ["boxActionSpeedControllerKp","rangeActionSpeedControllerKp","bActionSpeedControllerKp"] );
+        disablePart(false, ["boxActionSpeedControllerKi","rangeActionSpeedControllerKi","bActionSpeedControllerKi"] );
       }
 
       disablePart(true, ["boxActionPositionControllerKp","rangeActionPositionControllerKp","bActionPositionControllerKp"] );
@@ -669,14 +671,3 @@ function clearTimeoutBoxToColor(boxToColorId){
     document.getElementById(boxToColorId).classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
   }
 }
-
-
-function logStart(){
-  serial.setRecording(true);
-}
-
-function logStopAndSave(){
-  serial.setRecording(false);
-  serial.saveRecording();
-}
-
