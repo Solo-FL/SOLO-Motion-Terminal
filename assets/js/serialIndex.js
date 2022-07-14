@@ -671,14 +671,3 @@ function clearTimeoutBoxToColor(boxToColorId){
     document.getElementById(boxToColorId).classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
   }
 }
-
-
-function logStart(){
-  serial.setRecording(true);
-}
-
-function logStopAndSave(){
-  serial.setRecording(false);
-  serial.saveRecording();
-}
-

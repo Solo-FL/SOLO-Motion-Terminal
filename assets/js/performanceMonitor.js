@@ -12,6 +12,7 @@ var performanceDataSize = 0;
 var performanceRangeScaleId = "rangePerfromanceScale";
 var performanceMonitorCleanId = "bMonitorCleanPerformance";
 var performanceMonitorEvents;
+var performanceSoloLog = new soloLog();
 
 var chartColors = {
 	navy: '#84144B',
@@ -69,7 +70,8 @@ function performanceOnRefresh(chart) {
         var myValues = myMessages.map(message => message.toString().substring(8, 16));
         var myConvertedValues = myValues.map(value =>  convertToType(dataset.commandConversion , value.toString()));
 
-        dataset.data.push(...myConvertedValues); 
+        dataset.data.push(...myConvertedValues);
+        performanceSoloLog.saveItem(dataset.label, myConvertedValues ); 
 
         //check data to slice only 1 time x loop
         if(dataset.commandValue=='A0'){
@@ -329,6 +331,9 @@ function performanceMonitorStart(){
 
     document.getElementById(performanceRangeScaleId).disabled = false;
     document.getElementById(performanceMonitorCleanId).disabled = true;
+    document.getElementById("bMonitorStartPerformance").disabled = true;
+    document.getElementById("bMonitorStart").disabled = true;
+    document.getElementById("bMonitorStopPerformance").disabled = false;
 
     serial.monitorStart("02");
 //    performanceMonitorEvents = [...window.myChart2.config.options.events];
@@ -358,6 +363,10 @@ function performanceMonitorStop(){
         serial.cleanMonitorBuffer();
         document.getElementById(performanceRangeScaleId).disabled = true;
         document.getElementById(performanceMonitorCleanId).disabled = false;
+
+        document.getElementById("bMonitorStartPerformance").disabled = false;
+        document.getElementById("bMonitorStart").disabled = false;
+        document.getElementById("bMonitorStopPerformance").disabled = true;
     }
 
    // window.myChart2.config.options.events = performanceMonitorEvents;
@@ -374,4 +383,26 @@ function performanceMonitorClean(){
     performanceXVal = 0;
     window.myChart2.update();
     performanceDataSize = 0
+}
+
+function performanceMonitorLogStart() {
+    if(monitorSoloLog.isRecordingActivated){
+        alert("A different log is active");
+    }else{
+        performanceSoloLog.start();
+        document.getElementById("bLogStartPerformance").disabled = true;
+        document.getElementById("bLogStart").disabled = true;
+        document.getElementById("bLogStopPerformance").disabled = false;
+    }
+}
+
+function performanceMonitorLogStopAndSave(){
+    if(monitorSoloLog.isRecordingActivated){
+        alert("A different log is active");
+    }else{
+        performanceSoloLog.stopAndSave();
+        document.getElementById("bLogStartPerformance").disabled = false;
+        document.getElementById("bLogStart").disabled = false;
+        document.getElementById("bLogStopPerformance").disabled = true;
+    }
 }

@@ -1643,7 +1643,7 @@
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStartPerformance" value="1" onclick="performanceMonitorStart()">Start Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPerformance" value="0" onclick="performanceMonitorStop()">Stop Monitoring</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStopPerformance" value="0" onclick="performanceMonitorStop()" disabled=true>Stop Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorCleanPerformance" value="0" onclick="performanceMonitorClean()">Clean Monitor</button>
@@ -1656,10 +1656,10 @@
                                                            
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="logStart()">Start Logging</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStartPerformance" value="1" onclick="performanceMonitorLogStart()">Start Logging</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="logStopAndSave()">Stop & Save Log</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStopPerformance" value="0" onclick="performanceMonitorLogStopAndSave()" disabled=true>Stop & Save Log</button>
                                                         </div>
                                                         <div class="col col-sm-1">
                                                             
@@ -1708,7 +1708,7 @@
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStart" value="1" onclick="monitorStart()">Start Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorStop()">Stop Monitoring</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bMonitorStop" value="0" onclick="monitorStop()" disabled=true>Stop Monitoring</button>
                                                         </div>
                                                         <div class="col col-sm-2">
                                                             <button type="button" class="btn btn-primary col-sm-12" id="bMonitorClean" value="0" onclick="monitorClean()">Clean Monitor</button>
@@ -1721,10 +1721,10 @@
                                                            
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="logStart()">Start Logging</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStart" value="1" onclick="monitorLogStart()">Start Logging</button>
                                                         </div>
                                                         <div class="col col-sm-2">
-                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="logStopAndSave()">Stop & Save Log</button>
+                                                            <button type="button" class="btn btn-primary col-sm-12" id="bLogStop" value="0" onclick="monitorLogStopAndSave()" disabled=true>Stop & Save Log</button>
                                                         </div>
                                                         <div class="col col-sm-1">
                                                             
@@ -1848,7 +1848,8 @@
     
     <script src="assets/js/serialIndex.js?version=9"></script>
     <script src="assets/js/indexInteraction.js?version=5"></script>
-    
+    <script src="assets/js/soloLog.js?version=1"></script>
+
     <script src="assets/js/performanceMonitor.js?version=4"></script>
     <script src="assets/js/monitor.js?version=4"></script>
     <script>onWindowLoad()</script>

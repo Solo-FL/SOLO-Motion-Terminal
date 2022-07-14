@@ -130,14 +130,6 @@ class Serial {
                     }
                   }
 
-                
-                  if (typeof(Storage) !== "undefined" && this.isRecordingActivated) {
-                    localStorage.setItem(this.recordingIndex, newMessage);
-                    this.recordingIndex++;
-                  } else {
-                   // console.log("Sorry, your browser does not support Web Storage...");
-                  }
-                
                 }
                 if (done) {
                   console.log('[readLoop] DONE', done);
@@ -368,17 +360,6 @@ class Serial {
       return this.writingStatus;
     }
 
-    setRecording(newRecordingStatus){
-      if(this.isRecordingActivated != newRecordingStatus){
-        if(newRecordingStatus==true){
-          this.recordingIndex = 0;
-          localStorage.clear();
-        }
-        this.isRecordingActivated = newRecordingStatus;
-      }
-    }
-
-
     cleanMonitorBuffer(){
       this.readingPreList="";
       this.readingList = [];
@@ -388,16 +369,5 @@ class Serial {
       'FFFF'+this.soloId+'190000000000FE')
     }
 
-    saveRecording(){
-      let a = document.createElement('a');
-      
-      a.href = "data:application/octet-stream,";
 
-      for(var i = 0; i < this.recordingIndex; i++ ){
-        a.href = a.href + encodeURIComponent(localStorage.getItem(i));
-      }
-  
-      a.download = 'SOLO-log.txt';
-      a.click();
-    }
 }
