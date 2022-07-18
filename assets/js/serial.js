@@ -105,7 +105,7 @@ class Serial {
                             switch ( parseInt(messageToCheck.substring(8, 16), 16) ){
                               case 0:
                                 errorText= "0: No Errors";
-                                resetMonitorsBG();
+                                this.resetMonitorsBG();
                                 break;
                               case 1:
                                 errorText= "1: O.C. (Over-Current)";
