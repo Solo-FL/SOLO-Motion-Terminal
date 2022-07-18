@@ -53,7 +53,7 @@ class Serial {
                   dataBitsVal:dataBitsVal,
                   parityBitVal: parityBitVal,
                   stopBitsVal:stopBitsVal,
-                  bufferSize:16777200  
+                  bufferSize:1677200  
                   });
                 
                 this.reader = port.readable.getReader();
@@ -102,7 +102,7 @@ class Serial {
                             document.getElementById("myPerformanceChart").classList.add("bg-warning");
                           }
                           var errorText="";
-                            switch ( messageToCheck.substring(8, 16)){
+                            switch ( parseInt(messageToCheck.substring(8, 16), 16) ){
                               case 0:
                                 errorText= "0: No Errors";
                                 resetMonitorsBG();

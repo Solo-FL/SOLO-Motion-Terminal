@@ -601,12 +601,12 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
   }else{
 
     var recivedCommand =serial.getLastReadingsByCommand(fullcommand.substr(6,2),historySize, false);
-
+    
     if(recivedCommand.length>0){
 
       var commandRead = recivedCommand.substring(8, 16);
       var commandToSet= convertToType(typeToSet, commandRead);
-      
+
       if(multiply.toString()[0]=='I'){
         commandToSet = Math.round(multiply.substr(1) / commandToSet) ;
       }else if(multiply!=0){
@@ -616,7 +616,7 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
       if(fullcommand.substr(6,2)=='8B'){ //Peculiar situation, rounded condition for 8B read command
         commandToSet = Math.round(commandToSet);
       }
-      
+
       document.getElementById(readValueToSetId).value = commandToSet; 
 
       if(slideToUpdate!=null){
