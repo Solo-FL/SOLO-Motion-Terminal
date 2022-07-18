@@ -90,7 +90,7 @@ function conversionFromDecimal(decimalStr) {
     return;
   }
 
-  console.log('decimal conversion of: ' + decimalStr);
+  //console.log('decimal conversion of: ' + decimalStr);
   return decToHex(parseInt(decimalStr));
 }
 

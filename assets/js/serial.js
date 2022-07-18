@@ -46,100 +46,117 @@ class Serial {
               var dataBitsVal = "eight";
               var parityBitVal = "no";
               var stopBitsVal = "one";
-
-              await port.open({ 
+        
+              try{
+                await port.open({ 
                   baudRate: baudRate,
                   dataBitsVal:dataBitsVal,
                   parityBitVal: parityBitVal,
-                  stopBitsVal:stopBitsVal });
+                  stopBitsVal:stopBitsVal,
+                  bufferSize:16777200  
+                  });
+                
+                this.reader = port.readable.getReader();
+                this.writer = port.writable.getWriter();
+                this.signals = await port.getSignals();
+              }catch(err){
+                //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+                if ( err.name == "InvalidStateError" ) { //when serial stream open
+                  location.reload();
+                }else{
+                  throw err;
+                }
+              }
+              
               this.connectionStatus = "connected"
-              console.log('LOG: '+port.log);
-              this.reader = port.readable.getReader();
-              this.writer = port.writable.getWriter();
-              let signals = await port.getSignals();
-              console.log('SIGNALS: ');
-              console.log(signals);
-              
-              
+
               while (true) {
-                const { value, done } = await this.reader.read();
-                if (value) {
-                  var packetReceived ="";
-                  var packetReceivedStart =0;
-                  var packetReceivedList =[];
+                try {
+                  const { value, done } = await this.reader.read();
+                  if (value) {
+                    var packetReceived ="";
+                    var packetReceivedStart =0;
+                    var packetReceivedList =[];
+                    var newMessage = this.arrayAlementsToString(value);
+                    
+                    //TO TEST READ
+                    //console.log('read: '+ newMessage);
+                    this.readingPreList += newMessage;
+                    packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+                    
+                    packetReceived = this.readingPreList.substr
+                      (packetReceivedStart,
+                      this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
+                    packetReceivedList = packetReceived.match(/FFFF.{14}FE/g);
+                    if(packetReceivedList!=null){
+                      this.readingList=this.readingList.concat(packetReceivedList);
+                      this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
+                    }
 
-                  var newMessage = this.arrayAlementsToString(value);
-                  
-                  //TO TEST READ
-                  console.log('read: '+ newMessage);
-                  
-                  this.readingPreList += newMessage;
-                  packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
-                  
-
-                  packetReceived = this.readingPreList.substr
-                    (packetReceivedStart,
-                    this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
-                  packetReceivedList = packetReceived.match(/FFFF.{14}FE/g);
-                  if(packetReceivedList!=null){
-                    this.readingList=this.readingList.concat(packetReceivedList);
-                    this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
-                  }
-
-                  if(packetReceivedList!=null ){
-                    for(var li = 0; li <packetReceivedList.length;li++){
-                      var messageToCheck = packetReceivedList[li];
-                      if(messageToCheck.substr(0,8)=="FFFF"+ this.soloId  +"A1"){
-                        if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
-                          document.getElementById("myChart").classList.add("bg-warning");
-                          document.getElementById("myPerformanceChart").classList.add("bg-warning");
-                        }
-                        var errorText="";
-                          switch ( messageToCheck.substring(8, 16)){
-                            case 0:
-                              errorText= "0: No Errors";
-                              resetMonitorsBG();
-                              break;
-                            case 1:
-                              errorText= "1: O.C. (Over-Current)";
-                              break;
-                            case 2:
-                              errorText= "2: O.V. (Over-Voltage)";
-                              break;
-                            case 3:
-                              errorText= "3: O.V., O.C.";
-                              break;
-                            case 4:
-                              errorText= "4: O.T. (Over-Temp.)";
-                              break;
-                            case 5:
-                              errorText= "5: O.C., O.T.";
-                              break;
-                            case 6:
-                              errorText= "6: O.V., O.T.";
-                              break;
-                            case 7: 
-                              errorText= "7: O.C., O.V., O.T";
-                              break;
-                            default:
-                              errorText= "error"
-                              break;
+                    if(packetReceivedList!=null ){
+                      for(var li = 0; li <packetReceivedList.length;li++){
+                        var messageToCheck = packetReceivedList[li];
+                        if(messageToCheck.substr(0,8)=="FFFF"+ this.soloId  +"A1"){
+                          if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                            document.getElementById("myChart").classList.add("bg-warning");
+                            document.getElementById("myPerformanceChart").classList.add("bg-warning");
                           }
-                          document.querySelector('#boxActionErrorRegister').value=errorText;
+                          var errorText="";
+                            switch ( messageToCheck.substring(8, 16)){
+                              case 0:
+                                errorText= "0: No Errors";
+                                resetMonitorsBG();
+                                break;
+                              case 1:
+                                errorText= "1: O.C. (Over-Current)";
+                                break;
+                              case 2:
+                                errorText= "2: O.V. (Over-Voltage)";
+                                break;
+                              case 3:
+                                errorText= "3: O.V., O.C.";
+                                break;
+                              case 4:
+                                errorText= "4: O.T. (Over-Temp.)";
+                                break;
+                              case 5:
+                                errorText= "5: O.C., O.T.";
+                                break;
+                              case 6:
+                                errorText= "6: O.V., O.T.";
+                                break;
+                              case 7: 
+                                errorText= "7: O.C., O.V., O.T";
+                                break;
+                              default:
+                                errorText= "error"
+                                break;
+                            }
+                            document.querySelector('#boxActionErrorRegister').value=errorText;
+                        }
                       }
                     }
                   }
-
-                }
-                if (done) {
-                  console.log('[readLoop] DONE', done);
-                  this.reader.releaseLock();
-                  break;
-                }
-              }
+                  if (done) {
+                    //console.log('[readLoop] DONE', done);
+                    this.reader.releaseLock();
+                    break;
+                  }
+                }catch (err) {
+                  if (err instanceof DOMException && err.name == "BufferOverrunError" ) {
+                    //BufferOverrunError handler
+                    //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+                    console.error('There was an error on serial port loop:', err);
+                    this.reader = port.readable.getReader();
+                  }else{
+                    throw err;
+                  }
+                }  
+            }
           }
           catch (err) {
-              console.error('There was an error opening the serial port:', err);
+              console.error('There was an error on the serial port:', err);
+              console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
               this.connectionStatus = "error";
           }
       }
@@ -170,7 +187,7 @@ class Serial {
     if(data!=null){
       const array = this.hexStringToByteArray(data);
       const arrayBuffer = new Uint8Array(array)
-      console.log(`message: ${data} , ${arrayBuffer}`);
+      //console.log(`message: ${data} , ${arrayBuffer}`);
 
         await this.writer.write(arrayBuffer);
     }
@@ -180,7 +197,7 @@ class Serial {
     if(this.writingStatus =="OFF"){
       this.commandsStrings = this.truncateBy20(data);
       if(this.commandsStrings != null){
-        console.log('Execute multiple commands size ' + this.commandsStrings.length);
+        //console.log('Execute multiple commands size ' + this.commandsStrings.length);
         this.writingStatus ="ON";
 
         this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 10));
