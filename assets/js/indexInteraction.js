@@ -7,6 +7,7 @@
     toogleActionsSwitch();
     toogleMonitorsSwitch();
     toogleHelpSwitch();
+    toogleTutorialsSwitch();
     disablePart(true,
         [
             'boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp',
@@ -87,8 +88,8 @@ document.querySelector('#helpSwitches').onclick = function () {
     toogleHelpSwitch();
 };
 
-document.querySelector('#tutorialSwitches').onclick = function () {
-    toogleTutorialSwitch();
+document.querySelector('#tutorialsSwitches').onclick = function () {
+    toogleTutorialsSwitch();
 };
 
 //update textarea size automatic

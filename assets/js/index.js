@@ -38,12 +38,12 @@ function toogleHelpSwitch() {
   }
 }
 
-function toogleTutorialSwitch() {
-  toogle = document.querySelector('#tutorialSwitches').checked;
+function toogleTutorialsSwitch() {
+  toogle = document.querySelector('#tutorialsSwitches').checked;
   if (toogle) {
-    document.querySelector('#tutorialable').style.display = "revert";
+    document.querySelector('#tutorialsTable').style.display = "revert";
   } else {
-    document.querySelector('#tutorialable').style.display = "none";
+    document.querySelector('#tutorialsTable').style.display = "none";
   }
 }
 

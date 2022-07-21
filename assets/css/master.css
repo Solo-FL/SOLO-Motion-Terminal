@@ -16,3 +16,27 @@ button {
 button[disabled=disabled], button:disabled {
     color: #b4b4b4;
 }
+/*
+.custom-control-input:focus~.custom-control-label::before {
+    border-color: #1CC88A !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 47, 69, 0.25) !important;
+  }*/
+  
+  .custom-control-input:checked~.custom-control-label::before {
+    border-color: #1CC88A !important;
+    background-color: #1CC88A !important;
+  }
+  
+  .custom-control-input:active~.custom-control-label::before {
+    background-color: #1CC88A !important;
+    border-color: #1CC88A !important;
+  }
+  
+  /*.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #1CC88A !important;
+  }*/
+  
+  .custom-control-input-green:not(:disabled):active~.custom-control-label::before {
+    background-color: #1CC88A !important;
+    border-color: #1CC88A !important;
+  }
