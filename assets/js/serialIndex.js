@@ -23,16 +23,12 @@ connect.addEventListener('click', () => {
 });
 
 function checkFirmwareVersion(){
- if((document.querySelector('#boxActionFirmwareVersion').value!="0000B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0002B008" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0001B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0002B009"&&
-  document.querySelector('#boxActionFirmwareVersion').value!="0003B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0004B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0005B009" &&
-  document.querySelector('#boxActionFirmwareVersion').value!="0006B009")
+ if((document.querySelector('#boxActionFirmwareVersion').value!="0000B00B" &&
+  document.querySelector('#boxActionFirmwareVersion').value!="0009B00A")
    && serial.connectionStatus=="connected"){
-    console.log("The latest version of Firmware is the V009. Please update it for a better user experience, to get the updater tool please contact us.");
+    document.getElementById('buttonErrorTooltip1').style.display= "inline" ;
+    document.getElementById('buttonErrorTooltip2').style.display= "inline" ;
+    console.log("The latest version of Firmware is different. Please update it for a better user experience, to get the updater tool please contact us.");
   }
 }
 
@@ -424,7 +420,9 @@ function doActionReadMultiplyCore(command, typeToSet, valueToSetId, boxToColorId
 function doActionReadMultiply(address, command, typeToSet, valueToSetId, boxToColorId, valueToMultiply,slideToUpdate ){
   doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, parseFloat(valueToMultiply),slideToUpdate);
 }
-
+function showWarning(){
+  alert("Firmware update notifications are sent by email to all of our users. "+ "\n" +"Contact us at 'support@solomotorcontrollers.com' if you missed those notifications");
+}
 function doActionReadCore(command, typeToSet, valueToSetId, boxToColorId, multiply, slideToUpdate){
   doActionRead(serial.soloId, command, typeToSet, valueToSetId, boxToColorId, multiply, slideToUpdate);
 }

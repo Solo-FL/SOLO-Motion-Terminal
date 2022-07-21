@@ -83,6 +83,10 @@
                                         </div>
                                     </form>
                                     
+                                    <button onclick="showWarning()" class="text-secondary" id="buttonErrorTooltip1" data-toggle="tooltip" data-placement="bottom" title="Your Firmware version is not up to date,  &#013;please contact ''support@solomotorcontrollers.com'' for further assistance." style="display:none;">
+                                        <i class="fa fa-exclamation-triangle" style="color:orange"></i>
+                                    </button>
+
                                     <button class="text-secondary" id="buttonConnectionTooltip" data-toggle="tooltip" data-placement="bottom" title="Press to connect SOLO">
                                         <i class="fas fa-plug fa-lg" id="buttonConnection"></i>
                                     </button>
@@ -1461,10 +1465,12 @@
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
                                                                     <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('A2','NONE','boxActionFirmwareVersion','boxActionFirmwareVersion')"></button>
                                                                 </a>  
+                                                                <button onclick="showWarning()" class="text-secondary" id="buttonErrorTooltip2" data-toggle="tooltip" data-placement="bottom" title="Your Firmware version is not up to date,  &#013;please contact ''support@solomotorcontrollers.com'' for further assistance." style="display:none;">
+                                                                    <i class="fa fa-exclamation-triangle" style="color:orange"></i>
+                                                                </button>
                                                             </div>
                                                             <div class="col col-sm-1">
 
-                                                                
                                                             </div>
                                                             
                                                         </div>
@@ -1846,7 +1852,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.7.0.1 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.7.1.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>
