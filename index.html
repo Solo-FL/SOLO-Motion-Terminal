@@ -45,29 +45,34 @@
                     
                     <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
                         <input type="checkbox" class="custom-control-input" id="signalsSwitches" >
-                        <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
-                            <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
-                        </a>
-                        <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
-                            <input type="checkbox" class="custom-control-input" id="actionsSwitches" checked>
+                            <label class="custom-control-label" for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
+                                <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
+                    </a>
+                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
+                        <input type="checkbox" class="custom-control-input" id="actionsSwitches" checked>
                             <label class="custom-control-label" for="actionsSwitches"><i class="fas fa-table"></i>
                                 <label for="actionsSwitches" class="sidebar-text">Actions</label></label>
-                            </a>
-                            <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
-                                <input type="checkbox" class="custom-control-input" id="monitorsSwitches" checked>
-                                <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
-                                    <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
-                                </a>
-                                <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
-                                    <input type="checkbox" class="custom-control-input" id="helpSwitches" checked>
-                                    <label class="custom-control-label" for="helpSwitches"><i class="fas fa-ambulance"></i>
-                                        <label for="helpSwitches" class="sidebar-text">Help</label></label>
-                                    </a>
-                                </div>
+                    </a>
+                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
+                        <input type="checkbox" class="custom-control-input" id="monitorsSwitches" checked>
+                            <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
+                                <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
+                    </a>
+                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
+                        <input type="checkbox" class="custom-control-input" id="tutorialSwitches" >
+                            <label class="custom-control-label" for="tutorialSwitches"><i class="fa fa-book"></i>
+                                <label for="tutorialSwitches" class="sidebar-text">Tutorials</label></label>
+                    </a>
+                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
+                        <input type="checkbox" class="custom-control-input" id="helpSwitches" checked>
+                            <label class="custom-control-label" for="helpSwitches"><i class="fas fa-ambulance"></i>
+                                <label for="helpSwitches" class="sidebar-text">Help</label></label>
+                    </a>
+                    </div>
                                 
-                            </div>
+                </div>
                             
-                        </nav>
+            </nav>
                         
                         
                         <div class="overflow-auto" id="content-wrapper" style="height: 100vh;">
@@ -1778,8 +1783,218 @@
                         </div>
                                 
 
+                            <div id="tutorialTable">
+                                <div class="container-fluid">
+                                    <h3 class="text-dark mb-0">Motion Terminal Tutorials</h3>
+                                    <br>
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                        
+                                        <div class="col">
+                                            <div class="row">
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/solo-linux/" target="_blank"
+                                                style="text-decoration:none">
+                                                    <div class="card text-white bg-primary shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Linux Guide</p>
+                                                            <p class="text-white-50  m-0">How run on Linux</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/setup-tune-motors-using-solo-motion-terminal/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-primary shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Setup and Tune a Motor</p>
+                                                            <p class="text-white-50  m-0">how to use a motor</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/how-to-connect-calibrate-incremental-encoder-with-solo/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-primary shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Incremental Encoders</p>
+                                                            <p class="text-white-50  m-0">How to Calibrate</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/hall-sensors-to-solo-for-controlling-speed-torque-brushless-motor/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-primary shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Hall Sensors </p>
+                                                            <p class="text-white-50  m-0">How to connect</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="container-fluid">
+                                        <h3 class="text-dark mb-0">Arduino Tutorials</h3>
+                                        <br>
+                                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                            
+                                            <div class="col">
+                                                <div class="row">
+                                                   
+                                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/resources/arduino-environment/"
+                                                    target="_blank" style="text-decoration:none">
+                                                        <div class="card text-white bg-success shadow">
+                                                            <div class="card-body">
+                                                                <p class="m-0">SOLO & Arduino </p>
+                                                                <p class="text-white-50  m-0">Introduction material</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+
+                                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/arduino-library-hello-world/" target="_blank"
+                                                    style="text-decoration:none">
+                                                        <div class="card text-white bg-success shadow">
+                                                            <div class="card-body">
+                                                                <p class="m-0">Hello World</p>
+                                                                <p class="text-white-50  m-0">How to start</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+
+                                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/speed-torque-control-brushless-motor-hall-sensors-arduino-code/"
+                                                    target="_blank" style="text-decoration:none">
+                                                        <div class="card text-white bg-success shadow">
+                                                            <div class="card-body">
+                                                                <p class="m-0">Speed and Torque Control</p>
+                                                                <p class="text-white-50  m-0">with hall sensors </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+
+                                                    <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/position-control-brushless-arduino-and-solo/"
+                                                    target="_blank" style="text-decoration:none">
+                                                        <div class="card text-white bg-success shadow">
+                                                            <div class="card-body">
+                                                                <p class="m-0">Position control</p>
+                                                                <p class="text-white-50  m-0">How to use it</p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
 
 
+                                <div class="container-fluid">
+                                    <h3 class="text-dark mb-0">Python & Raspberry Pi</h3>
+                                    <br>
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                        
+                                        <div class="col">
+                                            <div class="row">
+                                               
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/resources/python-raspberry-pi-environment/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-warning shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">SOLO Python & Raspberry </p>
+                                                            <p class="text-white-50  m-0">Introduction material</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/solo-linux/" target="_blank"
+                                                style="text-decoration:none">
+                                                    <div class="card text-white bg-warning shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Linux Guide</p>
+                                                            <p class="text-white-50  m-0">How run on Linux</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/easiest-way-to-control-torque-bldc-raspberry-pi-hall-sensors-feedback-code/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-warning shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Torque Control</p>
+                                                            <p class="text-white-50  m-0">with hall sensors </p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/raspberry-pi-brushless-motor-position-control-incremental-encoders-code/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-warning shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Position control</p>
+                                                            <p class="text-white-50  m-0">How to use it</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container-fluid">
+                                    <h3 class="text-dark mb-0">Simulink</h3>
+                                    <br>
+                                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                                        
+                                        <div class="col">
+                                            <div class="row">
+                                               
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/resources/simulink/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-danger shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">SOLO & Simulink </p>
+                                                            <p class="text-white-50  m-0">Introduction material</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/solo-simulink-block-hello-world/" target="_blank"
+                                                style="text-decoration:none">
+                                                    <div class="card text-white bg-danger shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Simulink Block Hello Wolrd</p>
+                                                            <p class="text-white-50  m-0">How to start</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/torque-speed-control-pmsm-bldc-simulink/"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-danger shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">Torque and Speed Control</p>
+                                                            <p class="text-white-50  m-0">How to use it</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+                                                <a class="col-lg-6 mb-4" href="https://github.com/Solo-FL/SOLO-Motor-Controllers-SIMULINK"
+                                                target="_blank" style="text-decoration:none">
+                                                    <div class="card text-white bg-danger shadow">
+                                                        <div class="card-body">
+                                                            <p class="m-0">GitHub Repository</p>
+                                                            <p class="text-white-50  m-0">Git Resourse</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
 
 
                                 <div id="helpTable">
@@ -1801,7 +2016,7 @@
                                                     </a>
                                                     <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/solo-linux/"
                                                     target="_blank" style="text-decoration:none">
-                                                        <div class="card text-white bg-success shadow">
+                                                        <div class="card text-white bg-primary shadow">
                                                             <div class="card-body">
                                                                 <p class="m-0">Linux Support</p>
                                                                 <p class="text-white-50  m-0">Motion Terminal on Linux OS</p>
@@ -1810,7 +2025,7 @@
                                                     </a>
                                                     <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/blog/"
                                                     target="_blank" style="text-decoration:none">
-                                                        <div class="card text-white bg-info shadow">
+                                                        <div class="card text-white bg-primary shadow">
                                                             <div class="card-body">
                                                                 <p class="m-0">Blog</p>
                                                                 <p class="text-white-50  m-0">Our latest articles</p>
@@ -1819,7 +2034,7 @@
                                                     </a>
                                                     <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/forum/"
                                                     target="_blank" style="text-decoration:none">
-                                                        <div class="card text-white bg-danger shadow">
+                                                        <div class="card text-white bg-primary shadow">
                                                             <div class="card-body">
                                                                 <p class="m-0">Forum - Support</p>
                                                                 <p class="text-white-50  m-0">Get your answers</p>
@@ -1828,7 +2043,7 @@
                                                     </a>
                                                     <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/wp-content/uploads/materials/SOLO_UNO_Communication_Manual_UART_USB.pdf"
                                                     target="_blank" style="text-decoration:none">
-                                                        <div class="card text-white bg-warning shadow">
+                                                        <div class="card text-white bg-primary shadow">
                                                             <div class="card-body">
                                                                 <p class="m-0">UART/USB Manual</p>
                                                                 <p class="text-white-50  m-0">Read the PDF Manual</p>
@@ -1837,7 +2052,7 @@
                                                     </a>
                                                     <a class="col-lg-6 mb-4" href="https://www.solomotorcontrollers.com/wp-content/uploads/materials/SOLO_UNO_Communication_Manual_CANopen.pdf"
                                                     target="_blank" style="text-decoration:none">
-                                                        <div class="card text-white bg-warning shadow">
+                                                        <div class="card text-white bg-primary shadow">
                                                             <div class="card-body">
                                                                 <p class="m-0">CANopen Manual</p>
                                                                 <p class="text-white-50  m-0">Read the PDF Manual</p>

@@ -87,6 +87,10 @@ document.querySelector('#helpSwitches').onclick = function () {
     toogleHelpSwitch();
 };
 
+document.querySelector('#tutorialSwitches').onclick = function () {
+    toogleTutorialSwitch();
+};
+
 //update textarea size automatic
 $(document).on('input', 'textarea', function () {
     if(this.scrollHeight<=310){

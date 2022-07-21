@@ -38,6 +38,15 @@ function toogleHelpSwitch() {
   }
 }
 
+function toogleTutorialSwitch() {
+  toogle = document.querySelector('#tutorialSwitches').checked;
+  if (toogle) {
+    document.querySelector('#tutorialable').style.display = "revert";
+  } else {
+    document.querySelector('#tutorialable').style.display = "none";
+  }
+}
+
 
 function conversionFromFloat(floatValue) {
   if (floatValue.trim().length == 0) {
