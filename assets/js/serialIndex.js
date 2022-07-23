@@ -178,6 +178,8 @@ function doReadAll(extraCommand){
     "FFFF"+soloId+"A80000000000FE"+
     "FFFF"+soloId+"8E0000000000FE"+
     "FFFF"+soloId+"860000000000FE"+
+    "FFFF"+soloId+"B90000000000FE"+
+    "FFFF"+soloId+"BA0000000000FE"+
     "FFFF"+soloId+"930000000000FE"+
     "FFFF"+soloId+"A10000000000FE"+
     "FFFF"+soloId+"A20000000000FE"+
@@ -226,6 +228,8 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"B40000000000FE", 'SFXT', 0 , 'boxActionSpeedAcceleration', 'boxActionSpeedAcceleration',null, 'rangeActionSpeedAcceleration');
     updateAndFlushSimpleActionRead("FFFF"+soloId+"B50000000000FE", 'SFXT', 0 , 'boxActionSpeedDeceleration', 'boxActionSpeedDeceleration',null, 'rangeActionSpeedDeceleration');
     updateAndFlushSimpleActionRead("FFFF"+soloId+"860000000000FE", 'SFXT', 0 , 'boxActionSupplyVoltage', 'boxActionSupplyVoltage',null ,null);
+    updateAndFlushSimpleActionRead("FFFF"+soloId+"B9000000000FE", 'UINT32', 0 , 'boxActionStall', 'boxActionStall',null ,null);
+    updateAndFlushSimpleActionRead("FFFF"+soloId+"BA0000000000FE", 'UINT32', 0 , 'boxActionHeartbeat', 'boxActionHeartbeat',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"930000000000FE", 'SFXT', 0 , 'boxActionTemperature', 'boxActionTemperature',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A10000000000FE", 'ERROR', 0 , 'boxActionErrorRegister', 'boxActionErrorRegister',null ,null);
@@ -364,6 +368,7 @@ function doActionSemplification(boxValueId){
 
 function scanAllParams(){
   doReadAll();
+  /*
   messageInput.value = convertToCammandToSend('FF','01','UINT32','boxActionDeviceAddress')
   messageInput.value += convertToCammandToSendCore('03','SFXT','boxActionMaxCurrent');
   messageInput.value += convertToCammandToSendCore('09','UINT32','boxActionPWMFrequency');
@@ -403,7 +408,7 @@ function scanAllParams(){
   messageInput.value += convertToCammandToSendCore('06','SFXT','boxActionPowerReference');
   messageInput.value += convertToCammandToSendCore('2A','SFXT','boxActionSpeedAcceleration');
   messageInput.value += convertToCammandToSendCore('2B','SFXT','boxActionSpeedDeceleration');
-  
+  */
   prettifyHex();
 }
 
@@ -615,6 +620,10 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
         commandToSet = Math.round(commandToSet);
       }
 
+      if(fullcommand.substr(6,2)=='92'){ //Peculiar situation, rounded condition for 92 read command
+        commandToSet = commandToSet.toFixed(7);
+      }
+      
       document.getElementById(readValueToSetId).value = commandToSet; 
 
       if(slideToUpdate!=null){

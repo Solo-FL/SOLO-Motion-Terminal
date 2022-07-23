@@ -450,6 +450,54 @@
 
                                                         <div class="row mb-2">
                                                             
+                                                            <div class="col col-sm-2"> <!-- data-toggle="tooltip" data-placement="bottom" title="The address of SOLO in the network">-->
+                                                                Stall Detection Time[ms]*
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionStall" class="col-sm-12" value="5000" min="0" max="100000" step="500" oninput="updateRangeInput(this.value,'rangeActionStall')" onkeypress="pressIfEnter(event,'bActionStall')" >
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionStall" class="col-sm-12" value="5000" min="0" max="100000" step="500" oninput="updateTextRangeInput(this.value,'boxActionStall')" >
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" >
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionStall" onclick="doActionCore('2E','UINT32','boxActionStall','boxActionStall');doActionRead('FF','81','UINT32','boxActionStall','boxActionStall'); "></button>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read" >
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B9','UINT32','boxActionStall','boxActionStall',null,'rangeActionStall');"></button>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2">  <!-- data-toggle="tooltip" data-placement="bottom" title="The address of SOLO in the network">-->
+                                                                Heartbeat Producer Time[ms]
+                                                            </div>
+                                                            <div class="col col-sm-2">
+                                                                <input type="number" id="boxActionHeartbeat" class="col-sm-12" value="0" min="0" max="500000" step="500" oninput="updateRangeInput(this.value,'rangeActionHeartbeat'); " onkeypress="pressIfEnter(event,'bActionHeartbeat')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                <input type="range" id="rangeActionHeartbeat" class="col-sm-12" value="0" min="0" max="500000" step="500" oninput="updateTextRangeInput(this.value,'boxActionHeartbeat')">
+                                                            </div>
+                                                            <div class="col col-sm-1">
+                                                                
+                                                                <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" >
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionHeartbeat" onclick="doActionCore('2F','UINT32','boxActionHeartbeat','boxActionHeartbeat')"></button>
+                                                                </a>
+                                                                <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read">
+                                                                    <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg"  onclick="doActionReadCore('BA','UINT32','boxActionHeartbeat','boxActionHeartbeat',null,'rangeActionHeartbeat')"></button>
+                                                                </a>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <div class="row mb-2">
+                                                            
                                                             <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="During 'Command Mode: Analogue', the value is specified at Hardware-level and can't be modified using Motion Terminal">
                                                                 Analogue S/T Max Speed*
                                                             </div>
@@ -2070,7 +2118,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.8.0.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.8.1.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>
