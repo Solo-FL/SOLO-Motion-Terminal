@@ -101,38 +101,8 @@ class Serial {
                             document.getElementById("myChart").classList.add("bg-warning");
                             document.getElementById("myPerformanceChart").classList.add("bg-warning");
                           }
-                          var errorText="";
-                            switch ( parseInt(messageToCheck.substring(8, 16), 16) ){
-                              case 0:
-                                errorText= "0: No Errors";
-                                this.resetMonitorsBG();
-                                break;
-                              case 1:
-                                errorText= "1: O.C. (Over-Current)";
-                                break;
-                              case 2:
-                                errorText= "2: O.V. (Over-Voltage)";
-                                break;
-                              case 3:
-                                errorText= "3: O.V., O.C.";
-                                break;
-                              case 4:
-                                errorText= "4: O.T. (Over-Temp.)";
-                                break;
-                              case 5:
-                                errorText= "5: O.C., O.T.";
-                                break;
-                              case 6:
-                                errorText= "6: O.V., O.T.";
-                                break;
-                              case 7: 
-                                errorText= "7: O.C., O.V., O.T";
-                                break;
-                              default:
-                                errorText= "error"
-                                break;
-                            }
-                            document.querySelector('#boxActionErrorRegister').value=errorText;
+                          var errorText=this.conversionToError(messageToCheck.substring(8, 16));
+                          document.querySelector('#boxActionErrorRegister').value=errorText;
                         }
                       }
                     }
@@ -191,6 +161,47 @@ class Serial {
 
         await this.writer.write(arrayBuffer);
     }
+  }
+
+  conversionToError(hexValue){
+    var decValue = parseInt(hexValue, 16);
+    var message = "";
+    if(decValue == 0){
+      this.resetMonitorsBG();
+      return "No Errors";
+    }
+  
+    if(hexValue.substring(7, 8)=="1"){
+      message+="|O.C. ";
+      console.error("ERROR REGISTER: Over-Current");
+    }
+  
+    if(hexValue.substring(6, 7)=="1"){
+      message+="|O.V. ";
+      console.error("ERROR REGISTER: Over-Voltage");
+    }
+  
+    if(hexValue.substring(5, 6)=="1"){
+      message+="|O.T. ";
+      console.error("ERROR REGISTER: Over-Temp.");
+    }
+  
+    if(hexValue.substring(4, 5)=="1"){
+      message+="|Enc. Cal. Timeout ";
+      console.error("ERROR REGISTER: Enc. Cal. Timeout");
+    }
+  
+    if(hexValue.substring(3, 4)=="1"){
+      message+="|Hall. Cal. Timeout ";
+      console.error("ERROR REGISTER: Hall. Cal. Timeout");
+    }
+  
+    if(hexValue.substring(1, 2)=="1"){
+      message+="|Stall ";
+      console.error("ERROR REGISTER: Stall detection");
+    }
+  
+    return message;
   }
 
   multipleWriteStart(data){

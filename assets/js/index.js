@@ -112,30 +112,46 @@ function decToHex(decimalValue) {
 }
 
 function conversionToError(hexValue){
+  hexValue = "11010101"
+  console.log(hexValue);
   decValue = parseInt(hexValue, 16);
-  switch (decValue){
-    case 0:
-      return "0: No Errors";
-    case 1:
-      return "1: O.C. (Over-Current)";
-    case 2:
-      return "2: O.V. (Over-Voltage)";
-    case 3:
-      return "3: O.V., O.C.";
-    case 4:
-      return "4: O.T. (Over-Temp.)";
-    case 5:
-      return "5: O.C., O.T.";
-    case 6:
-      return "6: O.V., O.T.";
-    case 7: 
-      return "7: O.C., O.V., O.T";
-    case 8: 
-    return "8: Enc. Cal. Timeout";
-    case 9: 
-    return "9: Hall. Cal. Timeout";
+  message = "";
+  if(decValue == 0){
+    //return "0  /No Errors";
   }
-  return "";
+
+  //message+=decValue + " ";
+  if(hexValue.substring(7, 8)=="1"){
+    message+="|O.C. ";
+    console.error("ERROR REGISTER: Over-Current");
+  }
+
+  if(hexValue.substring(6, 7)=="1"){
+    message+="|O.V. ";
+    console.error("ERROR REGISTER: Over-Voltage");
+  }
+
+  if(hexValue.substring(5, 6)=="1"){
+    message+="|O.T. ";
+    console.error("ERROR REGISTER: Over-Temp.");
+  }
+
+  if(hexValue.substring(4, 5)=="1"){
+    message+="|Enc. Cal. Timeout ";
+    console.error("ERROR REGISTER: Enc. Cal. Timeout");
+  }
+
+  if(hexValue.substring(3, 4)=="1"){
+    message+="|Hall. Cal. Timeout ";
+    console.error("ERROR REGISTER: Hall. Cal. Timeout");
+  }
+
+  if(hexValue.substring(1, 2)=="1"){
+    message+="|Stall ";
+    console.error("ERROR REGISTER: Stall detection");
+  }
+
+  return message;
 }
 
 function conversionToDecimal(hexValue){

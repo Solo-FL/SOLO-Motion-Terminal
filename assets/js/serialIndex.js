@@ -579,7 +579,7 @@ function convertToType(type,value){
     case "NONE":
       return value;
     case "ERROR":
-      return conversionToError(value);
+      return serial.conversionToError(value);
   }
 }
 
@@ -623,7 +623,7 @@ function updateAndFlushSimpleActionRead(fullcommand, typeToSet, multiply, readVa
       if(fullcommand.substr(6,2)=='92'){ //Peculiar situation, rounded condition for 92 read command
         commandToSet = commandToSet.toFixed(7);
       }
-      
+
       document.getElementById(readValueToSetId).value = commandToSet; 
 
       if(slideToUpdate!=null){
