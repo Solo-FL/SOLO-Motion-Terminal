@@ -10,6 +10,7 @@ class Serial {
       this.commandsStringsTimer=[];
       this.writingStatus ="OFF";
       this.connectionStatus = "none";
+      this.reader;
       this.writer;
       this.isMonitoring = false;
       this.readingList = [];
@@ -19,19 +20,21 @@ class Serial {
       this.soloId = "00";
   }
 
-  async disconnect(){
+  disconnect(){
     if(this.myport){
-    console.log('disconnection start');
-    
-    await this.reader.cancel();
-    console.log('disconnected reader');
-
-    await this.writer.close();
-    console.log('disconnected writer');
-
-    await this.myport.close();
-    console.log('disconnected port');
-    this.connectionStatus = "none";
+      console.log('CONNECTION DISCONNECT: disconnection start');
+      
+      this.reader.cancel()
+      .then(()=>{
+        console.log('CONNECTION DISCONNECT: disconnected reader');
+        return this.writer.close();
+      }).then(()=>{
+        console.log('CONNECTION DISCONNECT: disconnected writer');
+        return this.myport.close()
+      }).then(()=>{
+        console.log('CONNECTION DISCONNECT: disconnected port');
+        this.connectionStatus = "none";
+      })
     }
     return;
   }
@@ -40,6 +43,7 @@ class Serial {
       if ('serial' in navigator) {
           try {
               const port = await navigator.serial.requestPort();
+              console.log("CONNECTION INIT: port selected");
               this.myport = port;
               var baudRate = 937500;
 
@@ -48,7 +52,7 @@ class Serial {
               var stopBitsVal = "one";
         
               try{
-                await port.open({ 
+                await this.myport.open({ 
                   baudRate: baudRate,
                   dataBitsVal:dataBitsVal,
                   parityBitVal: parityBitVal,
@@ -56,11 +60,12 @@ class Serial {
                   bufferSize:1677200  
                   });
                 
-                this.reader = port.readable.getReader();
-                this.writer = port.writable.getWriter();
-                this.signals = await port.getSignals();
+                this.reader = this.myport.readable.getReader();
+                this.writer = this.myport.writable.getWriter();
+                this.signals = await this.myport.getSignals();
               }catch(err){
                 //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+                console.log("CONNECTION INIT: error", JSON.stringify(err, ["message", "arguments", "type", "name"]));
                 if ( err.name == "InvalidStateError" ) { //when serial stream open
                   location.reload();
                 }else{
@@ -69,7 +74,7 @@ class Serial {
               }
               
               this.connectionStatus = "connected"
-
+              console.log("CONNECTION INIT: connected");
               while (true) {
                 try {
                   const { value, done } = await this.reader.read();
@@ -116,7 +121,7 @@ class Serial {
                   if (err instanceof DOMException && err.name == "BufferOverrunError" ) {
                     //BufferOverrunError handler
                     //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
-                    console.error('There was an error on serial port loop:', err);
+                    console.error('CONNECTION LOOP: There was an error on serial port loop:', err);
                     this.reader = port.readable.getReader();
                   }else{
                     throw err;
@@ -125,7 +130,7 @@ class Serial {
             }
           }
           catch (err) {
-              console.error('There was an error on the serial port:', err);
+              console.error('CONNECTION: There was an error on the serial port:', err);
               console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
               this.connectionStatus = "error";
           }
