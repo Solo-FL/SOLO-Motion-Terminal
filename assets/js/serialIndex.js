@@ -39,6 +39,8 @@ function checkFirmwareVersion(){
 setInterval(checkStatus,1000);
 
 function checkStatus(){
+  console.log("CHECK STATUS: start");
+
   if(this.serialOldConnectionStatus != serial.getConnectionStatus()){
     this.serialOldConnectionStatus=serial.getConnectionStatus();
     switch(this.serialOldConnectionStatus){
@@ -51,6 +53,7 @@ function checkStatus(){
         document.getElementById("buttonConnectionTooltip").title="Press to get connected to SOLO";
         break;
       case "connected":
+        console.log("CHECK STATUS: connected");
         connect.style.color = "LimeGreen";
         this.monitorIsInStopping=true;
         document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
@@ -492,7 +495,8 @@ function doActionLoadWorkspace(){
         serial.multipleWriteStart(commands);
         doBgAnimationAndRead("bActionLoadWorkspace");
       }
-    });
+    })
+    .done();
 
 }
 

@@ -22,130 +22,136 @@ class Serial {
 
   disconnect(){
     if(this.myport){
-      console.log('CONNECTION DISCONNECT: disconnection start');
+        console.log('CONNECTION DISCONNECT: disconnection start');
       
-      this.reader.cancel()
-      .then(()=>{
-        console.log('CONNECTION DISCONNECT: disconnected reader');
-        return this.writer.close();
-      }).then(()=>{
-        console.log('CONNECTION DISCONNECT: disconnected writer');
-        return this.myport.close()
-      }).then(()=>{
-        console.log('CONNECTION DISCONNECT: disconnected port');
-        this.connectionStatus = "none";
-      })
+        this.reader.cancel()
+        .then(()=>{
+          console.log('CONNECTION DISCONNECT: disconnected reader');
+          return this.writer.close();
+        }).then(()=>{
+          console.log('CONNECTION DISCONNECT: disconnected writer');
+          return this.myport.close()
+        }).then(()=>{
+          console.log('CONNECTION DISCONNECT: disconnected port');
+          this.connectionStatus = "none";
+        }).catch(e => {
+          this.connectionStatus = "error";
+          console.error("CONNECTIO DISCONNECT: ERROR ", e);
+        } )
     }
     return;
   }
   
-  async init() {
-      if ('serial' in navigator) {
-          try {
-              const port = await navigator.serial.requestPort();
-              console.log("CONNECTION INIT: port selected");
-              this.myport = port;
-              var baudRate = 937500;
+  async connectionLoop(){
+    while (true) {
+      try {
+        const { value, done } = await this.reader.read();
+        if (value) {
+          var packetReceived ="";
+          var packetReceivedStart =0;
+          var packetReceivedList =[];
+          var newMessage = this.arrayAlementsToString(value);
+          
+          //TO TEST READ
+          console.log('READ MESSAGE: '+ newMessage);
+          this.readingPreList += newMessage;
+          packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
+          
+          packetReceived = this.readingPreList.substr
+            (packetReceivedStart,
+            this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
+          packetReceivedList = packetReceived.match(/FFFF.{14}FE/g);
+          if(packetReceivedList!=null){
+            this.readingList=this.readingList.concat(packetReceivedList);
+            this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
+          }
 
-              var dataBitsVal = "eight";
-              var parityBitVal = "no";
-              var stopBitsVal = "one";
-        
-              try{
-                await this.myport.open({ 
-                  baudRate: baudRate,
-                  dataBitsVal:dataBitsVal,
-                  parityBitVal: parityBitVal,
-                  stopBitsVal:stopBitsVal,
-                  bufferSize:1677200  
-                  });
-                
-                this.reader = this.myport.readable.getReader();
-                this.writer = this.myport.writable.getWriter();
-                this.signals = await this.myport.getSignals();
-              }catch(err){
-                //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
-                console.log("CONNECTION INIT: error", JSON.stringify(err, ["message", "arguments", "type", "name"]));
-                if ( err.name == "InvalidStateError" ) { //when serial stream open
-                  location.reload();
-                }else{
-                  throw err;
+          if(packetReceivedList!=null ){
+            for(var li = 0; li <packetReceivedList.length;li++){
+              var messageToCheck = packetReceivedList[li];
+              if(messageToCheck.substr(0,8)=="FFFF"+ this.soloId  +"A1"){
+                if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
+                  document.getElementById("myChart").classList.add("bg-warning");
+                  document.getElementById("myPerformanceChart").classList.add("bg-warning");
                 }
+                var errorText=this.conversionToError(messageToCheck.substring(8, 16));
+                document.querySelector('#boxActionErrorRegister').value=errorText;
               }
-              
-              this.connectionStatus = "connected"
-              console.log("CONNECTION INIT: connected");
-              while (true) {
-                try {
-                  const { value, done } = await this.reader.read();
-                  if (value) {
-                    var packetReceived ="";
-                    var packetReceivedStart =0;
-                    var packetReceivedList =[];
-                    var newMessage = this.arrayAlementsToString(value);
-                    
-                    //TO TEST READ
-                    //console.log('read: '+ newMessage);
-                    this.readingPreList += newMessage;
-                    packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
-                    
-                    packetReceived = this.readingPreList.substr
-                      (packetReceivedStart,
-                      this.readingPreList.lastIndexOf("00FE")-packetReceivedStart+4);
-                    packetReceivedList = packetReceived.match(/FFFF.{14}FE/g);
-                    if(packetReceivedList!=null){
-                      this.readingList=this.readingList.concat(packetReceivedList);
-                      this.readingPreList = this.readingPreList.substr(packetReceivedStart+packetReceivedList.length*20);
-                    }
-
-                    if(packetReceivedList!=null ){
-                      for(var li = 0; li <packetReceivedList.length;li++){
-                        var messageToCheck = packetReceivedList[li];
-                        if(messageToCheck.substr(0,8)=="FFFF"+ this.soloId  +"A1"){
-                          if(this.isMonitoring && !(messageToCheck.substr(8,12)=="0000000000FE")){
-                            document.getElementById("myChart").classList.add("bg-warning");
-                            document.getElementById("myPerformanceChart").classList.add("bg-warning");
-                          }
-                          var errorText=this.conversionToError(messageToCheck.substring(8, 16));
-                          document.querySelector('#boxActionErrorRegister').value=errorText;
-                        }
-                      }
-                    }
-                  }
-                  if (done) {
-                    //console.log('[readLoop] DONE', done);
-                    this.reader.releaseLock();
-                    break;
-                  }
-                }catch (err) {
-                  if (err instanceof DOMException && err.name == "BufferOverrunError" ) {
-                    //BufferOverrunError handler
-                    //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
-                    console.error('CONNECTION LOOP: There was an error on serial port loop:', err);
-                    this.reader = port.readable.getReader();
-                  }else{
-                    throw err;
-                  }
-                }  
             }
           }
-          catch (err) {
-              console.error('CONNECTION: There was an error on the serial port:', err);
-              console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+        }
+        if (done) {
+          console.log('[readLoop] DONE', done);
+          this.reader.releaseLock();
+          break;
+        }
+      }catch (err) {
+        if (err instanceof DOMException && err.name == "BufferOverrunError" ) {
+          //BufferOverrunError handler
+          //console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+          console.error('CONNECTION LOOP: There was an error on serial port loop:', err);
+          this.reader = port.readable.getReader();
+        }else{
+          throw err;
+        }
+      }  
+    }
+  }
+
+  async init() {
+    this.connectionStatus = "none";
+
+    const connectionParam = {
+      baudRate: 937500,
+      dataBitsVal:"eight",
+      parityBitVal: "no",
+      stopBitsVal:"one",
+      bufferSize:1677200
+    };
+
+    if ('serial' in navigator) {
+        navigator.serial.requestPort()
+          .then(port => {
+            console.log("CONNECTION INIT: port selected");
+            this.myport=port;
+            return this.myport.open(connectionParam);
+          }).then( () =>{
+            console.log("CONNECTION INIT: port opened");
+            this.reader = this.myport.readable.getReader();
+            this.writer = this.myport.writable.getWriter();
+            return this.myport.getSignals();
+          }, (err)=>{
+            console.log("CONNECTION INIT: error", JSON.stringify(err, ["message", "arguments", "type", "name"]));
+            if ( err.name == "InvalidStateError" ) { //when serial stream open
+              location.reload();
+            }else{
               this.connectionStatus = "error";
-          }
-      }
-      else {
-          console.error('Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:');
-          console.error('chrome://flags/#enable-experimental-web-platform-features');
-          console.error('opera://flags/#enable-experimental-web-platform-features');
-          console.error('edge://flags/#enable-experimental-web-platform-features');
-          alert('Serial API not supported.\n'+
-          'Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:\n'+
-          'chrome://flags/#enable-experimental-web-platform-features \n'+
-          'opera://flags/#enable-experimental-web-platform-features \n'+
-          'edge://flags/#enable-experimental-web-platform-features \n');
-          this.connectionStatus = "error";
+              throw err;
+            }
+          }).then((signals)=>{
+            console.log("CONNECTION INIT: signal recived");
+            this.signals =signals;
+          
+            this.connectionStatus = "connected"
+            console.log("CONNECTION INIT: connected");
+            
+            return this.connectionLoop();
+          }).catch(err => {
+            console.error('CONNECTION: There was an error on the serial port: ', JSON.stringify(err, ["message", "arguments", "type", "name"]));
+            console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+            this.connectionStatus = "error";
+          });   
+    }else {
+      console.error('Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:');
+      console.error('chrome://flags/#enable-experimental-web-platform-features');
+      console.error('opera://flags/#enable-experimental-web-platform-features');
+      console.error('edge://flags/#enable-experimental-web-platform-features');
+      alert('Serial API not supported.\n'+
+      'Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:\n'+
+      'chrome://flags/#enable-experimental-web-platform-features \n'+
+      'opera://flags/#enable-experimental-web-platform-features \n'+
+      'edge://flags/#enable-experimental-web-platform-features \n');
+      this.connectionStatus = "error";
       }
   }
 
@@ -162,9 +168,9 @@ class Serial {
     if(data!=null){
       const array = this.hexStringToByteArray(data);
       const arrayBuffer = new Uint8Array(array)
-      //console.log(`message: ${data} , ${arrayBuffer}`);
+      console.log(`SENT MESSAGE - HEX: ${data} , DEC: ${arrayBuffer}`);
 
-        await this.writer.write(arrayBuffer);
+      await this.writer.write(arrayBuffer);
     }
   }
 
