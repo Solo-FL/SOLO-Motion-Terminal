@@ -22,22 +22,29 @@ class Serial {
 
   disconnect(){
     if(this.myport){
-        console.log('CONNECTION DISCONNECT: disconnection start');
+      //console.log('CONNECTION DISCONNECT: disconnection start');
       
-        this.reader.cancel()
-        .then(()=>{
-          console.log('CONNECTION DISCONNECT: disconnected reader');
-          return this.writer.close();
-        }).then(()=>{
-          console.log('CONNECTION DISCONNECT: disconnected writer');
-          return this.myport.close()
-        }).then(()=>{
-          console.log('CONNECTION DISCONNECT: disconnected port');
-          this.connectionStatus = "none";
-        }).catch(e => {
-          this.connectionStatus = "error";
-          console.error("CONNECTIO DISCONNECT: ERROR ", e);
-        } )
+
+      Promise.race([
+        this.reader.cancel(),
+        new Promise((_, reject) => setTimeout(reject, 500, new Error("timeout")))
+      ]).then(()=>{
+        //console.log('CONNECTION DISCONNECT: disconnected reader');
+        return Promise.race([
+          this.writer.close(),
+          new Promise((_, reject) => setTimeout(reject, 500, new Error("timeout")))
+      ])}).then(()=>{
+        //console.log('CONNECTION DISCONNECT: disconnected writer');
+        return Promise.race([
+          this.myport.close(),
+          new Promise((_, reject) => setTimeout(reject, 500, new Error("timeout")))
+      ])}).then(()=>{
+        //console.log('ONNECTION DISCONNECT: disconnected port');
+        this.connectionStatus = "none";
+      }).catch(e => {
+        this.connectionStatus = "error";
+        console.error("CONNECTIO DISCONNECT: ERROR ", e);
+      } )
     }
     return;
   }
@@ -53,7 +60,7 @@ class Serial {
           var newMessage = this.arrayAlementsToString(value);
           
           //TO TEST READ
-          console.log('READ MESSAGE: '+ newMessage);
+          //console.log('READ MESSAGE: '+ newMessage);
           this.readingPreList += newMessage;
           packetReceivedStart = this.readingPreList.indexOf("FFFF",0);
           
@@ -81,7 +88,7 @@ class Serial {
           }
         }
         if (done) {
-          console.log('[readLoop] DONE', done);
+          //console.log('CONNECTION LOOP: DONE [readLoop]: ', done);
           this.reader.releaseLock();
           break;
         }
@@ -112,16 +119,16 @@ class Serial {
     if ('serial' in navigator) {
         navigator.serial.requestPort()
           .then(port => {
-            console.log("CONNECTION INIT: port selected");
+            //console.log("CONNECTION INIT: port selected");
             this.myport=port;
             return this.myport.open(connectionParam);
           }).then( () =>{
-            console.log("CONNECTION INIT: port opened");
+            //console.log("CONNECTION INIT: port opened");
             this.reader = this.myport.readable.getReader();
             this.writer = this.myport.writable.getWriter();
             return this.myport.getSignals();
           }, (err)=>{
-            console.log("CONNECTION INIT: error", JSON.stringify(err, ["message", "arguments", "type", "name"]));
+            //console.log("CONNECTION INIT: error", JSON.stringify(err, ["message", "arguments", "type", "name"]));
             if ( err.name == "InvalidStateError" ) { //when serial stream open
               location.reload();
             }else{
@@ -129,16 +136,15 @@ class Serial {
               throw err;
             }
           }).then((signals)=>{
-            console.log("CONNECTION INIT: signal recived");
+            //console.log("CONNECTION INIT: signal recived");
             this.signals =signals;
           
             this.connectionStatus = "connected"
-            console.log("CONNECTION INIT: connected");
+            //console.log("CONNECTION INIT: connected");
             
             return this.connectionLoop();
           }).catch(err => {
-            console.error('CONNECTION: There was an error on the serial port: ', JSON.stringify(err, ["message", "arguments", "type", "name"]));
-            console.error(JSON.stringify(err, ["message", "arguments", "type", "name"]));
+            //console.error('CONNECTION: There was an error on the serial port: ', JSON.stringify(err, ["message", "arguments", "type", "name"]));
             this.connectionStatus = "error";
           });   
     }else {
@@ -168,7 +174,7 @@ class Serial {
     if(data!=null){
       const array = this.hexStringToByteArray(data);
       const arrayBuffer = new Uint8Array(array)
-      console.log(`SENT MESSAGE - HEX: ${data} , DEC: ${arrayBuffer}`);
+      //console.log(`SENT MESSAGE - HEX: ${data} , DEC: ${arrayBuffer}`);
 
       await this.writer.write(arrayBuffer);
     }
@@ -222,7 +228,7 @@ class Serial {
         //console.log('Execute multiple commands size ' + this.commandsStrings.length);
         this.writingStatus ="ON";
 
-        this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 10));
+        this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 7));
       }
     }
   }

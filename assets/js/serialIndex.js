@@ -39,7 +39,7 @@ function checkFirmwareVersion(){
 setInterval(checkStatus,1000);
 
 function checkStatus(){
-  console.log("CHECK STATUS: start");
+  //console.log("CHECK STATUS: start");
 
   if(this.serialOldConnectionStatus != serial.getConnectionStatus()){
     this.serialOldConnectionStatus=serial.getConnectionStatus();
@@ -53,14 +53,13 @@ function checkStatus(){
         document.getElementById("buttonConnectionTooltip").title="Press to get connected to SOLO";
         break;
       case "connected":
-        console.log("CHECK STATUS: connected");
+        //console.log("CHECK STATUS: connected");
         connect.style.color = "LimeGreen";
         this.monitorIsInStopping=true;
         document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
         doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); 
         doStoreIp('boxActionDeviceAddress');
         setTimeout(doReadAll, 200, 'FFFF'+'FF'+'190000000000FE'+'FFFF'+'FF'+'190000000000FE', serial);
-        //doReadAll('FFFF'+serial.soloId+'190000000000FE'+'FFFF'+serial.soloId+'190000000000FE');
         break;
     }
   }
@@ -250,9 +249,9 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+"FF"+"810000000000FE", 'UINT32', 0 , 'boxActionDeviceAddress', 'boxActionDeviceAddress',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"B80000000000FE", 'UINT32', 0 , 'boxActionEconderIndexCount', 'boxActionEconderIndexCount',null ,null);
-    setTimeout(doStoreIp, 500,'boxActionDeviceAddress');
-    setTimeout(doActionReadComplexCore, 700,'B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed');
-    setTimeout(doActionSemplifications, 1000,['boxActionControlType','boxActionCommandMode']);
+    setTimeout(doStoreIp, 400,'boxActionDeviceAddress');
+    setTimeout(doActionReadComplexCore, 600,'B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed');
+    setTimeout(doActionSemplifications, 8000,['boxActionControlType','boxActionCommandMode']);
     
 }
 
@@ -490,13 +489,13 @@ function doActionLoadWorkspace(){
     )
     .then(fileData => parse(fileData))
     .then(commands => {
-      console.log('Worspeace:', commands);
+      //('Worspeace:', commands);
       if(serial.getConnectionStatus() == "connected" && serial.getWritingStatus() == "OFF"){
         serial.multipleWriteStart(commands);
         doBgAnimationAndRead("bActionLoadWorkspace");
       }
     })
-    .done();
+    .catch(e=> console.error("SAVE FILE ERROR: ", e));
 
 }
 
@@ -647,7 +646,7 @@ function doAction(address, command, type, valueOrValueId, boxToColorId ){
   }
 
   var commandToSend= convertToCammandToSend(address, command, type, valueOrValueId);
-  console.log('Do action: ' + commandToSend);
+  //console.log('Do action: ' + commandToSend);
   doSimpleAction (commandToSend,boxToColorId);
 }
 

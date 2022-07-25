@@ -68,7 +68,7 @@ function conversionFromFloat(floatValue) {
     return;
   }
 
-  console.log('float conversion of: ' + floatValue);
+  //console.log('float conversion of: ' + floatValue);
   dec = parseFloat(floatValue) * Math.pow(2, 17);
   isPositive = dec >= 0;
 
@@ -99,7 +99,7 @@ function conversionFromInt32(i32Str) {
     return;
   }
 
-  console.log('float conversion of: ' + i32Str);
+  //console.log('float conversion of: ' + i32Str);
   i32Value = parseFloat(i32Str);
   if(i32Value<0){
     i32Value = 4294967295 - Math.abs(i32Value) +1;
@@ -124,49 +124,6 @@ function decToHex(decimalValue) {
   }else{
     return pad(parseInt(4294967295-Math.abs(decimalValue)+1).toString(16).toUpperCase(), 8);
   }
-}
-
-function conversionToError(hexValue){
-  hexValue = "11010101"
-  console.log(hexValue);
-  decValue = parseInt(hexValue, 16);
-  message = "";
-  if(decValue == 0){
-    //return "0  /No Errors";
-  }
-
-  //message+=decValue + " ";
-  if(hexValue.substring(7, 8)=="1"){
-    message+="|O.C. ";
-    console.error("ERROR REGISTER: Over-Current");
-  }
-
-  if(hexValue.substring(6, 7)=="1"){
-    message+="|O.V. ";
-    console.error("ERROR REGISTER: Over-Voltage");
-  }
-
-  if(hexValue.substring(5, 6)=="1"){
-    message+="|O.T. ";
-    console.error("ERROR REGISTER: Over-Temp.");
-  }
-
-  if(hexValue.substring(4, 5)=="1"){
-    message+="|Enc. Cal. Timeout ";
-    console.error("ERROR REGISTER: Enc. Cal. Timeout");
-  }
-
-  if(hexValue.substring(3, 4)=="1"){
-    message+="|Hall. Cal. Timeout ";
-    console.error("ERROR REGISTER: Hall. Cal. Timeout");
-  }
-
-  if(hexValue.substring(1, 2)=="1"){
-    message+="|Stall ";
-    console.error("ERROR REGISTER: Stall detection");
-  }
-
-  return message;
 }
 
 function conversionToDecimal(hexValue){
@@ -196,7 +153,7 @@ function conversionFromHex() {
     return;
   }
 
-  console.log('hex conversion of: ' + hexValue);
+  //console.log('hex conversion of: ' + hexValue);
   document.querySelector('#conversionDecimal').value = conversionToDecimal(hexValue);
   document.querySelector('#conversionFloat').value = conversionToFloat(hexValue);
   document.querySelector('#conversionInt32').value = conversionToInt32(hexValue);
