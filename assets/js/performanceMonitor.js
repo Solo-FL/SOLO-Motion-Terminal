@@ -330,8 +330,10 @@ function performanceOnLoad() {
 
 function performanceMonitorStart(){
     if (serial.connectionStatus!= "connected"){
-        alert("please check the connection of SOLO");
-        return;
+        if(confirm("Please check the connection of SOLO, \nTry to connect?")){
+            initConnection();
+        }
+        return
     }
 
     if(monitorActivation) {
@@ -370,8 +372,10 @@ function performanceMonitorStartStep2(){
 
 function performanceMonitorStop(){
     if (serial.connectionStatus!= "connected"){
-        alert("please check the connection of SOLO");
-        return;
+        if(confirm("Please check the connection of SOLO, \nTry to connect?")){
+            initConnection();
+        }
+        return
       }
 
     if(performanceMonitorActivation){

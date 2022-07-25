@@ -2,12 +2,14 @@
 // GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
  function onWindowLoad() {
-
-    toogleSignalsSwitch();
-    toogleActionsSwitch();
-    toogleMonitorsSwitch();
+    //HAVE TO BE ORDERED FROM BOTTOM TO TOP
     toogleHelpSwitch();
     toogleTutorialsSwitch();
+    toogleMonitorsSwitch();
+    toogleActionsSwitch();
+    toogleSignalsSwitch();
+    document.querySelector('#content-wrapper').scrollIntoView();
+
     disablePart(true,
         [
             'boxActionCurrentControllerKp','rangeActionCurrentControllerKp','bActionCurrentControllerKp',

@@ -45,28 +45,28 @@
                 
                 <div class="d-flex flex-column">
                     
-                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
+                    <a id="signalsSwitchesToolTip" class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Signals">
                         <input type="checkbox" class="custom-control-input" id="signalsSwitches" >
                             <label class="custom-control-label"  for="signalsSwitches"><i class="fas fa-exchange-alt"></i>
                                 <label for="signalsSwitches" class="sidebar-text">Signals</label></label>
                     </a>
-                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
+                    <a id="actionsSwitchesToolTip" class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Actions">
                         <input type="checkbox" class="custom-control-input" id="actionsSwitches" checked>
                             <label class="custom-control-label" for="actionsSwitches"><i class="fas fa-table"></i>
                                 <label for="actionsSwitches" class="sidebar-text">Actions</label></label>
                     </a>
-                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
+                    <a id="monitorsSwitchesToolTip" class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Monitors">
                         <input type="checkbox" class="custom-control-input" id="monitorsSwitches" checked>
                             <label class="custom-control-label" for="monitorsSwitches"><i class="fas fa-tachometer-alt"></i>
                                 <label for="monitorsSwitches" class="sidebar-text">Monitors</label></label>
                     </a>
                 </br>
-                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
+                    <a id="tutorialsSwitchesToolTip" class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Tutorials">
                         <input type="checkbox" class="custom-control-input" id="tutorialsSwitches" >
                             <label class="custom-control-label" for="tutorialsSwitches"><i class="fa fa-book"></i>
                                 <label for="tutorialsSwitches" class="sidebar-text">Tutorials</label></label>
                     </a>
-                    <a class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
+                    <a  id="helpSwitchesToolTip" class="custom-control custom-switch text-light p-2" role="presentation" data-toggle="tooltip" data-placement="bottom" title="Help">
                         <input type="checkbox" class="custom-control-input" id="helpSwitches" checked>
                             <label class="custom-control-label" for="helpSwitches"><i class="fas fa-ambulance"></i>
                                 <label for="helpSwitches" class="sidebar-text">Help</label></label>
@@ -1697,6 +1697,44 @@
                                             </div>
                                         </div>
 
+
+                                        <br>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title">Save & Load</h4>
+                                                        
+                                                        <div class="row mb-2">
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionSaveWorkspace" value="1" onclick="doActionSaveWorkspace()">Save Workspace</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                            
+                                                            <div class="col col-sm-2"></div>
+                                                            
+                                                            <div class="col col-sm-3"> <button type="button" class="btn btn-primary col-sm-12" id="bActionLoadWorkspace" value="0" onclick="doActionLoadWorkspace()">Load Workspace</button>
+                                                            </div>
+                                                            
+                                                            <div class="col col-sm-1"></div>
+                                                            
+                                                        </div>
+
+
+
+
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                     </div>
                                     <br>

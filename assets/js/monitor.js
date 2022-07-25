@@ -403,8 +403,10 @@ function durationUpdate(inputDuration){
 
 function monitorStart(){
     if (serial.connectionStatus!= "connected"){
-        alert("please check the connection of SOLO");
-        return;
+        if(confirm("Please check the connection of SOLO, \nTry to connect?")){
+            initConnection();
+          }
+          return
     }
 
     if(performanceMonitorActivation) {
@@ -442,8 +444,10 @@ function monitorStartStep2(){
 
 function monitorStop(){
     if (serial.connectionStatus!= "connected"){
-        alert("please check the connection of SOLO");
-        return;
+        if(confirm("Please check the connection of SOLO, \nTry to connect?")){
+            initConnection();
+        }
+        return
       }
       
     if(monitorActivation){

@@ -5,8 +5,11 @@ function toogleSignalsSwitch() {
   toogle = document.querySelector('#signalsSwitches').checked;
   if (toogle) {
     document.querySelector('#signalsTable').style.display = "revert";
+    document.querySelector('#signalsTable').scrollIntoView({behavior: "smooth"});
+    document.querySelector('#signalsSwitchesToolTip').title="Hide: Signals Section";
   } else {
     document.querySelector('#signalsTable').style.display = "none";
+    document.querySelector('#signalsSwitchesToolTip').title="Show: Signals Section";
   }
   prettifyHex();
 }
@@ -15,8 +18,11 @@ function toogleActionsSwitch() {
   toogle = document.querySelector('#actionsSwitches').checked;
   if (toogle) {
     document.querySelector('#actionsTable').style.display = "revert";
+    document.querySelector('#actionsTable').scrollIntoView({behavior: "smooth"});
+    document.querySelector('#actionsSwitchesToolTip').title="Hide: Signals Section";
   } else {
     document.querySelector('#actionsTable').style.display = "none";
+    document.querySelector('#actionsSwitchesToolTip').title="Show: Signals Section";
   }
 }
 
@@ -24,8 +30,11 @@ function toogleMonitorsSwitch() {
   toogle = document.querySelector('#monitorsSwitches').checked;
   if (toogle) {
     document.querySelector('#monitorsTable').style.display = "revert";
+    document.querySelector('#monitorsTable').scrollIntoView({behavior: "smooth"});
+    document.querySelector('#monitorsSwitchesToolTip').title="Hide: Signals Section";
   } else {
     document.querySelector('#monitorsTable').style.display = "none";
+    document.querySelector('#monitorsSwitchesToolTip').title="Show: Signals Section";
   }
 }
 
@@ -33,8 +42,11 @@ function toogleHelpSwitch() {
   toogle = document.querySelector('#helpSwitches').checked;
   if (toogle) {
     document.querySelector('#helpTable').style.display = "revert";
+    document.querySelector('#helpTable').scrollIntoView({behavior: "smooth"});
+    document.querySelector('#helpSwitchesToolTip').title="Hide: Signals Section";
   } else {
     document.querySelector('#helpTable').style.display = "none";
+    document.querySelector('#helpSwitchesToolTip').title="Show: Signals Section";
   }
 }
 
@@ -42,8 +54,11 @@ function toogleTutorialsSwitch() {
   toogle = document.querySelector('#tutorialsSwitches').checked;
   if (toogle) {
     document.querySelector('#tutorialsTable').style.display = "revert";
+    document.querySelector('#tutorialsTable').scrollIntoView({behavior: "smooth"});
+    document.querySelector('#tutorialsSwitchesToolTip').title="Hide: Signals Section";
   } else {
     document.querySelector('#tutorialsTable').style.display = "none";
+    document.querySelector('#tutorialsSwitchesToolTip').title="Show: Signals Section";
   }
 }
 
