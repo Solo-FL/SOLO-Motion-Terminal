@@ -249,14 +249,15 @@ function doReadAll(extraCommand){
     updateAndFlushSimpleActionRead("FFFF"+soloId+"A30000000000FE", 'NONE', 0 , 'boxActionHardwareVersion', 'boxActionHardwareVersion',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+"FF"+"810000000000FE", 'UINT32', 0 , 'boxActionDeviceAddress', 'boxActionDeviceAddress',null ,null);
     updateAndFlushSimpleActionRead("FFFF"+soloId+"B80000000000FE", 'UINT32', 0 , 'boxActionEconderIndexCount', 'boxActionEconderIndexCount',null ,null);
-    setTimeout(doStoreIp, 400,'boxActionDeviceAddress');
-    setTimeout(doActionReadComplexCore, 600,'B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed');
-    setTimeout(doActionSemplifications, 8000,['boxActionControlType','boxActionCommandMode']);
+    setTimeout(doStoreIp, 500,'boxActionDeviceAddress');
+    setTimeout(doActionReadComplexCore, 700,'B7','SFXT','boxActionAnalogueMaxSpeed','boxActionAnalogueMaxSpeed',0,'rangeActionAnalogueMaxSpeed');
+    setTimeout(doActionSemplifications, 1000,['boxActionControlType','boxActionCommandMode']);
     
 }
 
 
 function doActionSemplifications(boxValueIds){
+  console.log("doActionSemplifications");
   for(var boxValueId of boxValueIds){
     doActionSemplification(boxValueId);
   }
@@ -567,6 +568,7 @@ function convertToCammandToSendCoreComplex(command,type,valueId,complexSytuation
 }
 
 function doActionReadComplexCore(command, typeToSet, valueToSetId, boxToColorId, complexSytuation, slideToUpdate){
+  console.log("doActionReadComplexCore");
   updateAndFlushSimpleActionRead("FFFF"+soloId+"970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null, null);
   updateAndFlushSimpleActionRead("FFFF"+soloId+"990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null ,null);
   var value =1;
@@ -625,12 +627,13 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
 }
 
 function doStoreIp(valueOrValueId){
+  console.log("doStoreIp" );
   serial.soloId = convertFromType('UINT32',document.getElementById(valueOrValueId).value).slice(-2); 
   if( messageInput.value.toString().match(/FFFF..860000000000FE/)  ){
     messageInput.value = "FFFF"+ serial.soloId +"860000000000FE";
   } 
 
-  //console.log("new ip: " +serial.soloId );
+  
 }
 
 function doActionCore(command, type, valueOrValueId, boxToColorId ){
