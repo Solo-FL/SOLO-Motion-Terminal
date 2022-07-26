@@ -30,7 +30,7 @@ function initConnection(){
 function checkFirmwareVersion(){
   var version = document.querySelector('#boxActionFirmwareVersion').value;
  if(serial.connectionStatus=="connected" && 
-    (version.length>5 && version!="0000B00B" && version!="0009B00A")){
+    (version.length>5 && version!="0000B00C")){
     document.getElementById('buttonErrorTooltip1').style.display= "inline" ;
     document.getElementById('buttonErrorTooltip2').style.display= "inline" ;
     console.log("The latest version of Firmware is different. Please update it for a better user experience, to get the updater tool please contact us.");
