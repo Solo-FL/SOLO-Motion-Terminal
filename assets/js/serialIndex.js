@@ -21,9 +21,18 @@ connect.addEventListener('click', () => {
   }
 });
 
-function initConnection(){
-  serial.init();
+function foo(){
+  console.log("initConnection");
+  this.monitorIsInStopping=true;
+  document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
+  doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); 
+  doStoreIp('boxActionDeviceAddress');
+  setTimeout(doReadAll, 200, 'FFFF'+'FF'+'190000000000FE'+'FFFF'+'FF'+'190000000000FE', serial);
   setTimeout( checkFirmwareVersion, 8000);
+}
+
+function initConnection(){
+  serial.init(foo);
 }
 
 function checkFirmwareVersion(){
@@ -55,11 +64,6 @@ function checkStatus(){
       case "connected":
         //console.log("CHECK STATUS: connected");
         connect.style.color = "LimeGreen";
-        this.monitorIsInStopping=true;
-        document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
-        doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); 
-        doStoreIp('boxActionDeviceAddress');
-        setTimeout(doReadAll, 200, 'FFFF'+'FF'+'190000000000FE'+'FFFF'+'FF'+'190000000000FE', serial);
         break;
     }
   }
