@@ -17,22 +17,14 @@ connect.addEventListener('click', () => {
       serial.disconnect();
       break;
     default:
-      initConnection();
+      serial.init();
+      setTimeout( checkFirmwareVersion, 8000);
   }
 });
 
-function foo(){
-  console.log("initConnection");
-  this.monitorIsInStopping=true;
-  document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
-  doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); 
-  doStoreIp('boxActionDeviceAddress');
-  setTimeout(doReadAll, 200, 'FFFF'+'FF'+'190000000000FE'+'FFFF'+'FF'+'190000000000FE', serial);
-  setTimeout( checkFirmwareVersion, 8000);
-}
 
 function initConnection(){
-  serial.init(foo);
+  serial.init();
 }
 
 function checkFirmwareVersion(){
@@ -64,6 +56,12 @@ function checkStatus(){
       case "connected":
         //console.log("CHECK STATUS: connected");
         connect.style.color = "LimeGreen";
+        this.monitorIsInStopping=true;
+        document.getElementById("buttonConnectionTooltip").title="Connection Established (Press to Disconnect)";
+        doActionRead('FF','81','UINT32','boxActionDeviceAddress','boxActionDeviceAddress',null,'rangeActionDeviceAddress'); 
+        doStoreIp('boxActionDeviceAddress');
+        setTimeout(doReadAll, 200, 'FFFF'+'FF'+'190000000000FE'+'FFFF'+'FF'+'190000000000FE', serial);
+        //doReadAll('FFFF'+serial.soloId+'190000000000FE'+'FFFF'+serial.soloId+'190000000000FE');
         break;
     }
   }
@@ -78,10 +76,10 @@ submitButton.addEventListener('click', event => {
     var time = 1;
     for(var i = 0 ; i < splitCommands.length; i++){
       setTimeout(doSimpleAction, time, splitCommands[i] ,null);
-      time += 25;
+      time += 100;
       if(i<splitCommands.length-1 || serial.isMonitoring){
         setTimeout(serial.getLastReadingsByCommandAndAppend.bind(serial), time, splitCommands[i].substr(6,2) ,null, true,document.querySelector('#termRx') );
-        time += 10;
+        time += 100;
         setTimeout(prettifyHex,time);
       }
     }
@@ -261,7 +259,7 @@ function doReadAll(extraCommand){
 
 
 function doActionSemplifications(boxValueIds){
-  console.log("doActionSemplifications");
+  //console.log("doActionSemplifications");
   for(var boxValueId of boxValueIds){
     doActionSemplification(boxValueId);
   }
@@ -572,7 +570,7 @@ function convertToCammandToSendCoreComplex(command,type,valueId,complexSytuation
 }
 
 function doActionReadComplexCore(command, typeToSet, valueToSetId, boxToColorId, complexSytuation, slideToUpdate){
-  console.log("doActionReadComplexCore");
+  //console.log("doActionReadComplexCore");
   updateAndFlushSimpleActionRead("FFFF"+soloId+"970000000000FE", 'UINT32', 0 , 'boxActionMotorType', 'boxActionMotorType',null, null);
   updateAndFlushSimpleActionRead("FFFF"+soloId+"990000000000FE", 'UINT32', 0 , 'boxActionControlMode', 'boxActionControlMode',null ,null);
   var value =1;
@@ -631,7 +629,7 @@ function convertToCammandToSend(address, command, type, valueOrValueId){
 }
 
 function doStoreIp(valueOrValueId){
-  console.log("doStoreIp" );
+  //console.log("doStoreIp" );
   serial.soloId = convertFromType('UINT32',document.getElementById(valueOrValueId).value).slice(-2); 
   if( messageInput.value.toString().match(/FFFF..860000000000FE/)  ){
     messageInput.value = "FFFF"+ serial.soloId +"860000000000FE";

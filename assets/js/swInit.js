@@ -6,7 +6,8 @@ if("serviceWorker" in navigator){
         {
             console.log("SW registered");
     }).catch(error=>{
-        console.Error ("SW registration error:", error);
+        console.log ("SW registration error:");
+        console.log (error);
     })
 }else{
     console.log("application not supported");
