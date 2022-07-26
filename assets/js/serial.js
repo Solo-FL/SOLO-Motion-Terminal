@@ -101,7 +101,7 @@ class Serial {
                           document.getElementById("myChart").classList.add("bg-warning");
                           document.getElementById("myPerformanceChart").classList.add("bg-warning");
                         }
-                        var errorText=this.conversionToError(messageToCheck.substring(8, 16));
+                        var errorText=this.conversionToError(messageToCheck.substring(8, 16)); 
                         document.querySelector('#boxActionErrorRegister').value=errorText;
                       }
                     }
@@ -143,7 +143,7 @@ class Serial {
         this.connectionStatus = "error";
     }
 }
-
+            
   resetMonitorsBG(){
     document.getElementById("myChart").classList.remove("bg-warning");
     document.getElementById("myPerformanceChart").classList.remove("bg-warning");
@@ -211,7 +211,7 @@ class Serial {
         //console.log('Execute multiple commands size ' + this.commandsStrings.length);
         this.writingStatus ="ON";
 
-        this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 7));
+        this.commandsStringsTimer.push(setInterval(this.multipleWrite.bind(this), 10));
       }
     }
   }

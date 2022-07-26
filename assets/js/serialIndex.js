@@ -431,7 +431,7 @@ function scanAllParams(){
     if(confirm("Please check the connection of SOLO, \nTry to connect?")){
       initConnection();
     }
-    return
+    return;
   }
 
   doReadAll();
