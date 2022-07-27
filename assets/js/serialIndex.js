@@ -440,6 +440,11 @@ function scanAllParams(){
 }
 
 function doActionSaveWorkspace(){
+  doReadAll();
+  setTimeout(saveWorkspace, 1500);
+}
+
+function saveWorkspace(){
   var allParamsSet = generateAllParamsSet();
   let a = document.createElement('a');
   a.href = "data:application/octet-stream,";
