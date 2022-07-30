@@ -465,7 +465,7 @@
                                                             <div class="col col-sm-1">
                                                                 
                                                                 <a class="text-secondary mr-2" href="#" data-toggle="tooltip" data-placement="bottom" title="Set" >
-                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionStall" onclick="doActionCore('2E','UINT32','boxActionStall','boxActionStall');doActionRead('FF','81','UINT32','boxActionStall','boxActionStall'); "></button>
+                                                                    <button class="fas fa-sign-in-alt fa-lg" id="bActionStall" onclick="doActionCore('2E','UINT32','boxActionStall','boxActionStall'); "></button>
                                                                 </a>
                                                                 <a class="text-secondary" href="#" data-toggle="tooltip" data-placement="bottom" title="Read" >
                                                                     <button class="fas fa-sign-out-alt fa-flip-horizontal fa-lg" onclick="doActionReadCore('B9','UINT32','boxActionStall','boxActionStall',null,'rangeActionStall');"></button>
@@ -876,7 +876,7 @@
                                                             
                                                             <div class="col col-sm-3">
                                                                 <button type="button" class="btn btn-danger col-sm-12" id="bActionCalibrationStop" data-toggle="tooltip" data-placement="bottom" title="Stop the Calibration process"
-                                                                value="00" onclick="doReadAll(convertToCammandToSendCore('27','UINT32','bActionCalibrationStop'));">Calibration STOP</button>
+                                                                value="00" onclick="doReadAll(convertToCammandToSendCore('27','UINT32','bActionCalibrationStop'));calibrationWizardStatus ='none'">Calibration STOP</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
@@ -885,11 +885,28 @@
                                                             <div class="col col-sm-2"></div>
                                                             
                                                             <div class="col col-sm-3">
+                                                                <button type="button" class="btn btn-success col-sm-12" id="bActionFullCalibration" data-toggle="tooltip" data-placement="bottom" title="Full Calibration Wizard"
+                                                                value="00" onclick="doFullCalibartion();">Calibration Wizard</button>
                                                             </div>
                                                             
                                                             <div class="col col-sm-1"></div>
                                                             
                                                         </div>
+
+
+                                                        
+                                                        <div class="row"  id="rawWizardStatus" style="display: none; ">
+                                                            
+                                                            <div class="col col-sm-2" data-toggle="tooltip" data-placement="bottom" title="Information about the Wizard activities">
+                                                                Wizard status
+                                                            </div>
+                                                            <textarea  id="boxWizardStatus" type="text" style="height: 200px !important" spellcheck="false" class="col col-sm-12" disabled></textarea>   
+                                                            
+                                                        </div>
+
+
+
+
                                                         <br>
                                                         <div class="row mb-2">
                                                             
@@ -988,9 +1005,9 @@
                                                             
                                                             <div class="col col-sm-3" >
                                                                 <SELECT id="boxActionControlMode"  class="col-sm-12" onchange="doActionCore('13','UINT32','boxActionControlMode','boxActionControlMode')">                                                
-                                                                    <OPTION VALUE="0" SELECTED>SENSOR LESS </OPTION>
-                                                                    <OPTION VALUE="1" >USING ENCODERS </OPTION>
-                                                                    <OPTION VALUE="2" >USING HALL SENSORS </OPTION>
+                                                                    <OPTION VALUE="0" SELECTED>SENSOR LESS</OPTION>
+                                                                    <OPTION VALUE="1" >USING ENCODERS</OPTION>
+                                                                    <OPTION VALUE="2" >USING HALL SENSORS</OPTION>
                                                                 </SELECT>
                                                                 
                                                             </div>
@@ -2157,7 +2174,7 @@
                 </br>
                 <footer class="bg-white sticky-footer" style="margin-top: 35vh;">
                     <div class="container my-auto">
-                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.8.2.1 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
+                        <div class="text-center my-auto copyright"><span>Copyright © SOLO Motor Controllers 2020-2022 - Version 0.8.3.0 -<a href="https://github.com/Solo-FL/SOLO-Motion-Terminal"> GitHub Code </a> </span>
                         </div>
                     </div>
                 </footer>

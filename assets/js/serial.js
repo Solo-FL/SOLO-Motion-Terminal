@@ -163,40 +163,60 @@ class Serial {
     }
   }
 
+  convertDecToBinaryStr(x) {
+      let bin = 0;
+      let rem, i = 1;
+      
+      while (x != 0) {
+          rem = x % 2;
+          x = parseInt(x / 2);
+          bin = bin + rem * i;
+          i = i * 10;
+      } 
+      var binStr = bin.toString();
+      let size = binStr.length;
+      console.log(size);
+      for(var j =0; j<8-size; j++){
+          binStr = "0"+ binStr;
+      }
+      return binStr;
+  }
+
   conversionToError(hexValue){
     var decValue = parseInt(hexValue, 16);
+    var myStr = this.convertDecToBinaryStr(decValue);
     var message = "";
     if(decValue == 0){
       this.resetMonitorsBG();
       return "No Errors";
     }
   
-    if(hexValue.substring(7, 8)=="1"){
+    if(myStr.substring(7, 8)=="1"){
       message+="|O.C. ";
       console.error("ERROR REGISTER: Over-Current");
     }
   
-    if(hexValue.substring(6, 7)=="1"){
+    if(myStr.substring(6, 7)=="1"){
       message+="|O.V. ";
       console.error("ERROR REGISTER: Over-Voltage");
     }
   
-    if(hexValue.substring(5, 6)=="1"){
+    if(myStr.substring(5, 6)=="1"){
       message+="|O.T. ";
       console.error("ERROR REGISTER: Over-Temp.");
     }
   
-    if(hexValue.substring(4, 5)=="1"){
+    if(myStr.substring(4, 5)=="1"){
       message+="|Enc. Cal. Timeout ";
       console.error("ERROR REGISTER: Enc. Cal. Timeout");
     }
   
-    if(hexValue.substring(3, 4)=="1"){
+    if(myStr.substring(3, 4)=="1"){
       message+="|Hall. Cal. Timeout ";
       console.error("ERROR REGISTER: Hall. Cal. Timeout");
     }
   
-    if(hexValue.substring(1, 2)=="1"){
+    if(myStr.substring(2, 3)=="1"){
       message+="|Stall ";
       console.error("ERROR REGISTER: Stall detection");
     }

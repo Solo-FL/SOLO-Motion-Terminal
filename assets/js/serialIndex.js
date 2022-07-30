@@ -8,7 +8,7 @@ const messageInput = document.getElementById('termTx');
 const submitButton = document.getElementById('buttonSimpleTX');  
 const clearButton = document.getElementById('buttonClearBuffer'); 
 const serialMessagesContainer = document.getElementById('termRx');
-
+var calibrationWizardStatus = "none";
 this.serialOldConnectionStatus;
 
 connect.addEventListener('click', () => {
@@ -120,6 +120,430 @@ function doAgree(...args){
     //NO SECTION
    
   }
+}
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+async function doInversion(){
+  printWizzartLog("\r\nOffsets are Inverted ( new offset = 1 - previous offset )");
+
+  inversionDone = true;
+  var ccwo = parseFloat(document.getElementById('boxActionCcwO').value);
+  var cwo = parseFloat(document.getElementById('boxActionCwO').value);
+  document.getElementById('boxActionCcwO').value = (1 - ccwo).toFixed(7);
+  document.getElementById('boxActionCwO').value = (1 - cwo).toFixed(7);
+  await delay(700);
+
+  doActionCore('28','SFXT','boxActionCcwO','boxActionCcwO');
+  await delay(700);
+  doActionCore('29','SFXT','boxActionCwO','boxActionCwO');
+  await delay(700);
+}
+
+async function errorIsPresent(){
+  doActionReadCore('A1','ERROR','boxActionErrorRegister','boxActionErrorRegister')
+  await delay(700);
+  return "No Errors" != document.getElementById('boxActionErrorRegister').value;
+}
+
+async function printWizzartLog(message){
+  var boxWizardStatus = document.getElementById('boxWizardStatus');
+  boxWizardStatus.value +=  message;
+  if(boxWizardStatus.scrollHeight<=100){
+    $("#boxWizardStatus").outerHeight(38).outerHeight(boxWizardStatus.scrollHeight);
+  }else{
+    $("#boxWizardStatus").outerHeight(100);
+  }
+  boxWizardStatus.scrollTop = boxWizardStatus.scrollHeight;
+  await delay(700);
+}
+
+async function doFeedbackTest(encoderIndex){
+  var encoderWorking = false;
+  var lastPox=0;
+  var actualPox;
+  var waiting = 5;
+  var timeOut = 40;
+
+
+  while (waiting>0) {
+    await delay(500);
+    doActionReadCore('A0','INT32','boxActionPosition','boxActionPosition')
+    await delay(500);
+    actualPox = Math.abs(parseFloat(document.getElementById('boxActionPosition').value));
+      if(lastPox != actualPox && Math.abs(lastPox-actualPox)>3){
+        lastPox = Math.abs(actualPox);
+        encoderWorking = true;
+      }else{
+        waiting-=1;
+        console.log("FeedbackTest no changed");
+      }
+      if(calibrationWizardStatus == "none"){
+        encoderWorking = false;
+        break;
+      }
+    timeOut--;
+    if(timeOut<0){
+      doReadAll(convertToCammandToSendCore('27','UINT32','bActionCalibrationStop'));
+      break
+    }
+  }
+  
+  if(encoderIndex != null){
+    doActionReadCore('B8','UINT32','boxActionEconderIndexCount','boxActionEconderIndexCount')
+    await delay(700);
+    if (encoderIndex == document.getElementById('boxActionEconderIndexCount').value){
+      throw new Error("No Index");
+    }
+  }
+
+  if(timeOut<0){
+    throw new Error("Time Out");
+  }
+
+  if(!encoderWorking){
+    doActionCore('27','UINT32','bActionCalibrationStop');
+    await delay(500);
+  }
+
+  return encoderWorking;
+}
+
+async function endFullCalibartion(message){
+  document.getElementById('bActionFullCalibration').classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+  document.getElementById('boxWizardStatus').value = "";
+  document.getElementById('rawWizardStatus').style.display= "none";
+  await delay(300);
+  calibrationWizardStatus = "none";
+
+  if (message!=null){
+    alert(message);
+  }
+}
+
+async function doFullCalibartion(){
+  if (serial.connectionStatus!= "connected"){
+    calibrationWizardStatus = "none";
+    if(confirm("Please check the connection of SOLO, \nTry to connect?")){
+      initConnection();
+    }
+    return;
+  }
+
+  if(calibrationWizardStatus != "none"){
+    printWizzartLog( "\r\nProcess already started");
+    return;
+  }
+
+  calibrationWizardStatus = "working";
+  
+  if(await errorIsPresent()){
+    endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+    return;
+  }
+
+  document.getElementById('boxWizardStatus').value = "";
+  document.getElementById('rawWizardStatus').style.display= "revert";
+  await delay(700);
+
+  printWizzartLog("Process starting...");
+  document.getElementById('bActionFullCalibration').classList.add("bg-warning");
+
+  doActionReadCore('8C','SFXT','boxActionMaxCurrent','boxActionMaxCurrent',null,'rangeActionMaxCurrent');
+  await delay(700);
+  var limit = document.getElementById('boxActionMaxCurrent').value;
+
+  doActionReadCore('99','UINT32','boxActionControlMode','boxActionControlMode');
+  await delay(700);
+  var controlMode =  document.getElementById("boxActionControlMode");
+  var controlModeText= controlMode.options[controlMode.selectedIndex].text;
+
+  if(controlModeText == 'SENSOR LESS'){
+    endFullCalibartion("Calibration needs Hall Sensors or Encoders, you can select the type it in input: \n Feedback Control Mode* ");
+    return;
+  }
+  
+  var confirmation = confirm(
+    'The calibration will be: '+ controlModeText + ' (Feedback Control Mode*) \n' + 
+    'The calibration will be done with: ' + limit + ' AMPs (Current Limit [A]*)\n\n' + 
+    'NOTE: the process will take a couple of minutes... '+ 
+    '\nALERT: if necessary press CANCEL and change the Params. Make sure the Current Limit is within the standard range for your motor.');
+
+  if (!confirmation){
+    endFullCalibartion();
+    return;
+  }
+
+  document.getElementById('boxActionCcwO').value = 0;
+  document.getElementById('boxActionCwO').value = 0;
+  await delay(700);
+
+  doActionCore('28','SFXT','boxActionCcwO','boxActionCcwO');
+  await delay(700);
+  doActionCore('29','SFXT','boxActionCwO','boxActionCwO');
+  await delay(700);
+  var encoderIndex =null;
+  if(controlModeText == 'USING HALL SENSORS'){
+    printWizzartLog("\r\nnRunning HALL SENSORS Calibration...");
+    doActionCore('27','UINT32','bActionHallSensorsCalibration','bActionHallSensorsCalibration');
+  }
+  else if(controlModeText == 'USING ENCODERS'){
+    printWizzartLog("\r\nRunning ENCODER Calibration...");
+    doActionReadCore('B8','UINT32','boxActionEconderIndexCount','boxActionEconderIndexCount')
+    await delay(500);
+    encoderIndex = document.getElementById('boxActionEconderIndexCount').value;
+    await delay(500);
+    doActionCore('27','UINT32','bActionEncoderCalibration','bActionEncoderCalibration');
+  } else {
+    endFullCalibartion("Calibration need Hall Sensors or Encoders");
+    return;
+  }
+  await delay(400);
+  
+  if(await errorIsPresent()){
+    endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+    return;
+  }
+  
+  
+  var isFeedback; 
+  try{
+    isFeedback = await doFeedbackTest(encoderIndex);
+  }catch(e){
+    if(e.message=="No Index"){
+      endFullCalibartion("Calibration Failed! \r\nNo index signal");
+      return;
+    }
+  
+    if(e.message=="Time Out"){
+      endFullCalibartion("Calibration Failed! \r\nTime Out Exception");
+      return;
+    }
+  }
+  
+  printWizzartLog("\r\nCalibration Finished");
+  
+  
+
+
+  if(!isFeedback){
+    endFullCalibartion("Calibration Failed!, no Encoder/Hall Sensor feedback is sensed from the sensor, please check the connection and the wirings");
+    return;
+  }
+
+  doReadAll();
+  await delay(2000);
+
+  if(await errorIsPresent()){
+    endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+    return;
+  }
+
+  //TORQUE
+  var isTorqueWork = await doTorqueTest(limit);
+  var inversionDone = false;
+  
+  if(isTorqueWork == false ){
+    await doInversion();
+    await delay(700); 
+    
+    if(await errorIsPresent()){
+      endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+      return;
+    }
+    isTorqueWork = await doTorqueTest(limit);
+  }
+
+  if(!isTorqueWork){
+   document.getElementById('bActionFullCalibration').classList.remove("bg-danger","bg-success", "bg-info", "bg-warning");
+    endFullCalibartion("Calibration for this Motor wiring Failed, Change the wirings and redo the process (Turn OFF  SOLO, change the motor wires to a new combination out of 6 possible combinations, turn ON SOLO, reconnect SOLO to Motion terminal, Run Calibration Wizard again)");
+    return;
+  }
+
+  //TORQUE IS OK
+  console.log("Torque calibration was good");
+
+  //START SPEED TEST
+  var maxSpeed = prompt("What is the nominal speed of your Motor? ( Not necessary to be precise, just required for some tastings)");
+  if(maxSpeed == null){
+    endFullCalibartion("Nominal Speed of the Motor is missing, Calibration ended.");
+    return;
+  }
+
+  if(await errorIsPresent()){
+    endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+    return;
+  }
+  var isSpeedWork = await doSpeedTest(maxSpeed);
+
+  if(isSpeedWork == false && inversionDone == false ){
+    inversionDone = true;
+    isSpeedWork = false;
+
+    await doInversion();
+
+    if(await errorIsPresent()){
+      endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+      return;
+    }
+    isTorqueWork = await doTorqueTest(limit);
+    await delay(700);
+
+    if(isTorqueWork){
+        if(await errorIsPresent()){
+          endFullCalibartion("An Error Occurred! \r\nThe Error register value is non-zero! check the error and redo the calibration...");
+          return;
+        }
+        isSpeedWork = await doSpeedTest(maxSpeed);
+    }
+  }
+
+  if(!isSpeedWork || !isTorqueWork){
+    endFullCalibartion("Calibration for this Motor wiring Failed, Change the wirings and redo the process (Turn OFF  SOLO, change the motor wires to a new combination out of 6 possible combinations, turn ON SOLO, reconnect SOLO to Motion terminal, Run Calibration Wizard again)");
+    return;
+  }
+
+  endFullCalibartion("Calibration Succeeded!\r\nNow you can use the Motor and the Calibration values will remain in NVM memory of SOLO after power recycling.");
+}
+
+async function doSpeedTestMotionTest(speedGoal, direction){
+  //START MOVE THE MOTOR DIRECTION 1
+  console.log("doSpeedTest start motor dir"+ direction);
+  document.getElementById('boxActionMotorDirection').value = direction;
+  document.getElementById('boxActionStall').value = 5000;
+  document.getElementById('boxActionSpeedReference').value = speedGoal;
+
+  await delay(500);
+  doActionCore('0C','UINT32','boxActionMotorDirection','boxActionMotorDirection');
+  await delay(500);
+  doActionCore('2E','UINT32','boxActionStall','boxActionStall');
+  await delay(500);
+  doActionCore('05','UINT32','boxActionSpeedReference','boxActionSpeedReference');
+  await delay(1000);
+
+  var speed = 0;
+  var iteration = 5;
+
+  for (let i = 0; i < iteration; i++) {
+    await delay(1000);
+    doActionReadCore('96','INT32','boxActionSpeed','boxActionSpeed');
+    await delay(500);
+    var newSpeed = parseFloat(document.getElementById('boxActionSpeed').value);
+      if(newSpeed == 0 ){
+        speed=0;
+        break
+      }
+    speed+= newSpeed;
+  }
+
+  //STOP MOVE THE MOTOR
+  document.getElementById('boxActionSpeedReference').value = 0;
+  await delay(500);
+  doActionCore('05','UINT32','boxActionSpeedReference','boxActionSpeedReference');
+  await delay(1500);
+
+  speed = speed / iteration;
+  console.log("SPEED test: " + speed);
+  return speed;
+}
+
+async function doSpeedTest(maxSpeed){
+  if(calibrationWizardStatus == "none"){
+    return false;
+  }
+
+  printWizzartLog("\r\nStarting Speed Evaluation...");
+
+  var speedGoal = Math.floor(parseFloat(maxSpeed)/2);
+
+  //PUT IN SPEED
+  document.getElementById('boxActionControlType').value = 0;
+  await delay(700);
+  doActionCore('16','UINT32','boxActionControlType','boxActionControlType');
+  doActionSemplifications(['boxActionControlType','boxActionCommandMode']);
+
+  //SET KP KI
+  await delay(700);
+  document.getElementById('boxActionSpeedControllerKp').value = 0.2;
+  document.getElementById('boxActionSpeedControllerKi').value = 0.005;
+  await delay(700);
+  doActionCore('0A','SFXT','boxActionSpeedControllerKp','boxActionSpeedControllerKp');
+  doActionCore('0B','SFXT','boxActionSpeedControllerKi','boxActionSpeedControllerKi');
+  await delay(1000);
+  
+  var speed = 0;
+  var speed2 = 0;
+
+  speed = await doSpeedTestMotionTest(speedGoal,0);
+  speed2 = await doSpeedTestMotionTest(speedGoal,1);  
+  
+  printWizzartLog("\r\nSpeed Evaluation Ended");
+  await delay(500);
+
+  if((speed >= 0 && speed2 >= 0) || (speed <= 0 && speed2 <= 0) ){
+    console.log("SPEED test: speed no direction changes or 0");
+    return false;
+  }
+
+  var error = speedGoal*0.2;
+
+  if( Math.abs(speedGoal-Math.abs(speed))>(error) || Math.abs(speedGoal-Math.abs(speed2))>(error) ){
+    console.log("SPEED test: to much error ");
+    return false;
+  }
+
+  return true;
+}
+
+async function doTorqueTest(currentLimit){
+  if(calibrationWizardStatus == "none"){
+    return false;
+  }
+
+  printWizzartLog("\r\nStarting Torque Evaluation...");
+
+  //START MOVE THE MOTOR
+  await delay(500);
+  document.getElementById('boxActionControlType').value = 1;
+  await delay(500);
+  doActionCore('16','UINT32','boxActionControlType','boxActionControlType'); 
+  doActionSemplifications(['boxActionControlType','boxActionCommandMode']);
+  await delay(500);
+
+  document.getElementById('boxActionTorqueReferenceIq').value = Math.floor(parseFloat(currentLimit)/2);
+  await delay(500);
+  doActionCore('04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq');
+
+  var speed = 0;
+  var iteration = 5;
+  for (let i = 0; i < iteration; i++) {
+    await delay(1000);
+    doActionReadCore('96','INT32','boxActionSpeed','boxActionSpeed');
+    await delay(500);
+    var newSpeed = Math.abs(parseFloat(document.getElementById('boxActionSpeed').value));
+      if(newSpeed == 0 ){
+        speed=0;
+        break
+      }
+    speed+= newSpeed;
+  }
+
+  //STOP MOVE THE MOTOR
+  document.getElementById('boxActionTorqueReferenceIq').value = 0;
+  await delay(500);
+  doActionCore('04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq');
+  await delay(1500);
+
+  printWizzartLog("\r\nTorque Evaluation Ended");
+  await delay(500);
+
+  speed = speed / iteration;
+  console.log("torque test: " + speed);
+  if(speed <= 1 ){
+    return false;
+  }
+
+  return true;
 }
 
 function doDisbale(checkbox,elements){
@@ -606,8 +1030,10 @@ function doActionRead(address, command, typeToSet, valueToSetId, boxToColorId, m
 
 function doActionStopMotor(){
   setTimeout(doAction, 1,  serial.soloId,'04','UINT32','bActionMotorStop','bActionMotorStop');
-  setTimeout(doAction, 350,serial.soloId,'05','UINT32','bActionMotorStop','bActionMotorStop'); 
-  setTimeout(doAction, 700,serial.soloId,'1B','UINT32','bActionMotorStop','bActionMotorStop'); 
+  setTimeout(doAction, 300,serial.soloId,'05','UINT32','bActionMotorStop','bActionMotorStop'); 
+  setTimeout(doAction, 600,serial.soloId,'1B','UINT32','bActionMotorStop','bActionMotorStop'); 
+  setTimeout(doAction, 900,serial.soloId,'27','UINT32','bActionCalibrationStop','bActionCalibrationStop');
+  calibrationWizardStatus ='none'; 
 }
 function convertToCammandToSendCore( command, type, valueOrValueId){
   return convertToCammandToSend(serial.soloId, command, type, valueOrValueId);
