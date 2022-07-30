@@ -458,7 +458,7 @@ async function doSpeedTest(maxSpeed){
 
   //PUT IN SPEED
   document.getElementById('boxActionControlType').value = 0;
-  await delay(700);
+  await delay(4000);
   doActionCore('16','UINT32','boxActionControlType','boxActionControlType');
   doActionSemplifications(['boxActionControlType','boxActionCommandMode']);
 
@@ -510,7 +510,7 @@ async function doTorqueTest(currentLimit){
   doActionSemplifications(['boxActionControlType','boxActionCommandMode']);
   await delay(500);
 
-  document.getElementById('boxActionTorqueReferenceIq').value = Math.floor(parseFloat(currentLimit)/2);
+  document.getElementById('boxActionTorqueReferenceIq').value = (parseFloat(currentLimit)/2).toFixed(2);
   await delay(500);
   doActionCore('04','SFXT','boxActionTorqueReferenceIq','boxActionTorqueReferenceIq');
 
