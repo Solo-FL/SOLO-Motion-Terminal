@@ -266,7 +266,8 @@ async function doFullCalibartion(){
   var confirmation = confirm(
     'The calibration will be: '+ controlModeText + ' (Feedback Control Mode*) \n' + 
     'The calibration will be done with: ' + limit + ' AMPs (Current Limit [A]*)\n\n' + 
-    'NOTE: the process will take a couple of minutes... '+ 
+    'NOTE: make sure to set SOLO in Close-loop mode'+
+    '\nNOTE: the process will take a couple of minutes... '+ 
     '\nALERT: if necessary press CANCEL and change the Params. Make sure the Current Limit is within the standard range for your motor.');
 
   if (!confirmation){
