@@ -266,7 +266,7 @@ async function doFullCalibartion(){
   var confirmation = confirm(
     'The calibration will be: '+ controlModeText + ' (Feedback Control Mode*) \n' + 
     'The calibration will be done with: ' + limit + ' AMPs (Current Limit [A]*)\n\n' + 
-    'NOTE: make sure to set SOLO in Close-loop mode'+
+    'NOTE: make sure to put SOLO in Close-loop mode'+
     '\nNOTE: the process will take a couple of minutes... '+ 
     '\nALERT: if necessary press CANCEL and change the Params. Make sure the Current Limit is within the standard range for your motor.');
 
@@ -285,7 +285,7 @@ async function doFullCalibartion(){
   await delay(700);
   var encoderIndex =null;
   if(controlModeText == 'USING HALL SENSORS'){
-    printWizzartLog("\r\nnRunning HALL SENSORS Calibration...");
+    printWizzartLog("\r\nRunning HALL SENSORS Calibration...");
     doActionCore('27','UINT32','bActionHallSensorsCalibration','bActionHallSensorsCalibration');
   }
   else if(controlModeText == 'USING ENCODERS'){
@@ -441,7 +441,7 @@ async function doSpeedTestMotionTest(speedGoal, direction){
   document.getElementById('boxActionSpeedReference').value = 0;
   await delay(500);
   doActionCore('05','UINT32','boxActionSpeedReference','boxActionSpeedReference');
-  await delay(1500);
+  await delay(2000);
 
   speed = speed / iteration;
   console.log("SPEED test: " + speed);
@@ -476,6 +476,7 @@ async function doSpeedTest(maxSpeed){
   var speed2 = 0;
 
   speed = await doSpeedTestMotionTest(speedGoal,0);
+  await delay(1000);
   speed2 = await doSpeedTestMotionTest(speedGoal,1);  
   
   printWizzartLog("\r\nSpeed Evaluation Ended");
